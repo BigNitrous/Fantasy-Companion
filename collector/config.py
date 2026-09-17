@@ -3,14 +3,16 @@ credentials ever live in the repo."""
 
 import os
 
-LEAGUE_ID = os.environ.get("LEAGUE_ID", "")
-TEAM_NAME = os.environ.get("TEAM_NAME", "")          # your team, exact ESPN name
+LEAGUE_ID = os.environ.get("LEAGUE_ID", "").strip()
+TEAM_NAME = os.environ.get("TEAM_NAME", "").strip()  # your team, exact ESPN name
 SEASON = int(os.environ.get("SEASON", "2026"))
 SCORING = os.environ.get("SCORING", "ppr")           # ppr | half | standard
 
 # Only needed for private leagues. Grab from browser cookies on fantasy.espn.com.
-ESPN_S2 = os.environ.get("ESPN_S2") or None
-ESPN_SWID = os.environ.get("ESPN_SWID") or None
+# .strip() matters: pasting a cookie into a GitHub secret often carries a
+# trailing newline, and a newline inside an HTTP header raises ValueError.
+ESPN_S2 = (os.environ.get("ESPN_S2") or "").strip() or None
+ESPN_SWID = (os.environ.get("ESPN_SWID") or "").strip() or None
 
 # How many free agents to pull and rank for the waiver section.
 FREE_AGENT_POOL = int(os.environ.get("FREE_AGENT_POOL", "60"))

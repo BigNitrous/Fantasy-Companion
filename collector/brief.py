@@ -51,6 +51,36 @@ def build(data: dict) -> str:
         )[:25]
         out += ["", "## Top available free agents"] + [_line(p) for p in ranked]
 
+    w = data.get("waivers", {})
+    if w:
+        lg = data.get("league") or {}
+        head = "## Waiver wire (unclaimed in my league)"
+        if w.get("priority", {}).get("text"):
+            head += f" - {w['priority']['text']}"
+        out += ["", head]
+        if w["adds"]:
+            out.append("Recommended pickups, each with the drop that makes room:")
+            for a in w["adds"]:
+                tags = [t for t in (("fills a need" if a.get("need") else ""),
+                                    (f"{a['hot']:,} adds in 48h" if a.get("hot") else ""),
+                                    (f"dropped by {a['dropped_by']}" if a.get("dropped_by") else "")) if t]
+                out.append(f"- [{a['verdict'].upper()}] {a['name']} ({a['position']}, {a['team']}) proj {a['proj']}, "
+                           f"ROS {a['ros']:.0f} - {a['reason']}" + (f"; drop {a['drop']}" if a.get("drop") else "")
+                           + (f" ({'; '.join(tags)})" if tags else ""))
+        else:
+            out.append("Nobody on the wire beats what I have.")
+        if w["hot"]:
+            out.append("Hot across all leagues and still unclaimed here:")
+            out += [f"- {h['name']} ({h['position']}, {h['team']}) - {h['count']:,} adds, proj {h['proj']}" for h in w["hot"]]
+        if w["just_dropped"]:
+            out.append("Recently dropped by rivals and still available:")
+            out += [f"- {d['name']} ({d['position']}, {d['team']}) - by {d['dropped_by']} on {d['when']}, proj {d['proj']}" for d in w["just_dropped"]]
+        if w["drops"]:
+            out.append("My most droppable bench players:")
+            out += [f"- {d['name']} ({d['position']}, {d['team']}) - {d['reason']}" for d in w["drops"]]
+        if lg.get("trade_deadline"):
+            out.append(f"Trade deadline: {lg['trade_deadline']}. Playoffs: top {lg.get('playoff_teams')} of {lg.get('team_count')} after week {lg.get('reg_season_weeks')}.")
+
     adds = data.get("trending_adds", [])
     if adds:
         out += ["", "## Most added across all leagues (last 48h)"]
@@ -106,6 +136,11 @@ def build(data: dict) -> str:
         if tr["buy_low"]:
             out.append("Buy-low candidates (proven, soft projection):")
             out += [f"- {b['name']} ({b['position']}, {b['team']}) owned by {b['owner']} - {b['reason']}" for b in tr["buy_low"]]
+
+    act = (data.get("waivers") or {}).get("activity") or data.get("activity") or []
+    if act:
+        out += ["", "## Recent league transactions"]
+        out += [f"- {a['when']}: {a['team']} {a['action'].lower()} {a['player']} ({a['position']}, {a['pro_team']})" for a in act[:15]]
 
     news = data.get("news", [])
     if news:

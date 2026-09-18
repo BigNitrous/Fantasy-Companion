@@ -5,6 +5,7 @@ cookies -- see the README for where to find them.
 """
 
 from __future__ import annotations
+from datetime import datetime
 from . import config
 
 STARTER_SLOTS = {"QB", "RB", "WR", "TE", "FLEX", "RB/WR/TE", "D/ST", "K", "OP"}
@@ -19,6 +20,8 @@ def _player_dict(p, week):
         game = sched.get(week) or sched.get(str(week))
         if isinstance(game, dict):
             opponent = game.get("team", "")
+    if not opponent:
+        opponent = getattr(p, "pro_opponent", "") or ""
     return {
         "name": getattr(p, "name", "?"),
         "position": getattr(p, "position", ""),
@@ -31,9 +34,58 @@ def _player_dict(p, week):
         "pct_owned": getattr(p, "percent_owned", None),
         "pct_started": getattr(p, "percent_started", None),
         "opponent": opponent,
+        "bye": bool(getattr(p, "on_bye_week", False)),
+        "ros_projected": getattr(p, "projected_total_points", None),
+        "avg_points": getattr(p, "avg_points", None),
+        "total_points": getattr(p, "total_points", None),
         "starting": getattr(p, "lineupSlot", "") in STARTER_SLOTS,
         "eligible": list(getattr(p, "eligibleSlots", []) or []),
     }
+
+
+def _league_meta(league, my_team) -> dict:
+    """Standings, waiver and calendar facts the dashboard frames advice with."""
+    st = league.settings
+    deadline = getattr(st, "trade_deadline", 0) or 0
+    streak_t, streak_n = getattr(my_team, "streak_type", ""), getattr(my_team, "streak_length", 0)
+    return {
+        "faab": bool(getattr(st, "faab", False)),
+        "budget": getattr(st, "acquisition_budget", None),
+        "budget_spent": getattr(my_team, "acquisition_budget_spent", None),
+        "waiver_rank": getattr(my_team, "waiver_rank", None),
+        "team_count": getattr(st, "team_count", None) or len(league.teams),
+        "standing": getattr(my_team, "standing", None),
+        "playoff_pct": getattr(my_team, "playoff_pct", None),
+        "playoff_teams": getattr(st, "playoff_team_count", None),
+        "reg_season_weeks": getattr(st, "reg_season_count", None),
+        "points_for": getattr(my_team, "points_for", None),
+        "points_against": getattr(my_team, "points_against", None),
+        "streak": f"{streak_t[:1]}{streak_n}" if streak_t and streak_n else "",
+        "trade_deadline": datetime.fromtimestamp(deadline / 1000).strftime("%b %d") if deadline else "",
+        "trade_deadline_ts": deadline,
+    }
+
+
+def _activity(league, limit: int = 30) -> list[dict]:
+    """The league's recent add/drop/trade log, newest first."""
+    out = []
+    try:
+        for a in league.recent_activity(size=limit):
+            when = datetime.fromtimestamp(a.date / 1000)
+            for act in a.actions:
+                team, action, player = act[0], act[1], act[2]
+                out.append({
+                    "ts": a.date,
+                    "when": when.strftime("%b %d"),
+                    "team": getattr(team, "team_name", str(team)),
+                    "action": action,
+                    "player": getattr(player, "name", str(player)),
+                    "position": getattr(player, "position", ""),
+                    "pro_team": getattr(player, "proTeam", ""),
+                })
+    except Exception:
+        pass
+    return out
 
 
 class ESPNSetupError(Exception):
@@ -172,4 +224,6 @@ def fetch(week: int) -> dict:
         "league_pool": league_pool + free_agents,
         "league_name": getattr(league.settings, "name", ""),
         "team_note": team_note,
+        "league": _league_meta(league, my_team),
+        "activity": _activity(league),
     }

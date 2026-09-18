@@ -10,7 +10,7 @@ import os
 import sys
 import traceback
 
-from collector import config, sleeper_source, news_source, render, brief, history, optimizer, rankings, trades
+from collector import config, sleeper_source, news_source, render, brief, history, optimizer, rankings, trades, waivers
 
 
 def main() -> int:
@@ -78,6 +78,12 @@ def main() -> int:
         pool_scored = [scored.get(p["name"], {**p, "score": 0.0, "proj": 0.0, "ppg_2025": 0.0}) for p in pool]
         data["trades"] = trades.build(pool_scored, data["team_name"], optimizer.slot_structure(data["roster"]))
         print(f"  rankings built, {len(data['trades']['targets'])} trade target(s)")
+
+        data["waivers"] = waivers.build(
+            data.get("free_agents", []), data["roster"], hist, data.get("trending_adds", []),
+            data.get("activity", []), data.get("league", {}), data["trades"]["needs"], data["team_name"])
+        w = data["waivers"]
+        print(f"  waivers: {len(w['adds'])} add candidate(s), {len(w['hot'])} hot & unclaimed, {len(w['just_dropped'])} recently dropped")
 
     print("Fetching news...")
     data["news"] = news_source.headlines(limit=15)

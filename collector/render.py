@@ -41,6 +41,7 @@ header .opp .cond{{font-size:1.0625rem}}
 .gear:hover{{color:var(--ink)}}
 .stats{{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}}
 .stat{{background:var(--sheet);border:1px solid var(--line);border-radius:14px;padding:11px 13px}}
+.stat.wide{{grid-column:1/-1}}
 .stat.go{{background:var(--green-soft);border-color:var(--green-line)}}
 .stat .l{{font-size:.75rem;color:var(--muted)}} .stat.go .l{{color:var(--green-ink)}}
 .stat .v{{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1.5rem;line-height:1.1;margin:2px 0}}
@@ -48,7 +49,7 @@ header .opp .cond{{font-size:1.0625rem}}
 .stat .s{{font-size:.75rem;color:var(--muted)}} .stat.go .s{{color:var(--green-ink)}}
 .sheet{{background:var(--sheet);border:1px solid var(--line);border-radius:16px;margin-bottom:14px;overflow:hidden}}
 .hd{{display:flex;align-items:baseline;gap:8px;padding:14px 16px 6px}}
-.hd h2{{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1.25rem;margin:0}}
+.hd h2{{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1.25rem;margin:0;white-space:nowrap}}
 .hd .m{{font-size:.75rem;color:var(--muted)}}
 .row{{display:flex;align-items:center;gap:10px;padding:10px 16px;border-top:1px solid var(--line)}}
 .row.hi{{background:var(--green-soft)}}
@@ -62,6 +63,10 @@ header .opp .cond{{font-size:1.0625rem}}
 .chip.sit{{background:var(--out-soft);color:var(--out);border:1px solid var(--out-line)}}
 .chip.consider{{background:var(--quest-soft);color:var(--quest);border:1px solid var(--quest-line)}}
 .chip.slot{{background:transparent;color:var(--muted);border:1px solid var(--line);min-width:44px;text-align:center}}
+.chip.stream{{background:var(--blue);color:var(--on-blue)}}
+.chip.bench{{background:var(--quest-soft);color:var(--quest);border:1px solid var(--quest-line)}}
+.chip.stash{{background:transparent;color:var(--blue);border:1px solid var(--blue)}}
+.act{{padding:7px 16px;font-size:.8125rem;border-top:1px solid var(--line);color:var(--muted)}} .act b{{font-weight:500;color:var(--ink)}}
 .f-out{{color:var(--out)}} .f-quest{{color:var(--quest)}} .f-go{{color:var(--green)}}
 .grp{{padding:10px 16px 4px;font-family:'Barlow Condensed',sans-serif;font-size:.8125rem;letter-spacing:.06em;color:var(--muted);border-top:1px solid var(--line)}}
 .pos{{display:flex;gap:4px;padding:8px 16px 6px}}
@@ -104,6 +109,7 @@ nav.bottom a.on,nav.bottom a:hover{{color:var(--green)}}
 :focus-visible{{outline:2px solid var(--green);outline-offset:2px}}
 @media(min-width:720px){{
   .wrap{{padding-bottom:40px}}
+  .stats{{grid-template-columns:1fr 1fr 1fr}} .stat.wide{{grid-column:auto}}
   nav.bottom{{display:none}}
   nav.top{{display:block;position:sticky;top:0;z-index:5;background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);padding:8px 0 12px;margin-bottom:8px}}
   nav.top ul{{list-style:none;margin:0;padding:0;display:flex;gap:6px}}
@@ -144,6 +150,7 @@ JS = """
 
 ICONS = {
     "lineup": '<svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>',
+    "waiver": '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>',
     "rank": '<svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
     "trades": '<svg viewBox="0 0 24 24"><path d="M7 10h10l-3-3M17 14H7l3 3"/></svg>',
     "news": '<svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM8 9h8M8 13h8M8 17h5"/></svg>',
@@ -332,6 +339,69 @@ def _trades(tr: dict) -> str:
     return out
 
 
+def _ordinal(n) -> str:
+    n = int(n)
+    suffix = "th" if 10 <= n % 100 <= 20 else {1: "st", 2: "nd", 3: "rd"}.get(n % 10, "th")
+    return f"{n}{suffix}"
+
+
+def _activity(rows: list[dict]) -> str:
+    """One line per transaction: 'Sep 17  Lynch em All  added Malik Washington, dropped Cooper Kupp'."""
+    verbs = {"FA ADDED": "added", "WAIVER ADDED": "claimed", "DROPPED": "dropped", "TRADED": "traded"}
+    groups, order = {}, []
+    for r in rows:
+        k = (r.get("ts"), r.get("team"))
+        if k not in groups:
+            groups[k] = {"when": r.get("when", ""), "team": r.get("team", ""), "parts": []}
+            order.append(k)
+        verb = verbs.get(r.get("action", ""), (r.get("action") or "").lower())
+        groups[k]["parts"].append(f"{verb} {r.get('player', '')}")
+    out = ""
+    for k in order[:10]:
+        g = groups[k]
+        out += f'<div class="act">{_e(g["when"])} &middot; <b>{_e(g["team"])}</b> {_e(", ".join(g["parts"]))}</div>'
+    return out
+
+
+def _waivers(w: dict) -> str:
+    if not w:
+        return '<p class="empty">Needs your roster. See the note at the top of the page.</p>'
+    out = ""
+    if w["adds"]:
+        out += '<div class="grp">PICK UP</div>'
+        for a in w["adds"]:
+            extra = ""
+            if a.get("need"):
+                extra += ' &middot; <span class="f-go">fills a need</span>'
+            if a.get("hot"):
+                extra += f' &middot; <span class="f-quest">{a["hot"]:,} adds in 48h</span>'
+            if a.get("dropped_by"):
+                extra += f' &middot; dropped by {_e(a["dropped_by"])}'
+            drop = f'<small>drop {_e(a["drop"])}</small>' if a.get("drop") else ""
+            out += (f'<div class="row"><span class="chip {a["verdict"]}">{a["verdict"].upper()}</span>'
+                    f'<div class="who"><div class="nm">{_e(a["name"])}</div>{_meta(a, extra)}<div class="reason">{_e(a["reason"])}</div></div>'
+                    f'<div class="num">{_pts(a["proj"])}{drop}</div></div>')
+    else:
+        out += '<p class="empty">Nobody on the wire beats what you have. Check again after waivers clear.</p>'
+    if w["hot"]:
+        out += '<div class="grp">HOT EVERYWHERE, UNCLAIMED HERE</div>' + "".join(
+            f'<div class="row"><div class="who"><div class="nm">{_e(h["name"])}</div>{_meta(h)}</div>'
+            f'<div class="num">{h["count"]:,}<small>adds in 48h</small></div></div>' for h in w["hot"])
+    if w["just_dropped"]:
+        out += '<div class="grp">JUST DROPPED IN YOUR LEAGUE</div>'
+        for d in w["just_dropped"]:
+            by = f' &middot; by {_e(d["dropped_by"])}, {_e(d["when"])}'
+            out += (f'<div class="row"><div class="who"><div class="nm">{_e(d["name"])}</div>{_meta(d, by)}</div>'
+                    f'<div class="num">{_pts(d["proj"])}{_last(d.get("ppg_2025"))}</div></div>')
+    if w["drops"]:
+        out += '<div class="grp">IF YOU NEED A ROSTER SPOT</div>' + "".join(
+            f'<div class="row"><div class="who"><div class="nm">{_e(d["name"])}</div>{_meta(d)}<div class="reason">{_e(d["reason"])}</div></div>'
+            f'<div class="num">{_pts(d["proj"])}</div></div>' for d in w["drops"])
+    if w["activity"]:
+        out += '<div class="grp">LEAGUE ACTIVITY</div>' + _activity(w["activity"])
+    return out
+
+
 def _status(espn: dict) -> str:
     if not espn or espn.get("ok"):
         note = (espn or {}).get("reason", "")
@@ -347,6 +417,20 @@ def build(data: dict) -> str:
     opt = data.get("optimizer", {}) or {}
     opp_total = sum(p["projected"] for p in data.get("opponent_roster", []) if p.get("starting") and isinstance(p.get("projected"), (int, float)))
 
+    lg = data.get("league") or {}
+    wk_line = f"Week {week}" + (f" \u00b7 {data['record']}" if data.get("record") else "")
+    standing = ""
+    if lg.get("standing") and lg.get("team_count"):
+        bits = []
+        if isinstance(lg.get("playoff_pct"), (int, float)):
+            bits.append(f"{lg['playoff_pct']:.0f}% playoff odds")
+        if lg.get("streak"):
+            bits.append(f"{lg['streak']} streak")
+        sub = _e(" \u00b7 ".join(bits)) or "\u00a0"
+        standing = (f'<div class="stat wide"><div class="l">Standing</div><div class="v">{_ordinal(lg["standing"])} of {lg["team_count"]}</div>'
+                    f'<div class="s">{sub}</div></div>')
+
+
     if opt.get("lineup"):
         n = len(opt["swaps"])
         go = (f'<div class="stat go"><div class="l">Optimizer</div><div class="v">+{opt["gain"]}</div>'
@@ -354,9 +438,9 @@ def build(data: dict) -> str:
               f'<div class="stat go"><div class="l">Optimizer</div><div class="v">Optimal</div><div class="s">no changes needed</div></div>')
         proj = (f'<div class="stat"><div class="l">Projected</div><div class="v">{opt["optimal_total"]}</div>'
                 f'<div class="s">{("opp " + f"{opp_total:.1f}") if opp_total else "this week"}</div></div>')
-        stats = f'<div class="stats">{go}{proj}</div>'
+        stats = f'<div class="stats">{go}{proj}{standing}</div>'
     else:
-        stats = ""
+        stats = f'<div class="stats">{standing}</div>' if standing else ""
 
     adds = "".join(
         f'<div class="row"><div class="who"><div class="nm">{_e(a["name"])}</div>{_meta(a)}</div>'
@@ -365,10 +449,19 @@ def build(data: dict) -> str:
         f'<div class="row"><a href="{_e(n.get("link", "#"))}">{_e(n.get("headline", ""))}</a>'
         f'<div class="m">{_e(_blurb(n.get("description")))}</div></div>' for n in data.get("news", [])) or '<p class="empty">No headlines.</p>'
 
+    w = data.get("waivers")
+    if w:
+        prio = w.get("priority", {}).get("text", "")
+        sub = prio.replace("Waiver priority", "priority") if prio else "unclaimed in your league"
+        waiver_html = f'<section class="sheet" id="waiver"><div class="hd"><h2>Waiver wire</h2><span class="m">{sub}</span></div>{_waivers(w)}</section>'
+    else:
+        waiver_html = f'<section class="sheet" id="waiver"><div class="hd"><h2>Most added</h2><span class="m">all leagues, 48h</span></div>{adds}</section>'
+
     opp = data.get("opponent_name")
     opp_html = f'<div class="opp"><div class="wk">vs</div><div class="cond">{_e(opp)}</div></div>' if opp else ""
 
-    navitems = [("#lineup", "lineup", "Lineup"), ("#rank", "rank", "Rankings"), ("#trades", "trades", "Trades"), ("#news", "news", "News")]
+    navitems = [("#lineup", "lineup", "Lineup"), ("#waiver", "waiver", "Waivers"), ("#rank", "rank", "Rankings"),
+                ("#trades", "trades", "Trades"), ("#news", "news", "News")]
     bottom = "".join(f'<li><a href="{h}">{ICONS[i]}{l}</a></li>' for h, i, l in navitems) + f'<li><a href="#settings" data-gear>{ICONS["gear"]}Settings</a></li>'
     top = "".join(f'<li><a href="{h}">{l}</a></li>' for h, i, l in navitems) + '<li><a href="#settings" data-gear>Settings</a></li>'
 
@@ -384,7 +477,7 @@ def build(data: dict) -> str:
 <style>{CSS}</style>
 </head><body><div class="wrap">
 
-<header><div><div class="wk">Week {week}{(" &middot; " + _e(data.get("record"))) if data.get("record") else ""}</div><h1>{_e(team)}</h1></div>
+<header><div><div class="wk">{_e(wk_line)}</div><h1>{_e(team)}</h1></div>
 {opp_html}<button class="gear" data-gear aria-label="Settings">{ICONS["gear"].replace('<svg', '<svg width="18" height="18" style="stroke:currentColor;fill:none;stroke-width:1.6"')}</button></header>
 
 <nav class="top" aria-label="Sections"><ul>{top}</ul></nav>
@@ -400,11 +493,11 @@ def build(data: dict) -> str:
 {_alerts(roster)}{_lineup(roster, opt)}
 {('<div class="grp">RECOMMENDED SWAPS</div>' + _swaps(opt)) if opt.get("lineup") else ""}</section>
 
+{waiver_html}
+
 <section class="sheet" id="rank"><div class="hd"><h2>Rankings</h2><span class="m">PPR &middot; this week</span></div>{_rankings(data.get("rankings", {}))}</section>
 
 <section class="sheet" id="trades"><div class="hd"><h2>Trade targets</h2></div>{_trades(data.get("trades", {}))}</section>
-
-<section class="sheet" id="waiver"><div class="hd"><h2>Most added</h2><span class="m">all leagues, 48h</span></div>{adds}</section>
 
 <section class="sheet news" id="news"><div class="hd"><h2>Headlines</h2></div>{news}</section>
 

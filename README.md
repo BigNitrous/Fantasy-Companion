@@ -8,14 +8,26 @@ add/drop signal, and NFL headlines, then publishes two things:
   start/sit, waiver, and trade questions
 
 The dashboard has six sections: alerts and your lineup, a lineup optimizer,
-position rankings across your league's player pool (QB, RB, WR, TE, D/ST, K),
-trade targets, most-added players, and headlines.
+a waiver wire built from who's actually unclaimed in your league, position
+rankings across your league's player pool (QB, RB, WR, TE, D/ST, K), trade
+targets, and headlines.
 
 ## How the analysis works
 
 **Lineup optimizer** reads your league's slot structure off your current
 roster, fills every slot with the highest-projected healthy player, and
 lists the swaps between that and what you have set.
+
+**Waiver wire** looks only at players unclaimed in your league. Each free
+agent is scored the same way as the rankings and compared with your roster:
+START if he'd beat one of your starters this week, STREAM for a kicker or
+defense with the better matchup, BENCH if he's better than someone on your
+bench right now, STASH if his rest-of-season projection is well ahead of
+your most droppable player. Every pickup names the drop that makes room.
+Below that: Sleeper's most-added players that are still unclaimed here,
+players rivals just dropped (often a panic move), your most droppable
+bench players, and the league's recent transactions. The header shows your
+waiver priority or FAAB left, standing, and ESPN's playoff odds.
 
 **Position rankings** score everyone in your league (all rosters plus free
 agents) as 65% this week's ESPN projection + 35% last season's PPR points

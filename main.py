@@ -32,10 +32,12 @@ def main() -> int:
         print("Fetching ESPN...")
         try:
             data.update(espn_source.fetch(week))
-            data["espn"] = {"ok": True, "reason": data.get("team_note", "")}
+            notes = [n for n in (data.get("team_note", ""),
+                                 "The ESPN_S2 secret is pasted twice back to back; the first copy was used. Update the secret in GitHub so this keeps working." if config.ESPN_S2_DOUBLED else "") if n]
+            data["espn"] = {"ok": True, "reason": " ".join(notes)}
             print(f"  OK: {len(data['roster'])} players on {data['team_name']}")
-            if data.get("team_note"):
-                print(f"  NOTE: {data['team_note']}")
+            for n in notes:
+                print(f"  NOTE: {n}")
         except espn_source.ESPNSetupError as e:
             data["espn"]["reason"] = str(e)
             print(f"  ESPN NOT CONNECTED: {e}")

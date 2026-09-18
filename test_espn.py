@@ -23,7 +23,8 @@ def main() -> int:
 
     print(f"LEAGUE_ID : {config.LEAGUE_ID or '(empty)'}")
     print(f"TEAM_NAME : {config.TEAM_NAME or '(empty)'}")
-    print(f"ESPN_S2   : {len(config.ESPN_S2 or '')} chars")
+    print(f"ESPN_S2   : {len(config.ESPN_S2 or '')} chars"
+          + ("  (was pasted twice; using the first copy. Fix the value in .env / GitHub secrets)" if config.ESPN_S2_DOUBLED else ""))
     print(f"ESPN_SWID : {config.ESPN_SWID or '(empty)'}")
     print()
 

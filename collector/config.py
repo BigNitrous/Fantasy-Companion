@@ -34,6 +34,14 @@ SCORING = os.environ.get("SCORING", "ppr")           # ppr | half | standard
 ESPN_S2 = (os.environ.get("ESPN_S2") or "").strip() or None
 ESPN_SWID = (os.environ.get("ESPN_SWID") or "").strip() or None
 
+# A cookie pasted twice back to back is an easy slip when copying from
+# DevTools. Use the single copy and let main.py / test_espn.py mention it.
+ESPN_S2_DOUBLED = False
+if ESPN_S2 and len(ESPN_S2) >= 200 and len(ESPN_S2) % 2 == 0:
+    _half = len(ESPN_S2) // 2
+    if ESPN_S2[:_half] == ESPN_S2[_half:]:
+        ESPN_S2, ESPN_S2_DOUBLED = ESPN_S2[:_half], True
+
 # How many free agents to pull and rank for the waiver section.
 FREE_AGENT_POOL = int(os.environ.get("FREE_AGENT_POOL", "60"))
 

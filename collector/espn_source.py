@@ -56,9 +56,6 @@ def validate_credentials() -> list[str]:
     if s2:
         if len(s2) < 100:
             problems.append(f"ESPN_S2 looks truncated ({len(s2)} chars; a real one is 200+). Re-copy the whole value.")
-        half = len(s2) // 2
-        if len(s2) % 2 == 0 and half >= 100 and s2[:half] == s2[half:]:
-            problems.append(f"ESPN_S2 looks pasted twice ({len(s2)} chars: the same {half}-char value back to back). Paste it once.")
         if any(c in s2 for c in "\n\r "):
             problems.append("ESPN_S2 contains whitespace or a line break inside it.")
     if swid:

@@ -2,10 +2,14 @@ name: Update dashboard
 
 on:
   schedule:
-    - cron: "0 12 * * 0"
-    - cron: "0 15 * * 0"
-    - cron: "0 13 * * 3"
-  workflow_dispatch:
+    # Times are UTC. San Antonio is UTC-5 during the season, UTC-6 after
+    # early November, so these drift an hour when the clocks change.
+    - cron: "0 12 * * 0"   # Sunday 7am CT - first look
+    - cron: "0 15 * * 0"   # Sunday 10am CT - after inactives post
+    - cron: "0 13 * * 3"   # Wednesday 8am CT - waivers cleared
+  workflow_dispatch:        # run it manually any time from the Actions tab
+  push:
+    branches: [main]        # every push redeploys, so Claude Code edits go live on push
 
 permissions:
   contents: read
@@ -21,11 +25,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
           cache: pip
+
       - run: pip install -r requirements.txt
+
       - name: Collect and render
         env:
           LEAGUE_ID: ${{ secrets.LEAGUE_ID }}
@@ -35,6 +42,7 @@ jobs:
           SEASON: "2026"
           SCORING: "ppr"
         run: python main.py
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: site

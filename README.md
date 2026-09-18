@@ -93,15 +93,42 @@ Pages on a private repo requires a paid GitHub plan. Two options:
   the URL. Point Cloudflare Pages at the repo and set the build output
   directory to `site`.
 
-## Running locally
+## Working on it with Claude Code (recommended)
+
+Editing files through GitHub's web UI and waiting on Actions for every
+change is slow. Clone the repo to your Mac once and let Claude Code edit,
+test, and push:
 
 ```bash
-pip install -r requirements.txt
-export LEAGUE_ID=123456789 TEAM_NAME="Your Team"
-export ESPN_S2='...' ESPN_SWID='{...}'
-python main.py
-open site/index.html
+git clone https://github.com/BigNitrous/Fantasy-Companion.git
+cd Fantasy-Companion
+cp .env.example .env      # then fill in your real values
+pip3 install -r requirements.txt
+python3 test_espn.py      # confirms ESPN works in ~5 seconds
+claude                    # opens Claude Code in this folder
 ```
+
+`.env` is gitignored, so your cookies never leave your machine. Claude
+Code can run `python3 test_espn.py` to check a fix, `python3 main.py` to
+build the full page, and `git push` to deploy. Every push triggers the
+workflow automatically, so you only touch GitHub's website to read the
+finished dashboard.
+
+## Diagnosing ESPN problems
+
+`python3 test_espn.py` prints exactly why a connection failed, in plain
+English. The dashboard shows the same message at the top of the page when
+ESPN is down, so you don't need to dig through Actions logs.
+
+Common causes: a cookie value pasted with a trailing line break (fixed in
+code now), `SWID` missing its curly braces, `espn_s2` truncated on copy,
+or cookies from a different ESPN account than the one in the league.
+
+## Settings
+
+The gear at the end of the section nav opens a Settings panel with a
+theme switch (auto/light/dark) and text size (small to XL). Choices are
+saved in the browser on that device only.
 
 ## If ESPN fails
 

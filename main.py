@@ -26,17 +26,26 @@ def main() -> int:
         "record": "",
     }
 
+    data["espn"] = {"ok": False, "reason": ""}
     if config.is_configured():
+        from collector import espn_source
+        print("Fetching ESPN...")
         try:
-            from collector import espn_source
-            print("Fetching ESPN...")
             data.update(espn_source.fetch(week))
-            print(f"  {len(data['roster'])} players on roster")
-        except Exception:
-            print("ESPN fetch failed. Continuing with public sources only.")
-            traceback.print_exc(limit=2)
+            data["espn"] = {"ok": True, "reason": data.get("team_note", "")}
+            print(f"  OK: {len(data['roster'])} players on {data['team_name']}")
+            if data.get("team_note"):
+                print(f"  NOTE: {data['team_note']}")
+        except espn_source.ESPNSetupError as e:
+            data["espn"]["reason"] = str(e)
+            print(f"  ESPN NOT CONNECTED: {e}")
+        except Exception as e:
+            data["espn"]["reason"] = f"Unexpected {type(e).__name__}: {e}"
+            print(f"  ESPN NOT CONNECTED (bug, not config): {type(e).__name__}: {e}")
+            traceback.print_exc(limit=3)
     else:
-        print("LEAGUE_ID not set. Skipping ESPN, using public sources only.")
+        data["espn"]["reason"] = "LEAGUE_ID secret is not set."
+        print("  LEAGUE_ID not set. Skipping ESPN.")
 
     print("Fetching Sleeper...")
     data["trending_adds"] = sleeper_source.trending("add", hours=48, limit=25)

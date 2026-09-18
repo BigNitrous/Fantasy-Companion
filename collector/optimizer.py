@@ -88,7 +88,7 @@ def optimize(roster: list[dict]) -> dict:
     return {
         "lineup": lineup,
         "swaps": swaps,
-        "gain": round(optimal_total - current_total, 1),
+        "gain": max(0.0, round(optimal_total - current_total, 1)),  # avoids -0.0 when already optimal
         "current_total": round(current_total, 1),
         "optimal_total": round(optimal_total, 1),
     }

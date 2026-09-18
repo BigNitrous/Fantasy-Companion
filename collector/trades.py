@@ -36,8 +36,9 @@ def build(pool: list[dict], my_team: str, my_roster_slots: list[str]) -> dict:
         my_starters = [p for p in mine if p["position"] == pos and p.get("starting")]
         best = max((p["score"] for p in my_starters), default=0.0)
         if my_starters and best < med[pos]:
-            needs.append({"position": pos, "best": round(best, 1), "median": round(med[pos], 1),
-                          "gap": round(med[pos] - best, 1)})
+            gap = round(med[pos] - best, 1)
+            if gap >= 0.1:  # a gap that rounds to zero isn't a hole
+                needs.append({"position": pos, "best": round(best, 1), "median": round(med[pos], 1), "gap": gap})
         for p in mine:
             if p["position"] == pos and not p.get("starting") and p["score"] > med[pos]:
                 chips.append({**p, "median": round(med[pos], 1)})
@@ -63,7 +64,7 @@ def build(pool: list[dict], my_team: str, my_roster_slots: list[str]) -> dict:
             allowance = slot_count.get(pos, 1) + (1 if pos in ("RB", "WR", "TE") and flex_slots else 0)
             surplus = above[allowance:] if len(above) > allowance else []
             for p in surplus:
-                targets.append({**p, "reason": f"{owner} has {len(above)} above-median {pos}s for {allowance} starting slots"})
+                targets.append({**p, "reason": f"{owner} has {len(above)} above-median {pos}s for {allowance} starting slot{'s' if allowance != 1 else ''}"})
     targets.sort(key=lambda t: -t["score"])
 
     # Buy low: proven last year, soft projection now

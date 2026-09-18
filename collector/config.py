@@ -3,6 +3,26 @@ credentials ever live in the repo."""
 
 import os
 
+
+def _load_dotenv(path: str = ".env") -> None:
+    """Loads KEY=VALUE lines from a .env in the working directory so local runs
+    don't need `export`. Real environment variables always win, and Actions
+    never has a .env, so the secrets there are unaffected."""
+    if not os.path.exists(path):
+        return
+    with open(path, encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith("#") or "=" not in line:
+                continue
+            key, val = line.split("=", 1)
+            key, val = key.strip(), val.strip().strip('"').strip("'")
+            if key and key not in os.environ:
+                os.environ[key] = val
+
+
+_load_dotenv()
+
 LEAGUE_ID = os.environ.get("LEAGUE_ID", "").strip()
 TEAM_NAME = os.environ.get("TEAM_NAME", "").strip()  # your team, exact ESPN name
 SEASON = int(os.environ.get("SEASON", "2026"))

@@ -1,90 +1,154 @@
 """Renders the static dashboard.
 
-Call-sheet DNA -- ruled rows, not cards; color only where something needs
-action -- but softened for daily use: rounded sheets, generous spacing, a
-sticky section nav, and tabbed position rankings.
+Design: deep navy surfaces, one saturated green carrying every "go" signal,
+blunt START / SIT / CONSIDER verdicts, tier bands in the rankings, bottom
+tab bar on phones and top pills on wider screens. Light mode keeps the same
+layout on a pale navy-tinted paper.
 """
 
 from __future__ import annotations
 import html
 from datetime import datetime
 
-CSS = """
-:root{--paper:#E9E7E2;--sheet:#FDFCFA;--ink:#1B1E22;--muted:#71757D;--rule:#E3E0DA;
-      --out:#A81F27;--quest:#B87514;--act:#1D5B4C;--act-soft:#E4EEEA;--pill:#EFEDE8}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:'Barlow',system-ui,sans-serif;
-     font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%}
-.wrap{max-width:680px;margin:0 auto;padding:18px 16px 72px}
-header{margin-bottom:14px}
-h1{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:36px;line-height:1;margin:0 0 4px;letter-spacing:-.01em}
-.sub{color:var(--muted);font-size:15px;margin:0}
-nav{position:sticky;top:0;z-index:5;background:var(--paper);padding:10px 0 12px;margin-bottom:6px}
-nav ul{list-style:none;margin:0;padding:0;display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
-nav ul::-webkit-scrollbar{display:none}
-nav a{display:block;padding:7px 13px;border-radius:999px;background:var(--pill);color:var(--ink);
-      text-decoration:none;font-size:14.5px;font-weight:500;white-space:nowrap}
-nav a:hover,nav a:focus-visible{background:var(--sheet)}
-.sheet{background:var(--sheet);border-radius:14px;padding:20px 18px 14px;margin-bottom:16px;
-       box-shadow:0 1px 0 rgba(27,30,34,.05)}
-h2{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:24px;margin:0 0 12px}
-.group{font-family:'Barlow Condensed',sans-serif;color:var(--muted);font-size:16px;margin:18px 0 4px}
-.group:first-of-type{margin-top:0}
-.row{display:grid;grid-template-columns:1fr auto;gap:12px;padding:10px 0;border-bottom:1px solid var(--rule);align-items:center}
-.row:last-child{border-bottom:none}
-.nm{font-family:'Barlow Condensed',sans-serif;font-size:19px;font-weight:500;line-height:1.15}
-.meta{font-size:13px;color:var(--muted);margin-top:1px}
-.num{font-variant-numeric:tabular-nums;font-size:15px;text-align:right;white-space:nowrap;line-height:1.25}
-.num small{display:block;font-size:12px;color:var(--muted)}
-.flag{font-size:12.5px;font-weight:600}
-.flag.out{color:var(--out)} .flag.quest{color:var(--quest)}
-.dim{opacity:.55}
-.alert{border-left:3px solid var(--out);padding:6px 0 6px 12px;margin-bottom:12px}
-.alert.warn{border-left-color:var(--quest)} .alert.info{border-left-color:var(--act)}
-.alert p{margin:0}
-.alert .who{font-family:'Barlow Condensed',sans-serif;font-size:19px;font-weight:600}
-.alert .why{font-size:14px;color:var(--muted)}
-.summary{background:var(--act-soft);border-radius:10px;padding:12px 14px;margin-bottom:12px;font-size:15px}
-.summary b{font-weight:600}
-.swap{display:grid;grid-template-columns:1fr auto 1fr auto;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--rule)}
-.swap:last-child{border-bottom:none}
-.swap .arrow{color:var(--muted);font-size:14px}
-.swap .gain{font-variant-numeric:tabular-nums;color:var(--act);font-weight:600;white-space:nowrap}
-.slot{display:inline-block;min-width:44px;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
-.tabs{display:flex;gap:4px;background:var(--pill);border-radius:10px;padding:4px;margin-bottom:8px}
-.tabs button{flex:1;border:0;background:transparent;border-radius:7px;padding:8px 0;font:inherit;font-size:14px;
-             font-weight:500;color:var(--muted);cursor:pointer}
-.tabs button[aria-selected=true]{background:var(--sheet);color:var(--ink);box-shadow:0 1px 2px rgba(27,30,34,.08)}
-.panel{display:none} .panel[data-active]{display:block}
-.rk{display:grid;grid-template-columns:28px 1fr auto;gap:10px;padding:9px 0;border-bottom:1px solid var(--rule);align-items:center}
-.rk:last-child{border-bottom:none}
-.rk .n{font-variant-numeric:tabular-nums;color:var(--muted);font-size:14px}
-.rk.mine{background:linear-gradient(90deg,var(--act-soft),transparent 60%);margin:0 -8px;padding-left:8px;padding-right:8px;border-radius:6px}
-.cols{display:grid;grid-template-columns:28px 1fr auto;gap:10px;font-size:12px;color:var(--muted);padding:0 0 6px}
-.cols span:last-child{text-align:right}
-.reason{font-size:13px;color:var(--muted)}
-.news .row{display:block} .news a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule)}
-.news a:hover,.news a:focus-visible{border-bottom-color:var(--ink)}
-.empty{color:var(--muted);font-size:15px;margin:4px 0 8px}
-.foot{color:var(--muted);font-size:13px;margin-top:8px}
-:focus-visible{outline:2px solid var(--act);outline-offset:2px}
-@media(max-width:420px){h1{font-size:31px}.wrap{padding:12px 12px 56px}.sheet{padding:16px 14px 10px}.tabs button{font-size:13px}}
+DARK = ("--paper:#0D1626;--sheet:#12203A;--line:#1F2C42;--ink:#E9EEF5;--muted:#8A9BB5;"
+        "--green:#22D36E;--green-soft:#122A1C;--green-line:#1E5B36;--green-ink:#7ED9A3;--on-green:#062B14;"
+        "--out:#F0646C;--out-soft:#3A1A20;--out-line:#6B2830;--quest:#F2B33D;--quest-soft:#3A2E14;--quest-line:#6B5520;"
+        "--blue:#4FA3F7;--on-blue:#061A33;--amber:#F2B33D;--on-amber:#2E2000;--bar:#0A1220;--glass:rgba(13,22,38,.85)")
+LIGHT = ("--paper:#EEF2F7;--sheet:#FFFFFF;--line:#D9E0EA;--ink:#0D1626;--muted:#5E6E88;"
+         "--green:#15A853;--green-soft:#E3F6EA;--green-line:#A9E3C0;--green-ink:#0E6B36;--on-green:#FFFFFF;"
+         "--out:#C8323C;--out-soft:#FBE7E9;--out-line:#F0B7BC;--quest:#B8760F;--quest-soft:#FFF4DF;--quest-line:#F2D59A;"
+         "--blue:#2E7FD1;--on-blue:#FFFFFF;--amber:#E39A15;--on-amber:#2E2000;--bar:#FFFFFF;--glass:rgba(238,242,247,.88)")
+
+CSS = f"""
+:root{{{LIGHT}}}
+:root[data-theme=dark]{{{DARK}}}
+@media(prefers-color-scheme:dark){{:root:not([data-theme=light]){{{DARK}}}}}
+html{{font-size:16px;scroll-behavior:smooth;scroll-padding-top:8px}}
+html[data-size=small]{{font-size:14px}} html[data-size=large]{{font-size:18px}} html[data-size=xl]{{font-size:20px}}
+*{{box-sizing:border-box}}
+@media(prefers-reduced-motion:reduce){{html{{scroll-behavior:auto}} *{{transition:none!important}}}}
+body{{margin:0;background:var(--paper);color:var(--ink);font-family:'Barlow',system-ui,sans-serif;font-size:1rem;line-height:1.45;
+     -webkit-text-size-adjust:100%;transition:background .2s,color .2s}}
+.wrap{{max-width:720px;margin:0 auto;padding:16px 16px 92px}}
+.cond{{font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.01em}}
+header{{display:flex;align-items:flex-end;gap:12px;padding:4px 0 14px}}
+header .wk{{color:var(--muted);font-size:.8125rem}}
+header h1{{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:2rem;line-height:1;margin:2px 0 0;letter-spacing:-.005em}}
+header .opp{{margin-left:auto;text-align:right}}
+header .opp .cond{{font-size:1.0625rem}}
+.gear{{margin-left:10px;width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--sheet);color:var(--muted);
+      display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex:none}}
+.gear:hover{{color:var(--ink)}}
+.stats{{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}}
+.stat{{background:var(--sheet);border:1px solid var(--line);border-radius:14px;padding:11px 13px}}
+.stat.go{{background:var(--green-soft);border-color:var(--green-line)}}
+.stat .l{{font-size:.75rem;color:var(--muted)}} .stat.go .l{{color:var(--green-ink)}}
+.stat .v{{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1.5rem;line-height:1.1;margin:2px 0}}
+.stat.go .v{{color:var(--green)}}
+.stat .s{{font-size:.75rem;color:var(--muted)}} .stat.go .s{{color:var(--green-ink)}}
+.sheet{{background:var(--sheet);border:1px solid var(--line);border-radius:16px;margin-bottom:14px;overflow:hidden}}
+.hd{{display:flex;align-items:baseline;gap:8px;padding:14px 16px 6px}}
+.hd h2{{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1.25rem;margin:0}}
+.hd .m{{font-size:.75rem;color:var(--muted)}}
+.row{{display:flex;align-items:center;gap:10px;padding:10px 16px;border-top:1px solid var(--line)}}
+.row.hi{{background:var(--green-soft)}}
+.row .who{{min-width:0;flex:1}}
+.nm{{font-family:'Barlow Condensed',sans-serif;font-size:1.0625rem;font-weight:500;line-height:1.1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}}
+.m{{font-size:.75rem;color:var(--muted)}}
+.num{{text-align:right;font-variant-numeric:tabular-nums;font-size:.875rem;white-space:nowrap;line-height:1.2}}
+.num small{{display:block;font-size:.6875rem;color:var(--muted)}}
+.chip{{display:inline-block;padding:3px 9px;border-radius:6px;font-size:.6875rem;font-weight:500;font-family:'Barlow Condensed',sans-serif;letter-spacing:.06em;white-space:nowrap}}
+.chip.start{{background:var(--green);color:var(--on-green)}}
+.chip.sit{{background:var(--out-soft);color:var(--out);border:1px solid var(--out-line)}}
+.chip.consider{{background:var(--quest-soft);color:var(--quest);border:1px solid var(--quest-line)}}
+.chip.slot{{background:transparent;color:var(--muted);border:1px solid var(--line);min-width:44px;text-align:center}}
+.f-out{{color:var(--out)}} .f-quest{{color:var(--quest)}} .f-go{{color:var(--green)}}
+.grp{{padding:10px 16px 4px;font-family:'Barlow Condensed',sans-serif;font-size:.8125rem;letter-spacing:.06em;color:var(--muted);border-top:1px solid var(--line)}}
+.pos{{display:flex;gap:4px;padding:8px 16px 6px}}
+.pos button{{flex:1;text-align:center;padding:7px 0;border-radius:8px;font:inherit;font-size:.75rem;font-weight:500;color:var(--muted);
+   background:transparent;border:1px solid var(--line);cursor:pointer;transition:background .15s,color .15s,border-color .15s}}
+.pos button[aria-selected=true]{{background:var(--green);color:var(--on-green);border-color:var(--green)}}
+.panel{{display:none}} .panel[data-active]{{display:block}}
+.tier{{padding:5px 16px;font-family:'Barlow Condensed',sans-serif;font-size:.75rem;letter-spacing:.08em;font-weight:600}}
+.tier.t1{{background:var(--green);color:var(--on-green)}} .tier.t2{{background:var(--blue);color:var(--on-blue)}}
+.tier.t3{{background:var(--amber);color:var(--on-amber)}} .tier.t4{{background:var(--line);color:var(--ink)}}
+.rk{{width:22px;color:var(--muted);font-size:.8125rem;font-variant-numeric:tabular-nums;flex:none}}
+.row.me{{background:var(--green-soft)}}
+.swap{{display:grid;grid-template-columns:1fr auto 1fr auto;gap:8px;align-items:center;padding:10px 16px;border-top:1px solid var(--line)}}
+.swap .arrow{{color:var(--muted);font-size:.75rem}}
+.swap .gain{{font-variant-numeric:tabular-nums;color:var(--green);font-weight:600;white-space:nowrap;font-size:.875rem}}
+.alert{{padding:8px 16px;border-top:1px solid var(--line);border-left:3px solid var(--out)}}
+.alert.warn{{border-left-color:var(--quest)}}
+.alert .who{{font-family:'Barlow Condensed',sans-serif;font-size:1.0625rem;font-weight:600}} .alert .why{{font-size:.8125rem;color:var(--muted)}}
+.status{{border:1px solid var(--quest-line);background:var(--quest-soft);border-radius:12px;padding:10px 14px;margin-bottom:14px;font-size:.875rem}}
+.status p{{margin:0}} .status .why{{color:var(--muted);font-size:.8125rem;margin-top:2px}}
+.reason{{font-size:.75rem;color:var(--muted);margin-top:2px}}
+.news .row{{display:block}} .news a{{color:var(--ink);text-decoration:none;font-family:'Barlow Condensed',sans-serif;font-size:1.0625rem;font-weight:500}}
+.news a:hover{{color:var(--green)}}
+.empty{{color:var(--muted);font-size:.875rem;padding:6px 16px 14px;margin:0}}
+.foot{{color:var(--muted);font-size:.75rem;padding:4px 2px 0}}
+nav.top{{display:none}}
+nav.bottom{{position:fixed;left:0;right:0;bottom:0;z-index:9;background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+  border-top:1px solid var(--line);padding:6px 0 max(8px,env(safe-area-inset-bottom))}}
+nav.bottom ul{{list-style:none;margin:0 auto;padding:0;display:flex;max-width:720px}}
+nav.bottom li{{flex:1;min-width:0}}
+nav.bottom a{{display:block;text-align:center;text-decoration:none;color:var(--muted);font-size:.6875rem;padding:4px 0}}
+nav.bottom a svg{{display:block;margin:0 auto 2px;width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}}
+nav.bottom a.on,nav.bottom a:hover{{color:var(--green)}}
+#settings{{display:none}} #settings[data-open]{{display:block}}
+.setrow{{display:grid;grid-template-columns:84px 1fr;gap:12px;align-items:center;padding:8px 16px}}
+.setrow label{{font-size:.875rem;color:var(--muted)}}
+.seg{{display:flex;gap:3px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:3px}}
+.seg button{{flex:1;border:1px solid transparent;background:transparent;border-radius:7px;padding:6px 0;font:inherit;font-size:.8125rem;font-weight:500;color:var(--muted);cursor:pointer;transition:background .15s,color .15s}}
+.seg button[aria-pressed=true]{{background:var(--sheet);color:var(--ink);border-color:var(--line)}}
+:focus-visible{{outline:2px solid var(--green);outline-offset:2px}}
+@media(min-width:720px){{
+  .wrap{{padding-bottom:40px}}
+  nav.bottom{{display:none}}
+  nav.top{{display:block;position:sticky;top:0;z-index:5;background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);padding:8px 0 12px;margin-bottom:8px}}
+  nav.top ul{{list-style:none;margin:0;padding:0;display:flex;gap:6px}}
+  nav.top a{{display:block;padding:6px 12px;border-radius:999px;color:var(--muted);border:1px solid var(--line);text-decoration:none;font-size:.875rem;font-weight:500;transition:background .15s,color .15s}}
+  nav.top a:hover{{background:var(--sheet);color:var(--ink)}}
+}}
 """
 
+HEAD_JS = """(function(){try{var t=localStorage.getItem('ff-theme');if(t&&t!=='auto')document.documentElement.setAttribute('data-theme',t);
+var s=localStorage.getItem('ff-size');if(s&&s!=='default')document.documentElement.setAttribute('data-size',s);}catch(e){}})();"""
+
 JS = """
-document.querySelectorAll('.tabs').forEach(function(tabs){
-  var btns=tabs.querySelectorAll('button');
-  btns.forEach(function(b){b.addEventListener('click',function(){
-    btns.forEach(function(x){x.setAttribute('aria-selected','false')});
-    b.setAttribute('aria-selected','true');
-    tabs.parentElement.querySelectorAll('.panel').forEach(function(p){
-      if(p.dataset.pos===b.dataset.pos){p.setAttribute('data-active','')}else{p.removeAttribute('data-active')}
-    });
-  })});
-});
+(function(){
+  var root=document.documentElement,panel=document.getElementById('settings');
+  function toggle(e){e.preventDefault();if(panel.hasAttribute('data-open'))panel.removeAttribute('data-open');else{panel.setAttribute('data-open','');panel.scrollIntoView({block:'start'});}}
+  document.querySelectorAll('[data-gear]').forEach(function(b){b.addEventListener('click',toggle)});
+  function get(k,d){try{return localStorage.getItem(k)||d}catch(e){return d}}
+  function set(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+  function wire(name,key,attr,def){
+    var btns=panel.querySelectorAll('[data-set="'+name+'"] button');
+    function paint(v){btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.v===v?'true':'false')});if(v===def)root.removeAttribute(attr);else root.setAttribute(attr,v);}
+    paint(get(key,def));btns.forEach(function(b){b.addEventListener('click',function(){set(key,b.dataset.v);paint(b.dataset.v)})});
+  }
+  wire('theme','ff-theme','data-theme','auto');wire('size','ff-size','data-size','default');
+  document.querySelectorAll('.pos').forEach(function(tabs){
+    var btns=tabs.querySelectorAll('button');
+    btns.forEach(function(b){b.addEventListener('click',function(){
+      btns.forEach(function(x){x.setAttribute('aria-selected','false')});b.setAttribute('aria-selected','true');
+      tabs.parentElement.querySelectorAll('.panel').forEach(function(p){if(p.dataset.pos===b.dataset.pos)p.setAttribute('data-active','');else p.removeAttribute('data-active')});
+    })});
+  });
+  var links=document.querySelectorAll('nav.bottom a[href^="#"]'),secs=[];
+  links.forEach(function(a){var s=document.querySelector(a.getAttribute('href'));if(s)secs.push([s,a])});
+  function mark(){var y=window.scrollY+120,cur=null,best=-1;secs.forEach(function(p){var t=p[0].offsetTop;if(p[0].offsetParent!==null&&t<=y&&t>best){best=t;cur=p[1]}});if(!cur&&secs.length)cur=secs[0][1];links.forEach(function(a){a.classList.toggle('on',a===cur)});}
+  window.addEventListener('scroll',mark,{passive:true});mark();
+})();
 """
+
+ICONS = {
+    "lineup": '<svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>',
+    "rank": '<svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
+    "trades": '<svg viewBox="0 0 24 24"><path d="M7 10h10l-3-3M17 14H7l3 3"/></svg>',
+    "news": '<svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM8 9h8M8 13h8M8 17h5"/></svg>',
+    "gear": '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>',
+}
 
 _BAD = {"OUT", "DOUBTFUL", "IR", "SUSPENSION", "INJURY_RESERVE"}
 _MEH = {"QUESTIONABLE", "DAY_TO_DAY", "PROBABLE"}
@@ -98,31 +162,82 @@ def _pts(v) -> str:
     return f"{v:.1f}" if isinstance(v, (int, float)) else "&mdash;"
 
 
-def _flag(status: str) -> str:
-    s = (status or "").upper().replace(" ", "_")
+def _last(v) -> str:
+    """Last-season line under a projection. Hidden when there's no history rather than showing 0.0."""
+    return f"<small>{_pts(v)} last yr</small>" if isinstance(v, (int, float)) and v > 0 else ""
+
+
+def _blurb(text, limit: int = 150) -> str:
+    """Headline description trimmed at a word boundary, minus the feed's stray leading dash."""
+    t = " ".join((text or "").split()).lstrip("\u2014\u2013- ")
+    if len(t) <= limit:
+        return t
+    return t[:limit].rsplit(" ", 1)[0].rstrip(",;:\u2014\u2013-") + "\u2026"
+
+
+def _inj(p: dict) -> str:
+    s = (p.get("injury") or "").upper().replace(" ", "_")
     label = s.replace("_", " ").title()
     if s in _BAD:
-        return f'<span class="flag out">{_e(label)}</span>'
+        return f' &middot; <span class="f-out">{_e(label)}</span>'
     if s in _MEH:
-        return f'<span class="flag quest">{_e(label)}</span>'
+        return f' &middot; <span class="f-quest">{_e(label)}</span>'
     return ""
 
 
-def _meta(p: dict) -> str:
+def _meta(p: dict, extra: str = "") -> str:
     bits = " ".join(b for b in [p.get("position"), p.get("team")] if b)
     if p.get("opponent"):
         bits += f" vs {p['opponent']}"
-    return f"{_e(bits)} {_flag(p.get('injury', ''))}"
+    return f'<div class="m">{_e(bits)}{_inj(p)}{extra}</div>'
 
 
-def _name_block(p: dict, slot=True) -> str:
-    s = f'<span class="slot">{_e(p.get("slot",""))}</span>' if slot and p.get("slot") not in ("BE", "", None) else ""
-    return f'<div>{s}<span class="nm">{_e(p["name"])}</span><div class="meta">{_meta(p)}</div></div>'
+def _verdicts(roster: list[dict], opt: dict) -> dict:
+    """name -> ('start'|'sit'|'consider', note)"""
+    if not opt or not opt.get("lineup"):
+        return {}
+    optimal = {e["player"]["name"] for e in opt["lineup"] if e.get("player")}
+    out = {}
+    for p in roster:
+        s = (p.get("injury") or "").upper().replace(" ", "_")
+        if p["name"] in optimal:
+            if s in _MEH:
+                out[p["name"]] = ("consider", "" if p.get("starting") else "starts if active")
+            elif not p.get("starting"):
+                out[p["name"]] = ("start", "on your bench, start him")
+            else:
+                out[p["name"]] = ("start", "")
+        else:
+            if s in _BAD:
+                out[p["name"]] = ("sit", "")
+            elif p.get("starting"):
+                out[p["name"]] = ("sit", "better option on bench")
+            else:
+                out[p["name"]] = ("sit", "")
+    return out
 
 
-def _player_row(p: dict) -> str:
-    dim = " dim" if not p.get("starting", True) else ""
-    return f'<div class="row{dim}">{_name_block(p)}<div class="num">{_pts(p.get("projected"))}</div></div>'
+def _lineup(roster: list[dict], opt: dict) -> str:
+    starters = [p for p in roster if p.get("starting")]
+    bench = [p for p in roster if not p.get("starting")]
+    v = _verdicts(roster, opt)
+
+    def row(p):
+        verdict, note = v.get(p["name"], (None, ""))
+        # Bench rows only get a chip when there's something to do; red belongs on a starter who should sit.
+        show_chip = verdict and (p.get("starting") or verdict != "sit")
+        chip = f'<span class="chip {verdict}">{verdict.upper()}</span>' if show_chip else ""
+        extra = f' &middot; <span class="f-go">{_e(note)}</span>' if note and verdict == "start" else (
+                f' &middot; <span class="{"f-quest" if verdict == "consider" else "f-out"}">{_e(note)}</span>' if note else "")
+        hi = " hi" if (verdict == "start" and not p.get("starting")) else ""
+        slot = f'<span class="chip slot">{_e(p.get("slot", ""))}</span>' if p.get("slot") not in ("BE", "", None) else ""
+        return (f'<div class="row{hi}">{slot}<div class="who"><div class="nm">{_e(p["name"])}</div>{_meta(p, extra)}</div>'
+                f'{chip}<div class="num">{_pts(p.get("projected"))}</div></div>')
+
+    if not roster:
+        return '<p class="empty">Needs your roster. See the note at the top of the page.</p>'
+    return ('<div class="grp">STARTING</div>' + "".join(row(p) for p in starters) +
+            '<div class="grp">BENCH</div>' + "".join(row(p) for p in bench))
 
 
 def _alerts(roster: list[dict]) -> str:
@@ -132,146 +247,178 @@ def _alerts(roster: list[dict]) -> str:
             continue
         s = (p.get("injury") or "").upper().replace(" ", "_")
         if s in _BAD:
-            items.append(("alert", p["name"], f"Listed {s.replace('_',' ').lower()} and in your starting lineup."))
+            items.append(("alert", p["name"], f"Listed {s.replace('_', ' ').lower()} and in your starting lineup."))
         elif s in _MEH:
             items.append(("alert warn", p["name"], "Questionable. Check inactives before kickoff."))
-        elif not p.get("opponent"):
+        elif not p.get("opponent") and p.get("position") != "D/ST":
             items.append(("alert warn", p["name"], "No game this week. Likely a bye."))
-    if not items:
-        return '<p class="empty">Nothing flagged. Every starter has a game and a clean status.</p>'
-    return "".join(f'<div class="{c}"><p class="who">{_e(w)}</p><p class="why">{_e(y)}</p></div>' for c, w, y in items)
+    return "".join(f'<div class="{c}"><div class="who">{_e(w)}</div><div class="why">{_e(y)}</div></div>' for c, w, y in items)
 
 
-def _optimizer(opt: dict) -> str:
-    if not opt.get("lineup"):
-        return '<p class="empty">Connect ESPN to see lineup recommendations.</p>'
+def _swaps(opt: dict) -> str:
+    if not opt or not opt.get("lineup"):
+        return ""
     if not opt["swaps"]:
-        head = (f'<div class="summary">Your lineup is already the best available. '
-                f'Projected <b>{opt["optimal_total"]}</b> points.</div>')
-    else:
-        n = len(opt["swaps"])
-        head = (f'<div class="summary"><b>{n} swap{"s" if n > 1 else ""}</b> would add '
-                f'<b>+{opt["gain"]}</b> projected points ({opt["current_total"]} to {opt["optimal_total"]}).</div>')
-        for s in opt["swaps"]:
-            out_block = _name_block(s["out"], slot=False) if s["out"] else '<div><span class="meta">open slot</span></div>'
-            head += (f'<div class="swap">{_name_block(s["in"], slot=False)}<span class="arrow">for</span>'
-                     f'{out_block}<span class="gain">+{s["gain"]}</span></div>')
-    body = '<p class="group">Best lineup</p>'
-    for e in opt["lineup"]:
-        if e["player"]:
-            p = dict(e["player"], slot=e["slot"])
-            body += f'<div class="row">{_name_block(p)}<div class="num">{_pts(p.get("projected"))}</div></div>'
-        else:
-            body += (f'<div class="row"><div><span class="slot">{_e(e["slot"])}</span>'
-                     f'<span class="meta">no healthy option</span></div><div class="num">&mdash;</div></div>')
-    return head + body
+        return '<p class="empty">Your lineup is already the best available.</p>'
+    out = ""
+    for s in opt["swaps"]:
+        o = s["out"]
+        out_html = (f'<div class="nm">{_e(o["name"])}</div>' + _meta(o)) if o else '<span class="m">open slot</span>'
+        out += (f'<div class="swap"><div><div class="nm">{_e(s["in"]["name"])}</div>{_meta(s["in"])}</div>'
+                f'<span class="arrow">over</span>'
+                f'<div>{out_html}</div>'
+                f'<span class="gain">+{s["gain"]}</span></div>')
+    return out
+
+
+def _tiers(rows: list[dict]) -> list[int]:
+    """Tier number per row. New tier when score drops >12% from the previous row."""
+    tiers, t = [], 1
+    for i, r in enumerate(rows):
+        if i and rows[i - 1]["score"] > 0 and (rows[i - 1]["score"] - r["score"]) / rows[i - 1]["score"] > 0.12:
+            t += 1
+        tiers.append(min(t, 4))
+    return tiers
 
 
 def _rankings(rk: dict) -> str:
     if not any(rk.values()):
-        return '<p class="empty">Connect ESPN to see rankings across your league\'s player pool.</p>'
+        return '<p class="empty">Needs your roster. See the note at the top of the page.</p>'
     order = ["QB", "RB", "WR", "TE", "D/ST", "K"]
-    tabs = '<div class="tabs" role="tablist">' + "".join(
+    tabs = '<div class="pos" role="tablist">' + "".join(
         f'<button role="tab" data-pos="{_e(p)}" aria-selected="{"true" if i == 0 else "false"}">{_e(p)}</button>'
         for i, p in enumerate(order)) + "</div>"
     panels = ""
     for i, pos in enumerate(order):
-        rows = ""
-        for r in rk.get(pos, []):
-            owner = (" &middot; " + _e(r["owner"])) if r.get("owner") and not r.get("mine") else (" &middot; available" if not r.get("owner") else "")
-            rows += (f'<div class="rk{" mine" if r.get("mine") else ""}"><span class="n">{r["rank"]}</span>'
-                     f'<div><span class="nm">{_e(r["name"])}</span><div class="meta">{_meta(r)}{owner}</div></div>'
-                     f'<div class="num">{_pts(r["proj"])}<small>{_pts(r["ppg_2025"])} last yr</small></div></div>')
-        panels += (f'<div class="panel" data-pos="{_e(pos)}"{" data-active" if i == 0 else ""}>'
-                   f'<div class="cols"><span>#</span><span>Player</span><span>Proj / 2025 avg</span></div>'
-                   f'{rows or "<p class=empty>No data.</p>"}</div>')
+        rows = rk.get(pos, [])
+        tiers = _tiers(rows)
+        body, last = "", 0
+        for r, t in zip(rows, tiers):
+            if t != last:
+                body += f'<div class="tier t{t}">TIER {t}</div>'
+                last = t
+            who = ' &middot; <span class="f-go">yours</span>' if r.get("mine") else (
+                  f' &middot; {_e(r["owner"])}' if r.get("owner") else ' &middot; available')
+            body += (f'<div class="row{" me" if r.get("mine") else ""}"><span class="rk">{r["rank"]}</span>'
+                     f'<div class="who"><div class="nm">{_e(r["name"])}</div>{_meta(r, who)}</div>'
+                     f'<div class="num">{_pts(r["proj"])}{_last(r["ppg_2025"])}</div></div>')
+        panels += f'<div class="panel" data-pos="{_e(pos)}"{" data-active" if i == 0 else ""}>{body or "<p class=empty>No data.</p>"}</div>'
     return tabs + panels
 
 
 def _trades(tr: dict) -> str:
     if not tr:
-        return '<p class="empty">Connect ESPN to see trade targets.</p>'
+        return '<p class="empty">Needs your roster. See the note at the top of the page.</p>'
     out = ""
     if tr["needs"]:
-        out += '<p class="group">Where you\'re thin</p>' + "".join(
-            f'<div class="row"><div><span class="nm">{_e(n["position"])}</span>'
-            f'<div class="meta">your best starter scores {n["best"]}, league median is {n["median"]}</div></div>'
-            f'<div class="num">&minus;{n["gap"]}</div></div>' for n in tr["needs"])
+        out += '<div class="grp">WHERE YOU\'RE THIN</div>' + "".join(
+            f'<div class="row"><div class="who"><div class="nm">{_e(n["position"])}</div>'
+            f'<div class="m">your best starter {n["best"]}, league median {n["median"]}</div></div>'
+            f'<div class="num f-out">&minus;{n["gap"]}</div></div>' for n in tr["needs"])
     else:
         out += '<p class="empty">No position where your starter is below the league median.</p>'
     if tr["chips"]:
-        out += '<p class="group">Bench players other teams would start</p>' + "".join(
-            f'<div class="row"><div><span class="nm">{_e(c["name"])}</span><div class="meta">{_meta(c)} &middot; median starter {c["median"]}</div></div>'
+        out += '<div class="grp">TRADE CHIPS ON YOUR BENCH</div>' + "".join(
+            f'<div class="row"><div class="who"><div class="nm">{_e(c["name"])}</div>{_meta(c, " &middot; median starter " + str(c["median"]))}</div>'
             f'<div class="num">{_pts(c["score"])}</div></div>' for c in tr["chips"])
     if tr["targets"]:
-        out += '<p class="group">Targets on teams with surplus</p>' + "".join(
-            f'<div class="row"><div><span class="nm">{_e(t["name"])}</span><div class="meta">{_meta(t)}</div>'
-            f'<div class="reason">{_e(t["reason"])}</div></div>'
-            f'<div class="num">{_pts(t["proj"])}<small>{_pts(t["ppg_2025"])} last yr</small></div></div>' for t in tr["targets"])
+        out += '<div class="grp">TARGETS ON TEAMS WITH SURPLUS</div>' + "".join(
+            f'<div class="row"><div class="who"><div class="nm">{_e(t["name"])}</div>{_meta(t)}<div class="reason">{_e(t["reason"])}</div></div>'
+            f'<div class="num">{_pts(t["proj"])}{_last(t["ppg_2025"])}</div></div>' for t in tr["targets"])
     if tr["buy_low"]:
-        out += '<p class="group">Buy low</p>' + "".join(
-            f'<div class="row"><div><span class="nm">{_e(b["name"])}</span><div class="meta">{_meta(b)} &middot; {_e(b["owner"])}</div>'
-            f'<div class="reason">{_e(b["reason"])}</div></div>'
-            f'<div class="num">{_pts(b["proj"])}<small>{_pts(b["ppg_2025"])} last yr</small></div></div>' for b in tr["buy_low"])
+        out += '<div class="grp">BUY LOW</div>' + "".join(
+            f'<div class="row"><div class="who"><div class="nm">{_e(b["name"])}</div>{_meta(b, " &middot; " + _e(b["owner"]))}<div class="reason">{_e(b["reason"])}</div></div>'
+            f'<div class="num">{_pts(b["proj"])}{_last(b["ppg_2025"])}</div></div>' for b in tr["buy_low"])
     return out
+
+
+def _status(espn: dict) -> str:
+    if not espn or espn.get("ok"):
+        note = (espn or {}).get("reason", "")
+        return f'<div class="status"><p>{_e(note)}</p></div>' if note else ""
+    return (f'<div class="status"><p>ESPN isn\'t connected, so your roster is missing.</p>'
+            f'<p class="why">{_e(espn.get("reason") or "No reason recorded.")}</p></div>')
 
 
 def build(data: dict) -> str:
     week = data.get("week", "?")
     team = data.get("team_name") or "Your team"
     roster = data.get("roster", [])
-    starters = [p for p in roster if p.get("starting")]
-    bench = [p for p in roster if not p.get("starting")]
+    opt = data.get("optimizer", {}) or {}
+    opp_total = sum(p["projected"] for p in data.get("opponent_roster", []) if p.get("starting") and isinstance(p.get("projected"), (int, float)))
 
-    def rows(lst):
-        return "".join(_player_row(p) for p in lst) or '<p class="empty">Nothing here.</p>'
+    if opt.get("lineup"):
+        n = len(opt["swaps"])
+        go = (f'<div class="stat go"><div class="l">Optimizer</div><div class="v">+{opt["gain"]}</div>'
+              f'<div class="s">{n} swap{"s" if n != 1 else ""} available</div></div>') if n else (
+              f'<div class="stat go"><div class="l">Optimizer</div><div class="v">Optimal</div><div class="s">no changes needed</div></div>')
+        proj = (f'<div class="stat"><div class="l">Projected</div><div class="v">{opt["optimal_total"]}</div>'
+                f'<div class="s">{("opp " + f"{opp_total:.1f}") if opp_total else "this week"}</div></div>')
+        stats = f'<div class="stats">{go}{proj}</div>'
+    else:
+        stats = ""
 
-    add_rows = "".join(
-        f'<div class="row"><div><span class="nm">{_e(a["name"])}</span><div class="meta">{_e(a.get("position",""))} {_e(a.get("team",""))} {_flag(a.get("injury",""))}</div></div>'
-        f'<div class="num">{a.get("count",0):,}<small>adds</small></div></div>'
-        for a in data.get("trending_adds", [])) or '<p class="empty">No trending data.</p>'
+    adds = "".join(
+        f'<div class="row"><div class="who"><div class="nm">{_e(a["name"])}</div>{_meta(a)}</div>'
+        f'<div class="num">{a.get("count", 0):,}<small>adds</small></div></div>' for a in data.get("trending_adds", [])) or '<p class="empty">No trending data.</p>'
+    news = "".join(
+        f'<div class="row"><a href="{_e(n.get("link", "#"))}">{_e(n.get("headline", ""))}</a>'
+        f'<div class="m">{_e(_blurb(n.get("description")))}</div></div>' for n in data.get("news", [])) or '<p class="empty">No headlines.</p>'
 
-    news_rows = "".join(
-        f'<div class="row"><a href="{_e(n.get("link","#"))}">{_e(n.get("headline",""))}</a>'
-        f'<div class="meta">{_e((n.get("description") or "")[:160])}</div></div>'
-        for n in data.get("news", [])) or '<p class="empty">No headlines.</p>'
+    opp = data.get("opponent_name")
+    opp_html = f'<div class="opp"><div class="wk">vs</div><div class="cond">{_e(opp)}</div></div>' if opp else ""
 
-    opp = f' &middot; vs {_e(data["opponent_name"])}' if data.get("opponent_name") else ""
+    navitems = [("#lineup", "lineup", "Lineup"), ("#rank", "rank", "Rankings"), ("#trades", "trades", "Trades"), ("#news", "news", "News")]
+    bottom = "".join(f'<li><a href="{h}">{ICONS[i]}{l}</a></li>' for h, i, l in navitems) + f'<li><a href="#settings" data-gear>{ICONS["gear"]}Settings</a></li>'
+    top = "".join(f'<li><a href="{h}">{l}</a></li>' for h, i, l in navitems) + '<li><a href="#settings" data-gear>Settings</a></li>'
 
     return f"""<!doctype html>
 <html lang="en"><head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#E9E7E2">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#EEF2F7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0D1626" media="(prefers-color-scheme: dark)">
 <title>Week {week} &mdash; {_e(team)}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600&display=swap" rel="stylesheet">
+<script>{HEAD_JS}</script>
 <style>{CSS}</style>
 </head><body><div class="wrap">
 
-<header><h1>Week {week}</h1>
-<p class="sub">{_e(team)} &middot; {_e(data.get('record',''))}{opp}</p></header>
+<header><div><div class="wk">Week {week}{(" &middot; " + _e(data.get("record"))) if data.get("record") else ""}</div><h1>{_e(team)}</h1></div>
+{opp_html}<button class="gear" data-gear aria-label="Settings">{ICONS["gear"].replace('<svg', '<svg width="18" height="18" style="stroke:currentColor;fill:none;stroke-width:1.6"')}</button></header>
 
-<nav aria-label="Sections"><ul>
-<li><a href="#lineup">Lineup</a></li><li><a href="#best">Best lineup</a></li>
-<li><a href="#rank">Rankings</a></li><li><a href="#trades">Trades</a></li>
-<li><a href="#waiver">Waivers</a></li><li><a href="#news">News</a></li></ul></nav>
+<nav class="top" aria-label="Sections"><ul>{top}</ul></nav>
 
-<section class="sheet" id="lineup"><h2>Needs your attention</h2>{_alerts(roster)}
-<p class="group">Starting</p>{rows(starters)}<p class="group">Bench</p>{rows(bench)}</section>
+<section class="sheet" id="settings"><div class="hd"><h2>Settings</h2><span class="m">saved on this device</span></div>
+<div class="setrow"><label>Theme</label><div class="seg" data-set="theme"><button data-v="auto">Auto</button><button data-v="light">Light</button><button data-v="dark">Dark</button></div></div>
+<div class="setrow" style="padding-bottom:14px"><label>Text size</label><div class="seg" data-set="size"><button data-v="small">Small</button><button data-v="default">Default</button><button data-v="large">Large</button><button data-v="xl">XL</button></div></div></section>
 
-<section class="sheet" id="best"><h2>Best lineup this week</h2>{_optimizer(data.get("optimizer", {}))}</section>
+{_status(data.get("espn"))}
+{stats}
 
-<section class="sheet" id="rank"><h2>Position rankings</h2>{_rankings(data.get("rankings", {}))}</section>
+<section class="sheet" id="lineup"><div class="hd"><h2>Start / sit</h2><span class="m">your lineup</span></div>
+{_alerts(roster)}{_lineup(roster, opt)}
+{('<div class="grp">RECOMMENDED SWAPS</div>' + _swaps(opt)) if opt.get("lineup") else ""}</section>
 
-<section class="sheet" id="trades"><h2>Trade targets</h2>{_trades(data.get("trades", {}))}</section>
+<section class="sheet" id="rank"><div class="hd"><h2>Rankings</h2><span class="m">PPR &middot; this week</span></div>{_rankings(data.get("rankings", {}))}</section>
 
-<section class="sheet" id="waiver"><h2>Most added this week</h2>{add_rows}</section>
+<section class="sheet" id="trades"><div class="hd"><h2>Trade targets</h2></div>{_trades(data.get("trades", {}))}</section>
 
-<section class="sheet news" id="news"><h2>Headlines</h2>{news_rows}</section>
+<section class="sheet" id="waiver"><div class="hd"><h2>Most added</h2><span class="m">all leagues, 48h</span></div>{adds}</section>
 
-<p class="foot">Updated {_e(data.get("generated",""))}. Rankings blend this week's projection (65%) with 2025 points per game (35%).</p>
-</div><script>{JS}</script></body></html>"""
+<section class="sheet news" id="news"><div class="hd"><h2>Headlines</h2></div>{news}</section>
+
+<p class="foot">Updated {_e(data.get("generated", ""))}. Rankings blend this week's projection (65%) with 2025 points per game (35%). Tiers break on a 12% drop.</p>
+</div>
+<nav class="bottom" aria-label="Sections"><ul>{bottom}</ul></nav>
+<script>{JS}</script></body></html>"""
 
 
 def timestamp() -> str:
-    return datetime.now().strftime("%a %b %d, %I:%M %p")
+    """Central time: the workflow schedule is written for it, and Actions runs in UTC."""
+    try:
+        from zoneinfo import ZoneInfo
+        now = datetime.now(ZoneInfo("America/Chicago"))
+    except Exception:  # no tz database on this machine
+        now = datetime.now()
+    return now.strftime("%a %b %d, %-I:%M %p %Z").strip()

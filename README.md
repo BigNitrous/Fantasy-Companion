@@ -29,6 +29,47 @@ players rivals just dropped (often a panic move), your most droppable
 bench players, and the league's recent transactions. The header shows your
 waiver priority or FAAB left, standing, and ESPN's playoff odds.
 
+**Usage and role changes.** Projections alone miss who is actually getting
+the ball. For every skill player the collector pulls nflverse data (no extra
+packages) and works out snap share, target share, carry share, and targets
+and carries per game over his last four games, plus last week's line, and
+which quarterback is throwing to him and how often his team passes. When a
+teammate is out or on IR, his carries and targets are redistributed to the
+healthy players at his position (the next man up gets a guaranteed floor)
+and converted to projected points. That gain is added to ESPN's projection
+at half strength, capped at 6 points, and always shown next to ESPN's
+number ("ESPN 13.6 -> 16.1 with the role change"), so you can overrule it.
+The optimizer, rankings and waiver wire all use the adjusted number. ESPN
+headlines are matched to players by name and attached as evidence.
+
+**Weekly assessment** is the routine check on the whole week:
+
+- *Confidence score* is the chance your lineup outscores this week's
+  opponent. Each player is a distribution: mean = projection x chance to play
+  (Questionable 70%, Doubtful 15%, Out or bye 0), spread = the measured
+  week-to-week variation of his position this season. Add up your team and
+  theirs and the gap over the combined spread is a win probability. 50 is a
+  coin flip. It also shows what the score becomes if you make the
+  recommended changes, and a score for each day (Thursday, Sunday, Monday)
+  against an average team's starters.
+- *Do this* lists lineup fixes (a starter on a bye or out), swaps, and the
+  best pickups. Each pickup is scored by what it actually does to your
+  optimal lineup, and names the drop that makes room.
+- *Player cards* open under every player on your roster: outlook (chance he
+  outscores the average starter at his position), last week's targets,
+  catches, carries and snaps against his recent baseline, signed reasons
+  (target share up or down, snaps rising, role boost, injury, quarterback
+  change) and the news that matters.
+
+It leads with the **Tuesday check-up** on Tuesdays (before waivers), the
+**Game-day report** on Sundays (cards open for every player), and a general
+outlook otherwise. The workflow runs Tuesday 1pm CT, Wednesday 8am CT, and
+Sunday 7am, 10am and 11am CT; use Run workflow and pick a mode to force one.
+The same content is written to `site/assessment.md` for Claude to read.
+
+Matchup strength (how good the defense is against a position) is not
+modeled; the score is arithmetic on ESPN's projections, not a prediction.
+
 **Position rankings** score everyone in your league (all rosters plus free
 agents) as 65% this week's ESPN projection + 35% last season's PPR points
 per game. Last-season data comes from nflverse; kicker and D/ST points are
@@ -83,8 +124,8 @@ like an app after that.
 
 ## Schedule
 
-Builds Sunday at 7am and 10am Central, and Wednesday at 8am Central after
-waivers clear. Edit the cron lines in `.github/workflows/update.yml` to
+Builds Tuesday at 1pm Central (the waiver check-up), Wednesday at 8am Central
+after waivers clear, and Sunday at 7am, 10am and 11am Central. Edit the cron lines in `.github/workflows/update.yml` to
 change that, or hit Run workflow any time.
 
 ## Using the brief

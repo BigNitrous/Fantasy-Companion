@@ -4,10 +4,18 @@ on:
   schedule:
     # Times are UTC. San Antonio is UTC-5 during the season, UTC-6 after
     # early November, so these drift an hour when the clocks change.
-    - cron: "0 12 * * 0"   # Sunday 7am CT - first look
-    - cron: "0 15 * * 0"   # Sunday 10am CT - after inactives post
+    - cron: "0 18 * * 2"   # Tuesday 1pm CT - waiver check-up: pickups and lineup changes before claims lock
     - cron: "0 13 * * 3"   # Wednesday 8am CT - waivers cleared
+    - cron: "0 12 * * 0"   # Sunday 7am CT - game-day report, every player weighed
+    - cron: "0 15 * * 0"   # Sunday 10am CT - early news
+    - cron: "0 16 * * 0"   # Sunday 11am CT - after the 10:30am CT inactives, before the 12pm CT kickoffs
   workflow_dispatch:        # run it manually any time from the Actions tab
+    inputs:
+      mode:
+        description: "Which report to lead with (auto picks by day: Tuesday check-up, Sunday game day)"
+        type: choice
+        default: auto
+        options: [auto, checkup, gameday, midweek]
   push:
     branches: [main]        # every push redeploys, so Claude Code edits go live on push
 
@@ -41,6 +49,7 @@ jobs:
           ESPN_SWID: ${{ secrets.ESPN_SWID }}
           SEASON: "2026"
           SCORING: "ppr"
+          ASSESS_MODE: ${{ inputs.mode != 'auto' && inputs.mode || '' }}
         run: python main.py
 
       - uses: actions/upload-pages-artifact@v3

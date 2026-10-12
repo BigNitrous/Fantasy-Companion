@@ -16,8 +16,10 @@ def _line(p: dict) -> str:
     opp = f" vs {p['opponent']}" if p.get("opponent") else " (no game)"
     own = p.get("pct_started")
     own = f", started in {own}% of leagues" if isinstance(own, (int, float)) and own >= 0 else ""
+    boost = (f" [ESPN {p['projected_espn']:.1f}, +{p['boost']} role: {p.get('boost_why', '')}]"
+             if p.get("boost") and isinstance(p.get("projected_espn"), (int, float)) else "")
     return (f"- {p.get('name')} ({p.get('position')}, {p.get('team')}){opp}"
-            f" - projected {proj}{inj}{own}")
+            f" - projected {proj}{boost}{inj}{own}")
 
 
 def build(data: dict) -> str:
@@ -34,6 +36,29 @@ def build(data: dict) -> str:
     ]
     if data.get("opponent_name"):
         out.append(f"Opponent this week: {data['opponent_name']}")
+
+    a = data.get("assessment") or {}
+    if a:
+        out += ["", f"## {a['title']} (full detail in assessment.md)"]
+        if a.get("score") is not None:
+            out.append(f"Confidence {a['score']}/100 ({a['label']}): projected {a['mine']} vs {a['opp']}, "
+                       f"margin {a['margin']:+}, typical swing +/-{a['spread']}. League-average team projects {a.get('league_avg')}.")
+            o = a.get("optimal") or {}
+            if o.get("win") is not None:
+                out.append(f"With the recommended changes: {o['expected']} projected, {round(100 * o['win'])}% to win.")
+        for x in a.get("actions", []):
+            out.append(f"- [{x['kind'].upper()}] {x['title']}. {x['detail']}")
+        for d in a.get("days", []):
+            out.append(f"- {d['day']}: {d['n']} starter(s), {d['expected']} projected, {d['vs_typical']:+} vs an average team, {d['score']}%")
+
+    rw = data.get("role_watch") or []
+    if rw:
+        out += ["", "## Role watch (who inherits touches, who loses them)"]
+        for e in rw:
+            bits = [f"+{e['boost']} pts: {e['why']}" if e.get("boost") else "", e.get("qb_note", ""),
+                    (e.get("news") or {}).get("headline", "")]
+            out.append(f"- {e['name']} ({e['position']}, {e['team']}, {'mine' if e['mine'] else 'available'}): "
+                       + "; ".join(b for b in bits if b))
 
     out += ["", "## My starters"] + [_line(p) for p in starters]
     out += ["", "## My bench"] + [_line(p) for p in bench]

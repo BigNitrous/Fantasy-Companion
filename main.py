@@ -9,13 +9,36 @@ sorted out cookies.
 import os
 import sys
 import traceback
+from datetime import datetime
 
-from collector import config, sleeper_source, news_source, render, brief, history, optimizer, rankings, trades, waivers
+from collector import (config, sleeper_source, news_source, render, brief, history, optimizer, rankings, trades,
+                       waivers, usage, roles, schedule_source, assess)
+
+
+def _now_ct() -> datetime:
+    try:
+        from zoneinfo import ZoneInfo
+        return datetime.now(ZoneInfo("America/Chicago"))
+    except Exception:
+        return datetime.now()
 
 
 def main() -> int:
     week = sleeper_source.current_week()
     print(f"NFL week {week}")
+
+    print("Loading usage (nflverse)...")
+    us = usage.load(config.SEASON)
+    if us:
+        print(f"  {len(us['players'])} players, {len(us['teams'])} teams, through week {us['through']}"
+              + (" (last season's data)" if us["stale"] else ""))
+        # Sleeper keeps reporting the week that just ended until Tuesday. If every game of
+        # `week` is already in the stats, the week you're deciding for is the next one.
+        if not us["stale"] and us["through"] >= week and week < 18:
+            week = us["through"] + 1
+            print(f"  week {us['through']} is complete, assessing week {week}")
+    else:
+        print("  usage data unavailable; role and usage analysis skipped")
 
     data = {
         "week": week,
@@ -57,6 +80,26 @@ def main() -> int:
         data["roster_injuries"] = sleeper_source.injuries_for(names)
         print(f"  {len(data['roster_injuries'])} injury notes on your players")
 
+    print("Fetching news...")
+    data["news"] = news_source.headlines(limit=50)
+
+    slate = schedule_source.slate(week, config.SEASON) if data["roster"] else {}
+    if slate:
+        # ESPN's reloaded rosters carry no opponent for the target week; the slate has every matchup.
+        for key in ("roster", "opponent_roster", "free_agents", "league_pool"):
+            for pl in data.get(key, []):
+                if not pl.get("opponent") and pl.get("position") != "D/ST":
+                    pl["opponent"] = slate["opp"].get(pl.get("team", ""), "")
+                elif not pl.get("opponent"):
+                    pl["opponent"] = slate["opp"].get(pl.get("team", ""), "")
+
+    if data["roster"] and us:
+        rl = roles.Roles(us, sleeper_source.all_players(), data["news"])
+        n = rl.annotate(data["roster"]) + rl.annotate(data.get("opponent_roster", [])) \
+            + rl.annotate(data.get("free_agents", [])) + rl.annotate(data.get("league_pool", []))
+        data["role_watch"] = roles.watch(data["roster"], data.get("free_agents", []))
+        print(f"  roles: {n} projection(s) adjusted for vacated opportunity, {len(data['role_watch'])} on the watch list")
+
     # Analysis layers. All degrade to empty if ESPN isn't available.
     print("Loading 2025 season history...")
     hist = history.load(config.SEASON - 1)
@@ -85,8 +128,14 @@ def main() -> int:
         w = data["waivers"]
         print(f"  waivers: {len(w['adds'])} add candidate(s), {len(w['hot'])} hot & unclaimed, {len(w['just_dropped'])} recently dropped")
 
-    print("Fetching news...")
-    data["news"] = news_source.headlines(limit=15)
+    if data["roster"]:
+        now = _now_ct()
+        mode = assess.pick_mode(now, os.environ.get("ASSESS_MODE", "").strip().lower())
+        data["assessment"] = assess.build(data, slate, (us or {}).get("sigma"), mode, now)
+        a = data["assessment"]
+        if a and a.get("score") is not None:
+            print(f"  assessment ({a['title']}): {a['score']} confidence ({a['label']}), "
+                  f"{a['mine']} vs {a['opp']}, {len(a['actions'])} action(s)")
 
     os.makedirs(config.OUTPUT_DIR, exist_ok=True)
     html_path = os.path.join(config.OUTPUT_DIR, "index.html")
@@ -96,6 +145,9 @@ def main() -> int:
         f.write(render.build(data))
     with open(brief_path, "w", encoding="utf-8") as f:
         f.write(brief.build(data))
+    if data.get("assessment"):
+        with open(os.path.join(config.OUTPUT_DIR, "assessment.md"), "w", encoding="utf-8") as f:
+            f.write(assess.markdown(data["assessment"], data))
 
     print(f"Wrote {html_path} and {brief_path}")
     return 0

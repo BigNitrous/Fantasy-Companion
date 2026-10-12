@@ -128,6 +128,8 @@ def build(free_agents: list[dict], roster: list[dict], hist: dict, trending: lis
                 verdict, reason = "stash", f"{fa['ros']:.0f} projected rest of season vs {drop['ros']:.0f} for {drop['name']}"
         if not verdict:
             continue
+        if (fa.get("boost") or 0) >= 1.0:
+            reason += f". Inherits a bigger role: +{fa['boost']} ({fa.get('boost_why', '')})"
 
         k = _key(fa["name"])
         adds.append({**fa, "verdict": verdict, "reason": reason,

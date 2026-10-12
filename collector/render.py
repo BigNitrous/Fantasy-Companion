@@ -34,7 +34,9 @@ body{{margin:0;background:var(--paper);color:var(--ink);font-family:'Barlow',sys
 header{{display:flex;align-items:flex-end;gap:12px;padding:4px 0 14px}}
 header .wk{{color:var(--muted);font-size:.8125rem}}
 header h1{{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:2rem;line-height:1;margin:2px 0 0;letter-spacing:-.005em}}
-header .opp{{margin-left:auto;text-align:right}}
+header>div{{min-width:0}}
+header .opp{{margin-left:auto;text-align:right;max-width:46%}}
+header .opp .cond{{overflow-wrap:anywhere}}
 header .opp .cond{{font-size:1.0625rem}}
 .gear{{margin-left:10px;width:36px;height:36px;border-radius:10px;border:1px solid var(--line);background:var(--sheet);color:var(--muted);
       display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex:none}}
@@ -58,12 +60,42 @@ header .opp .cond{{font-size:1.0625rem}}
 .m{{font-size:.75rem;color:var(--muted)}}
 .num{{text-align:right;font-variant-numeric:tabular-nums;font-size:.875rem;white-space:nowrap;line-height:1.2}}
 .num small{{display:block;font-size:.6875rem;color:var(--muted)}}
-.chip{{display:inline-block;padding:3px 9px;border-radius:6px;font-size:.6875rem;font-weight:500;font-family:'Barlow Condensed',sans-serif;letter-spacing:.06em;white-space:nowrap}}
+.chip{{flex:none;display:inline-block;padding:3px 9px;border-radius:6px;font-size:.6875rem;font-weight:500;font-family:'Barlow Condensed',sans-serif;letter-spacing:.06em;white-space:nowrap}}
 .chip.start{{background:var(--green);color:var(--on-green)}}
 .chip.sit{{background:var(--out-soft);color:var(--out);border:1px solid var(--out-line)}}
 .chip.consider{{background:var(--quest-soft);color:var(--quest);border:1px solid var(--quest-line)}}
 .chip.slot{{background:transparent;color:var(--muted);border:1px solid var(--line);min-width:44px;text-align:center}}
 .chip.stream{{background:var(--blue);color:var(--on-blue)}}
+.chip.k-fix{{background:var(--out-soft);color:var(--out);border:1px solid var(--out-line)}}
+.chip.k-swap{{background:var(--green);color:var(--on-green)}}
+.chip.k-pickup{{background:var(--blue);color:var(--on-blue)}}
+.chip.k-watch{{background:var(--quest-soft);color:var(--quest);border:1px solid var(--quest-line)}}
+.gauge{{display:flex;align-items:center;gap:14px;padding:6px 16px 2px}}
+.gauge .big{{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:4rem;line-height:.9;letter-spacing:-.02em}}
+.gauge .big small{{font-size:1.5rem;color:var(--muted);margin-left:2px}}
+.gauge .gt{{font-family:'Barlow Condensed',sans-serif;font-weight:600;font-size:1.25rem;line-height:1.1}}
+.gauge .gs{{font-size:.8125rem;color:var(--muted);margin-top:2px}}
+.g-hi .big,.g-hi .gt{{color:var(--green)}} .g-mid .big,.g-mid .gt{{color:var(--quest)}} .g-lo .big,.g-lo .gt{{color:var(--out)}}
+.meter{{position:relative;height:8px;margin:10px 16px 4px;border-radius:99px;background:var(--line)}}
+.meter span{{display:block;height:100%;border-radius:99px;background:var(--green)}}
+.meter.mid span{{background:var(--quest)}} .meter.lo span{{background:var(--out)}}
+.meter i{{position:absolute;top:-3px;bottom:-3px;left:50%;width:2px;background:var(--muted);opacity:.7}}
+.after{{margin:6px 16px 12px;font-size:.8125rem;color:var(--muted)}} .after b{{color:var(--green);font-weight:600}}
+.pl{{border-top:1px solid var(--line)}}
+.pl>summary{{list-style:none;cursor:pointer;border-top:0}}
+.pl>summary::-webkit-details-marker{{display:none}}
+.pl[open]>summary{{background:var(--paper)}}
+.deep{{padding:2px 16px 12px;font-size:.8125rem;color:var(--muted);background:var(--paper)}}
+.deep .ln{{margin-top:5px}} .deep .ln b{{color:var(--ink);font-weight:600}} .deep a{{color:var(--blue)}}
+.sig{{list-style:none;margin:6px 0 0;padding:0}}
+.sig li{{display:flex;gap:8px;padding:2px 0;color:var(--ink)}}
+.sig .sp{{flex:none;width:14px;text-align:center;font-weight:700}}
+.sg-p{{color:var(--green)}} .sg-m{{color:var(--out)}} .sg-i{{color:var(--muted)}}
+.use{{font-size:.6875rem;color:var(--muted);margin-top:2px}}
+.nm.free{{white-space:normal;overflow:visible}}
+.reason a,.row .m a{{color:var(--blue);text-decoration:none}} .reason a:hover{{text-decoration:underline}}
+.num small.ol-s{{color:var(--green)}} .num small.ol-w{{color:var(--quest)}} .num small.ol-x{{color:var(--out)}}
+.num .f-go,.num .f-out,.num .f-quest{{font-weight:600}}
 .chip.bench{{background:var(--quest-soft);color:var(--quest);border:1px solid var(--quest-line)}}
 .chip.stash{{background:transparent;color:var(--blue);border:1px solid var(--blue)}}
 .act{{padding:7px 16px;font-size:.8125rem;border-top:1px solid var(--line);color:var(--muted)}} .act b{{font-weight:500;color:var(--ink)}}
@@ -150,6 +182,7 @@ JS = """
 
 ICONS = {
     "lineup": '<svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></svg>',
+    "check": '<svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v0a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2zM9 14l2 2 4-4"/></svg>',
     "waiver": '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>',
     "rank": '<svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
     "trades": '<svg viewBox="0 0 24 24"><path d="M7 10h10l-3-3M17 14H7l3 3"/></svg>',
@@ -224,7 +257,8 @@ def _verdicts(roster: list[dict], opt: dict) -> dict:
     return out
 
 
-def _lineup(roster: list[dict], opt: dict) -> str:
+def _lineup(roster: list[dict], opt: dict, cards: dict = None, open_all: bool = False, rw: list = None) -> str:
+    cards = cards or {}
     starters = [p for p in roster if p.get("starting")]
     bench = [p for p in roster if not p.get("starting")]
     v = _verdicts(roster, opt)
@@ -238,12 +272,18 @@ def _lineup(roster: list[dict], opt: dict) -> str:
                 f' &middot; <span class="{"f-quest" if verdict == "consider" else "f-out"}">{_e(note)}</span>' if note else "")
         hi = " hi" if (verdict == "start" and not p.get("starting")) else ""
         slot = f'<span class="chip slot">{_e(p.get("slot", ""))}</span>' if p.get("slot") not in ("BE", "", None) else ""
-        return (f'<div class="row{hi}">{slot}<div class="who"><div class="nm">{_e(p["name"])}</div>{_meta(p, extra)}</div>'
-                f'{chip}<div class="num">{_pts(p.get("projected"))}</div></div>')
+        c = cards.get(p["name"])
+        small = f'<small class="ol ol-{_OL.get(c["label"], "o")}">{c["outlook"]} outlook</small>' if c else ""
+        inner = (f'{slot}<div class="who"><div class="nm">{_e(p["name"])}</div>{_meta(p, extra)}{_use(p)}</div>'
+                 f'{chip}<div class="num">{_pts(p.get("projected"))}{small}</div>')
+        if not c:
+            return f'<div class="row{hi}">{inner}</div>'
+        return (f'<details class="pl"{" open" if open_all else ""}><summary class="row{hi}">{inner}</summary>'
+                f'{_deep(c)}</details>')
 
     if not roster:
         return '<p class="empty">Needs your roster. See the note at the top of the page.</p>'
-    return ('<div class="grp">STARTING</div>' + "".join(row(p) for p in starters) +
+    return (_role_watch(rw) + '<div class="grp">STARTING</div>' + "".join(row(p) for p in starters) +
             '<div class="grp">BENCH</div>' + "".join(row(p) for p in bench))
 
 
@@ -339,6 +379,111 @@ def _trades(tr: dict) -> str:
     return out
 
 
+_OL = {"Strong": "s", "Solid": "o", "Shaky": "w", "Weak": "x", "Not playing": "x"}
+_TRENDW = {"up": "usage rising", "down": "usage falling", "flat": "usage steady"}
+_SG = {"+": ("p", "+"), "-": ("m", "\u2212"), "i": ("i", "\u2022")}
+_DAYS = {"Thu": "Thursday", "Fri": "Friday", "Sat": "Saturday", "Sun": "Sunday", "Mon": "Monday", "Bye": "Bye week"}
+
+
+def _use(p: dict) -> str:
+    """One quiet line under a name: role and usage, plus any role boost."""
+    t = (p.get("usage") or {}).get("text", "")
+    if not t:
+        return ""
+    boost = f' &middot; <span class="f-go">+{p["boost"]:.1f} role</span>' if p.get("boost") else ""
+    return f'<div class="use">{_e(t)}{boost}</div>'
+
+
+def _deep(c: dict) -> str:
+    """The expandable player card: outlook, last week, recent baseline, and why."""
+    parts = [f'<div class="ln"><b>{c["outlook"]}</b> outlook ({_e(c["label"].lower())}, {_e(_TRENDW[c["trend"]])}) &middot; '
+             f'expected <b>{c["expected"]:.1f}</b> vs {c["bench"]:.1f} for the average {_e(c["position"])} starter</div>']
+    if isinstance(c.get("proj_espn"), (int, float)) and abs(c["proj"] - c["proj_espn"]) >= 0.05:
+        parts.append(f'<div class="ln">ESPN {c["proj_espn"]:.1f} &rarr; {c["proj"]:.1f} with the role change</div>')
+    if c.get("last"):
+        parts.append(f'<div class="ln"><b>{_e(c["last"])}</b></div>')
+    if c.get("avg"):
+        parts.append(f'<div class="ln">{_e(c["avg"])}</div>')
+    sigs = ""
+    for sign, text in c.get("signals", []):
+        cls, ch = _SG[sign]
+        sigs += f'<li><span class="sp sg-{cls}">{ch}</span><span>{_e(text)}</span></li>'
+    if sigs:
+        parts.append(f'<ul class="sig">{sigs}</ul>')
+    n = c.get("news")
+    if n and n.get("link"):
+        parts.append(f'<div class="ln"><a href="{_e(n["link"])}">{_e(n["headline"])}</a></div>')
+    return '<div class="deep">' + "".join(parts) + "</div>"
+
+
+def _role_watch(rw: list) -> str:
+    """Who gains or loses touches this week, yours first."""
+    if not rw:
+        return ""
+    rows = ""
+    for e in rw:
+        who = " &middot; yours" if e.get("mine") else " &middot; on the wire"
+        lines = []
+        if e.get("boost"):
+            lines.append(f'+{e["boost"]:.1f} pts expected: {_e(e.get("why", ""))}')
+        if e.get("qb_note"):
+            lines.append(_e(e["qb_note"]))
+        n = e.get("news")
+        if n:
+            lines.append(f'<a href="{_e(n.get("link", "#"))}">{_e(n.get("headline", ""))}</a>')
+        num = f'<div class="num f-go">+{e["boost"]:.1f}</div>' if e.get("boost") else ""
+        rows += (f'<div class="row"><div class="who"><div class="nm">{_e(e["name"])}</div>'
+                 f'<div class="m">{_e(e.get("position", ""))} {_e(e.get("team", ""))}{who}</div>'
+                 f'<div class="reason">{" &middot; ".join(lines)}</div></div>{num}</div>')
+    return '<div class="grp">ROLE WATCH: WHO GETS THE BALL</div>' + rows
+
+
+def _hero(a: dict, opp_name: str) -> str:
+    if not a or a.get("score") is None:
+        return ""
+    sc = a["score"]
+    cls = "g-hi" if sc >= 55 else "g-mid" if sc >= 45 else "g-lo"
+    meter = {"g-hi": "", "g-mid": " mid", "g-lo": " lo"}[cls]
+    vs = f" to beat {_e(opp_name)}" if opp_name else ""
+    head = (f'<div class="gauge {cls}"><div class="big">{sc}<small>%</small></div><div>'
+            f'<div class="gt">{_e(a["label"])}</div>'
+            f'<div class="gs">{a["mine"]:.1f} vs {a["opp"]:.1f} projected{vs}</div></div></div>'
+            f'<div class="meter{meter}"><span style="width:{max(2, min(100, sc))}%"></span><i></i></div>')
+    after = ""
+    o = a.get("optimal") or {}
+    if o.get("win") is not None and o["expected"] >= a["mine"] + 0.5:
+        after = (f'<p class="after">With the lineup changes below: <b>{round(100 * o["win"])}%</b> '
+                 f'({o["expected"]:.1f} projected)</p>')
+    else:
+        after = '<p class="after">Chance your lineup outscores this week\'s opponent. 50% is a coin flip.</p>'
+
+    acts = ""
+    for x in a.get("actions", []):
+        gain = f'<div class="num f-go">+{x["gain"]:.1f}</div>' if x["gain"] >= 0.5 else ""
+        acts += (f'<div class="row"><span class="chip k-{x["kind"]}">{x["kind"].upper()}</span><div class="who">'
+                 f'<div class="nm free">{_e(x["title"])}</div><div class="reason">{_e(x["detail"])}</div></div>{gain}</div>')
+    if not acts:
+        acts = '<p class="empty">Nothing to do. Your lineup is optimal and no pickup improves it.</p>'
+
+    days = ""
+    for d in a.get("days", []):
+        names = ", ".join(d["names"])
+        if d["day"] == "Bye":
+            days += (f'<div class="row"><div class="who"><div class="nm">No game</div>'
+                     f'<div class="m">{_e(names)} {"has" if d["n"] == 1 else "have"} a bye</div></div>'
+                     f'<div class="num f-out">0</div></div>')
+            continue
+        k = "f-go" if d["score"] >= 55 else "f-quest" if d["score"] >= 40 else "f-out"
+        s_ = "" if d["n"] == 1 else "s"
+        days += (f'<div class="row"><div class="who"><div class="nm">{_DAYS.get(d["day"], d["day"])}</div>'
+                 f'<div class="m">{d["n"]} starter{s_} &middot; {d["expected"]:.1f} projected &middot; {_e(names)}</div></div>'
+                 f'<div class="num {k}">{d["score"]}%<small>{d["vs_typical"]:+.1f} vs avg team</small></div></div>')
+    days = ('<div class="grp">BY DAY</div>' + days) if days else ""
+    return (f'<section class="sheet hero" id="checkup"><div class="hd"><h2>{_e(a["title"])}</h2>'
+            f'<span class="m">Week {_e(a["week"])} &middot; {_e(a["sub"].lower())}</span></div>'
+            f'{head}{after}<div class="grp">DO THIS</div>{acts}{days}</section>')
+
+
 def _ordinal(n) -> str:
     n = int(n)
     suffix = "th" if 10 <= n % 100 <= 20 else {1: "st", 2: "nd", 3: "rd"}.get(n % 10, "th")
@@ -379,7 +524,7 @@ def _waivers(w: dict) -> str:
                 extra += f' &middot; dropped by {_e(a["dropped_by"])}'
             drop = f'<small>drop {_e(a["drop"])}</small>' if a.get("drop") else ""
             out += (f'<div class="row"><span class="chip {a["verdict"]}">{a["verdict"].upper()}</span>'
-                    f'<div class="who"><div class="nm">{_e(a["name"])}</div>{_meta(a, extra)}<div class="reason">{_e(a["reason"])}</div></div>'
+                    f'<div class="who"><div class="nm">{_e(a["name"])}</div>{_meta(a, extra)}{_use(a)}<div class="reason">{_e(a["reason"])}</div></div>'
                     f'<div class="num">{_pts(a["proj"])}{drop}</div></div>')
     else:
         out += '<p class="empty">Nobody on the wire beats what you have. Check again after waivers clear.</p>'
@@ -436,7 +581,7 @@ def build(data: dict) -> str:
         go = (f'<div class="stat go"><div class="l">Optimizer</div><div class="v">+{opt["gain"]}</div>'
               f'<div class="s">{n} swap{"s" if n != 1 else ""} available</div></div>') if n else (
               f'<div class="stat go"><div class="l">Optimizer</div><div class="v">Optimal</div><div class="s">no changes needed</div></div>')
-        proj = (f'<div class="stat"><div class="l">Projected</div><div class="v">{opt["optimal_total"]}</div>'
+        proj = (f'<div class="stat"><div class="l">Best lineup</div><div class="v">{opt["optimal_total"]}</div>'
                 f'<div class="s">{("opp " + f"{opp_total:.1f}") if opp_total else "this week"}</div></div>')
         stats = f'<div class="stats">{go}{proj}{standing}</div>'
     else:
@@ -447,7 +592,7 @@ def build(data: dict) -> str:
         f'<div class="num">{a.get("count", 0):,}<small>adds</small></div></div>' for a in data.get("trending_adds", [])) or '<p class="empty">No trending data.</p>'
     news = "".join(
         f'<div class="row"><a href="{_e(n.get("link", "#"))}">{_e(n.get("headline", ""))}</a>'
-        f'<div class="m">{_e(_blurb(n.get("description")))}</div></div>' for n in data.get("news", [])) or '<p class="empty">No headlines.</p>'
+        f'<div class="m">{_e(_blurb(n.get("description")))}</div></div>' for n in data.get("news", [])[:15]) or '<p class="empty">No headlines.</p>'
 
     w = data.get("waivers")
     if w:
@@ -460,9 +605,13 @@ def build(data: dict) -> str:
     opp = data.get("opponent_name")
     opp_html = f'<div class="opp"><div class="wk">vs</div><div class="cond">{_e(opp)}</div></div>' if opp else ""
 
-    navitems = [("#lineup", "lineup", "Lineup"), ("#waiver", "waiver", "Waivers"), ("#rank", "rank", "Rankings"),
-                ("#trades", "trades", "Trades"), ("#news", "news", "News")]
-    bottom = "".join(f'<li><a href="{h}">{ICONS[i]}{l}</a></li>' for h, i, l in navitems) + f'<li><a href="#settings" data-gear>{ICONS["gear"]}Settings</a></li>'
+    assessment = data.get("assessment") or {}
+    cards = {c["name"]: c for c in assessment.get("cards", [])}
+    hero_html = _hero(assessment, data.get("opponent_name", ""))
+    navitems = ([("#checkup", "check", "Check-up")] if hero_html else []) + [
+        ("#lineup", "lineup", "Lineup"), ("#waiver", "waiver", "Waivers"), ("#rank", "rank", "Rankings"),
+        ("#trades", "trades", "Trades"), ("#news", "news", "News")]
+    bottom = "".join(f'<li><a href="{h}">{ICONS[i]}{l}</a></li>' for h, i, l in navitems if i != "news") + f'<li><a href="#settings" data-gear>{ICONS["gear"]}Settings</a></li>'
     top = "".join(f'<li><a href="{h}">{l}</a></li>' for h, i, l in navitems) + '<li><a href="#settings" data-gear>Settings</a></li>'
 
     return f"""<!doctype html>
@@ -487,10 +636,11 @@ def build(data: dict) -> str:
 <div class="setrow" style="padding-bottom:14px"><label>Text size</label><div class="seg" data-set="size"><button data-v="small">Small</button><button data-v="default">Default</button><button data-v="large">Large</button><button data-v="xl">XL</button></div></div></section>
 
 {_status(data.get("espn"))}
+{hero_html}
 {stats}
 
 <section class="sheet" id="lineup"><div class="hd"><h2>Start / sit</h2><span class="m">your lineup</span></div>
-{_alerts(roster)}{_lineup(roster, opt)}
+{_alerts(roster)}{_lineup(roster, opt, cards, assessment.get("mode") == "gameday", data.get("role_watch"))}
 {('<div class="grp">RECOMMENDED SWAPS</div>' + _swaps(opt)) if opt.get("lineup") else ""}</section>
 
 {waiver_html}

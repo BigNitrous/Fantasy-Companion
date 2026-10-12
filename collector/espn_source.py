@@ -161,6 +161,14 @@ def fetch(week: int) -> dict:
     except ESPNUnknownError as e:
         raise ESPNSetupError(f"ESPN returned an unexpected response: {e}")
 
+    # ESPN loads rosters for its own current week. When we're assessing a different one (the
+    # next week, before ESPN flips on Tuesday) reload them so projections and slots match.
+    if week != getattr(league, "current_week", week):
+        try:
+            league.load_roster_week(week)
+        except Exception:
+            pass
+
     my_team = None
     if config.TEAM_NAME:
         for t in league.teams:

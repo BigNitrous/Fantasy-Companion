@@ -25,7 +25,7 @@ def _line(p: dict) -> str:
 def build(data: dict) -> str:
     roster = data.get("roster", [])
     starters = [p for p in roster if p.get("starting")]
-    bench = [p for p in roster if not p.get("starting")]
+    bench = sorted((p for p in roster if not p.get("starting")), key=lambda p: p.get("slot") == "IR")  # IR last
 
     out = [
         f"# Fantasy brief - Week {data.get('week')}",

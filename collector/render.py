@@ -261,7 +261,7 @@ def _verdicts(roster: list[dict], opt: dict) -> dict:
 def _lineup(roster: list[dict], opt: dict, cards: dict = None, open_all: bool = False, rw: list = None) -> str:
     cards = cards or {}
     starters = [p for p in roster if p.get("starting")]
-    bench = [p for p in roster if not p.get("starting")]
+    bench = sorted((p for p in roster if not p.get("starting")), key=lambda p: p.get("slot") == "IR")  # IR last
     v = _verdicts(roster, opt)
 
     def row(p):

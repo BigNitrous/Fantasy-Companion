@@ -16,7 +16,7 @@ Scores use the same blend as rankings.py so numbers agree across sections.
 
 from __future__ import annotations
 import re
-from . import history
+from . import history, optimizer
 from .rankings import W_PROJ, W_HIST
 from .optimizer import UNAVAILABLE
 
@@ -76,6 +76,10 @@ def build(free_agents: list[dict], roster: list[dict], hist: dict, trending: lis
     fas = [_scored(p, hist) for p in free_agents]
     mine = [_scored(p, hist) for p in roster]
     bench = _droppable(mine)
+    slots = optimizer.slot_structure(roster)
+    empty = {pos for pos in SKILL + STREAM
+             if slots.count(pos) > sum(1 for p in mine if p.get("starting") and p.get("position") == pos)}
+    room = bool((league or {}).get("roster_limit")) and len(roster) < league["roster_limit"]
     need_pos = {n["position"] for n in needs or []}
     my_names = {_key(p["name"]) for p in roster}
 
@@ -114,7 +118,10 @@ def build(free_agents: list[dict], roster: list[dict], hist: dict, trending: lis
         worst = min(starters, key=lambda p: p["score"]) if starters else None
         verdict, reason = "", ""
 
-        if pos in STREAM:
+        if pos in empty and not fa.get("bye"):
+            verdict, reason = "fill", f"Fills your empty {pos} slot"
+            drop = None if room else drop
+        elif pos in STREAM:
             if worst and not fa.get("bye") and fa["proj"] >= worst["proj"] + 1.0:
                 verdict, reason = "stream", f"Projects {fa['proj']} vs {worst['proj']} for {worst['name']} this week"
                 drop = drop or worst
@@ -138,7 +145,7 @@ def build(free_agents: list[dict], roster: list[dict], hist: dict, trending: lis
                      "hot": hot_count.get(k, 0),
                      "dropped_by": dropped_by.get(k, "")})
 
-    order = {"start": 0, "stream": 1, "bench": 2, "stash": 3}
+    order = {"fill": -1, "start": 0, "stream": 1, "bench": 2, "stash": 3}
     adds.sort(key=lambda a: (order[a["verdict"]], -a["score"], -a["ros"]))
     hot.sort(key=lambda h: -h["count"])
     just_dropped.sort(key=lambda d: -d["ts"] if d.get("ts") else 0)

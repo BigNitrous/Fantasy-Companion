@@ -48,7 +48,14 @@ def _league_meta(league, my_team) -> dict:
     st = league.settings
     deadline = getattr(st, "trade_deadline", 0) or 0
     streak_t, streak_n = getattr(my_team, "streak_type", ""), getattr(my_team, "streak_length", 0)
+    counts = getattr(st, "position_slot_counts", {}) or {}
+    slots = []
+    for k, v in counts.items():
+        if k not in ("BE", "IR"):
+            slots += [k] * int(v or 0)
     return {
+        "slots": slots,                                   # starting slots, from the league settings
+        "roster_limit": sum(int(v or 0) for v in counts.values()),
         "faab": bool(getattr(st, "faab", False)),
         "budget": getattr(st, "acquisition_budget", None),
         "budget_spent": getattr(my_team, "acquisition_budget_spent", None),

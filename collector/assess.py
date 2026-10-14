@@ -270,11 +270,6 @@ def build(data: dict, slate: dict, sigma: dict, mode: str, now: datetime) -> dic
     win = _win(mine, opp) if opp_cards else None
 
     opt = data.get("optimizer") or {}
-    best = None
-    if opt.get("lineup"):
-        names = {e["player"]["name"] for e in opt["lineup"] if e.get("player")}
-        best_cards = [cards[n] for n in names if n in cards]
-        best = {"expected": round(_totals(best_cards)[0], 1), "win": _win(_totals(best_cards), opp) if opp_cards else None}
 
     # --- actions ---------------------------------------------------------------
     actions = []
@@ -293,12 +288,16 @@ def build(data: dict, slate: dict, sigma: dict, mode: str, now: datetime) -> dic
         gain = round(optimizer.optimize(roster + [fa])["optimal_total"] - base_total, 1)
         picks.append((gain, fa))
     picks.sort(key=lambda t: (-t[0], t[1].get("verdict") != "stash"))
-    used_drops = set()
+    used_drops, used_pos = set(), set()
     for gain, fa in picks:
         if gain < 0.5 and not (fa.get("verdict") == "stash" and (fa.get("need") or fa.get("boost") or fa.get("hot"))):
             continue
         if fa.get("drop") and fa["drop"] in used_drops:      # one claim per roster spot
             continue
+        if fa.get("verdict") in ("fill", "stream"):
+            if fa.get("position") in used_pos:
+                continue
+            used_pos.add(fa.get("position"))
         used_drops.add(fa.get("drop"))
         bits = [fa.get("reason", "")]
         if fa.get("boost"):
@@ -307,11 +306,11 @@ def build(data: dict, slate: dict, sigma: dict, mode: str, now: datetime) -> dic
             bits.append(f"{fa['hot']:,} adds in 48h")
         if fa.get("dropped_by"):
             bits.append(f"dropped by {fa['dropped_by']}")
-        actions.append({"kind": "pickup", "gain": gain, "in": fa["name"], "out": fa.get("drop", ""), "verdict": fa.get("verdict", ""),
+        actions.append({"kind": "fix" if fa.get("verdict") == "fill" else "pickup", "_fa": fa, "gain": gain, "in": fa["name"], "out": fa.get("drop", ""), "verdict": fa.get("verdict", ""),
                         "position": fa.get("position"), "team": fa.get("team"),
                         "title": f"Add {fa['name']}" + (f", drop {fa['drop']}" if fa.get("drop") else ""),
                         "detail": (f"+{gain} this week. " if gain >= 0.5 else "") + "; ".join(b for b in bits if b)})
-        if sum(1 for a in actions if a["kind"] == "pickup") >= 3:
+        if sum(1 for a in actions if a.get("_fa") is not None) >= 3:
             break
 
     cont = _contingency(roster, cards)
@@ -323,6 +322,17 @@ def build(data: dict, slate: dict, sigma: dict, mode: str, now: datetime) -> dic
     order = {"fix": 0, "swap": 1, "pickup": 2, "watch": 3}
     actions.sort(key=lambda a: (order[a["kind"]], -a["gain"]))
 
+    best = None
+    if opt.get("lineup"):
+        extra = [a["_fa"] for a in actions if a.get("_fa") is not None]
+        opt2 = optimizer.optimize(roster + extra) if extra else opt
+        pool_cards = dict(cards)
+        for fa in extra:
+            pool_cards[fa["name"]] = card(fa, ctx)
+        best_cards = [pool_cards[e["player"]["name"]] for e in opt2["lineup"]
+                      if e.get("player") and e["player"]["name"] in pool_cards]
+        best = {"expected": round(_totals(best_cards)[0], 1), "win": _win(_totals(best_cards), opp) if opp_cards else None}
+
     title, sub = MODES.get(mode, MODES["midweek"])
     score = round(100 * win) if win is not None else None
     return {
@@ -331,7 +341,8 @@ def build(data: dict, slate: dict, sigma: dict, mode: str, now: datetime) -> dic
         "mine": round(mine[0], 1), "opp": round(opp[0], 1) if opp_cards else None,
         "margin": round(mine[0] - opp[0], 1) if opp_cards else None,
         "spread": round(math.sqrt(mine[1] + opp[1]), 1),
-        "optimal": best, "days": _days(starters, ctx), "actions": actions,
+        "optimal": best, "days": _days(starters, ctx),
+        "actions": [{k: v for k, v in a.items() if k != "_fa"} for a in actions],
         "cards": [{k: v for k, v in cards[p["name"]].items() if not k.startswith("_")} for p in roster],
         "benchmarks": {k: round(v, 1) for k, v in ctx.bench.items()}, "league_avg": round(ctx.league_avg, 1),
     }

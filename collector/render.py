@@ -66,6 +66,7 @@ header .opp .cond{{font-size:1.0625rem}}
 .chip.consider{{background:var(--quest-soft);color:var(--quest);border:1px solid var(--quest-line)}}
 .chip.slot{{background:transparent;color:var(--muted);border:1px solid var(--line);min-width:44px;text-align:center}}
 .chip.stream{{background:var(--blue);color:var(--on-blue)}}
+.chip.fill{{background:var(--out-soft);color:var(--out);border:1px solid var(--out-line)}}
 .chip.k-fix{{background:var(--out-soft);color:var(--out);border:1px solid var(--out-line)}}
 .chip.k-swap{{background:var(--green);color:var(--on-green)}}
 .chip.k-pickup{{background:var(--blue);color:var(--on-blue)}}

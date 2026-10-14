@@ -30,9 +30,22 @@ def _playable(p: dict) -> bool:
     return True
 
 
+LEAGUE_SLOTS = None     # starting slots from the league settings; set once per run
+
+
+def set_league_slots(slots) -> None:
+    """Use the league's real lineup slots instead of inferring them from the roster. Inferring
+    makes a dropped kicker silently remove the K slot instead of leaving a hole to fill."""
+    global LEAGUE_SLOTS
+    LEAGUE_SLOTS = list(slots) if slots else None
+
+
 def slot_structure(roster: list[dict]) -> list[str]:
     """Ordered list of starting slots, one entry per slot."""
-    slots = [p.get("slot", "") for p in roster if p.get("slot") not in BENCH]
+    if LEAGUE_SLOTS:
+        slots = list(LEAGUE_SLOTS)
+    else:
+        slots = [p.get("slot", "") for p in roster if p.get("slot") not in BENCH]
     order = ["QB", "RB", "WR", "TE", "FLEX", "RB/WR/TE", "RB/WR", "WR/TE", "OP", "D/ST", "K"]
     return sorted(slots, key=lambda s: order.index(s) if s in order else 99)
 

@@ -5,6 +5,7 @@ on:
     # Times are UTC. San Antonio is UTC-5 during the season, UTC-6 after
     # early November, so these drift an hour when the clocks change.
     - cron: "0 18 * * 2"   # Tuesday 1pm CT - waiver check-up: pickups and lineup changes before claims lock
+    - cron: "7 21 * * 4"   # Thursday 4pm CT (CDT) - before Thursday night kickoff; 3pm once clocks fall back
     - cron: "0 13 * * 3"   # Wednesday 8am CT - waivers cleared
     - cron: "0 12 * * 0"   # Sunday 7am CT - game-day report, every player weighed
     - cron: "0 15 * * 0"   # Sunday 10am CT - early news

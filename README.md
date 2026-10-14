@@ -125,7 +125,10 @@ like an app after that.
 ## Schedule
 
 Builds Tuesday at 1pm Central (the waiver check-up), Wednesday at 8am Central
-after waivers clear, and Sunday at 7am, 10am and 11am Central. Edit the cron lines in `.github/workflows/update.yml` to
+after waivers clear, Thursday at 4pm Central, and Sunday at 7am, 10am and 11am
+Central. GitHub starts scheduled runs when it has capacity, which for this
+repo has been hours after the time written here; Run workflow always starts
+immediately. Edit the cron lines in `.github/workflows/update.yml` to
 change that, or hit Run workflow any time.
 
 ## Using the brief

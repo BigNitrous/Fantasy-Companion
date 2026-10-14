@@ -16,6 +16,7 @@ Scores use the same blend as rankings.py so numbers agree across sections.
 
 from __future__ import annotations
 import re
+from collections import Counter
 from . import history, optimizer
 from .rankings import W_PROJ, W_HIST
 from .optimizer import UNAVAILABLE
@@ -147,6 +148,14 @@ def build(free_agents: list[dict], roster: list[dict], hist: dict, trending: lis
 
     order = {"fill": -1, "start": 0, "stream": 1, "bench": 2, "stash": 3}
     adds.sort(key=lambda a: (order[a["verdict"]], -a["score"], -a["ros"]))
+    kept, fills = [], Counter()
+    for a in adds:                         # every free kicker fills an empty K slot; the best few are enough
+        if a["verdict"] == "fill":
+            fills[a["position"]] += 1
+            if fills[a["position"]] > 3:
+                continue
+        kept.append(a)
+    adds = kept
     hot.sort(key=lambda h: -h["count"])
     just_dropped.sort(key=lambda d: -d["ts"] if d.get("ts") else 0)
 

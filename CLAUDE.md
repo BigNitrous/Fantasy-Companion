@@ -57,15 +57,26 @@ brief, render.
 Actions cron (UTC): Tue 18:00 (waiver check-up), Wed 13:00, Thu 21:07, Sun
 12:00 / 15:00 / 16:00. `ASSESS_MODE` (auto, checkup, gameday, midweek) picks
 the lead report; auto = Tuesday check-up, Sunday game day.
-Two Claude scheduled tasks exist on the user's Mac (`fantasy-tuesday-checkup`,
-`fantasy-sunday-deepdive`, read-only, write a narrative from the published
-assessment.md). They only run while the Claude app is open; the Mac is
-usually off at those times.
+Three read-only Claude cloud routines (claude.ai/code/routines, environment
+"Test", model claude-sonnet-5-5, no connectors) read the published
+assessment.md / brief.md and write a narrative; they run in Anthropic's cloud,
+so the Mac does not need to be on:
+- Tuesday waiver check-up, cron `0 18 * * 2` UTC (trig_018NShwr3pQX7UU7nbeWqX2N)
+- Thursday update, `0 21 * * 4` UTC (trig_01TCdrEbDKHN6d3PN4h1i4Hi)
+- Sunday game-day deep dive, `0 16 * * 0` UTC (trig_01JRpdC7QiYVSPnTHRsVcpQT)
+Cron is UTC and does not follow daylight saving: after Nov 1 they land an
+hour earlier local time; update them then. The two older local Mac tasks
+(fantasy-tuesday-checkup, fantasy-sunday-deepdive) are paused.
 
 ## Open items
-- Reliable timing: scheduled runs are hours late and the Mac is usually off.
-  Options discussed: cloud routines (/schedule) for the narrative, an
-  always-on external trigger calling workflow_dispatch, more run times.
-  Decision pending with the user.
+- The cloud routines read whatever the site last built, and GitHub's scheduled
+  rebuilds run 4-6 hours late, so a report can be stale (the prompts wait up to
+  15 minutes, then label the data's age). Diagnostic of the cloud sandbox
+  (2026-10-14): it can read the dashboard and reach ESPN, Sleeper, nflverse and
+  PyPI; `gh` has an invalid GH_TOKEN; no LEAGUE_/ESPN_ env vars are set. Its
+  GitHub connector reportedly exposes `actions_run_trigger` (untested): if that
+  works, make "trigger Update dashboard and wait for it" step 1 of each routine.
+  Alternative: put LEAGUE_ID, TEAM_NAME, ESPN_S2, ESPN_SWID in the cloud
+  environment so a routine can run `python main.py` itself (user must add them).
 - After the first Thursday 21:07 UTC run, compare its start time with the
   top-of-the-hour crons to see whether offsetting the minute helps.

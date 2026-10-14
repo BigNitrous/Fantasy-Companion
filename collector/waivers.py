@@ -147,7 +147,8 @@ def build(free_agents: list[dict], roster: list[dict], hist: dict, trending: lis
                      "dropped_by": dropped_by.get(k, "")})
 
     order = {"fill": -1, "start": 0, "stream": 1, "bench": 2, "stash": 3}
-    adds.sort(key=lambda a: (order[a["verdict"]], -a["score"], -a["ros"]))
+    # An empty slot is filled by this week's best projection; last season's points don't decide that.
+    adds.sort(key=lambda a: (order[a["verdict"]], -(a["proj"] if a["verdict"] == "fill" else a["score"]), -a["ros"]))
     kept, fills = [], Counter()
     for a in adds:                         # every free kicker fills an empty K slot; the best few are enough
         if a["verdict"] == "fill":

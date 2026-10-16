@@ -29,7 +29,7 @@ python3 -m py_compile collector/*.py main.py    # fast syntax check
 
 ## Pipeline (main.py order)
 usage (nflverse) -> choose the upcoming week (if every game of Sleeper's week
-is already in the stats, use the next) -> ESPN fetch (`load_roster_week` for
+is final on ESPN's scoreboard, use the next) -> ESPN fetch (`load_roster_week` for
 that week; league slots from settings) -> slate (ESPN scoreboard: opponents,
 byes, game days) -> news -> roles (vacated opportunity, adjusted `projected`,
 ESPN's number kept as `projected_espn`) -> optimizer -> rankings -> trades ->
@@ -49,6 +49,10 @@ brief, render.
   projection x P(play) (Questionable .70, Doubtful .15, Out/bye 0); spread is
   measured from this season's nflverse points; sums over both lineups.
   Outlook = chance a player beats the average starter at his position.
+- Week choice (`main._week_finished`): advance past Sleeper's week only when
+  ESPN's scoreboard shows every game final. The old test (latest week in the
+  nflverse stats) fired after Thursday night's game, so Fri-Sun builds,
+  including the Sunday game-day runs, assessed next week. Fixed 2026-10-16.
 - Optimizer slots come from the league settings (`optimizer.set_league_slots`).
   Inferring them from the roster hid an empty K slot once; don't revert that.
 - Not modeled: defensive matchup strength. Say so; don't oversell the score.

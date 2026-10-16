@@ -23,6 +23,20 @@ def _now_ct() -> datetime:
         return datetime.now()
 
 
+def _week_finished(week: int, us: dict) -> bool:
+    """True when every game of `week` is final. ESPN's scoreboard decides. Don't use the
+    latest week in the nflverse stats: Thursday night's game puts the week in the stats
+    after one game, and the build then assessed next week all weekend. If the scoreboard
+    can't be reached, nflverse must show nearly every team (26+) played that week."""
+    sl = schedule_source.slate(week, config.SEASON)
+    if sl:
+        return set(sl["day"]) <= sl["final"]
+    if us and not us["stale"]:
+        played = sum(1 for t in us["teams"].values() if week in t["weeks"])
+        return played >= 26
+    return False
+
+
 def main() -> int:
     week = sleeper_source.current_week()
     print(f"NFL week {week}")
@@ -32,13 +46,14 @@ def main() -> int:
     if us:
         print(f"  {len(us['players'])} players, {len(us['teams'])} teams, through week {us['through']}"
               + (" (last season's data)" if us["stale"] else ""))
-        # Sleeper keeps reporting the week that just ended until Tuesday. If every game of
-        # `week` is already in the stats, the week you're deciding for is the next one.
-        if not us["stale"] and us["through"] >= week and week < 18:
-            week = us["through"] + 1
-            print(f"  week {us['through']} is complete, assessing week {week}")
     else:
         print("  usage data unavailable; role and usage analysis skipped")
+
+    # Sleeper keeps reporting the week that just ended until Tuesday. Once every game of
+    # `week` is final, the week you're deciding for is the next one.
+    if week < 18 and _week_finished(week, us):
+        print(f"  week {week} is complete, assessing week {week + 1}")
+        week += 1
 
     data = {
         "week": week,

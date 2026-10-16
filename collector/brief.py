@@ -6,6 +6,7 @@ you re-explaining your league every time.
 """
 
 from __future__ import annotations
+from . import assess
 
 
 def _line(p: dict) -> str:
@@ -46,6 +47,8 @@ def build(data: dict) -> str:
             o = a.get("optimal") or {}
             if o.get("win") is not None:
                 out.append(f"With the recommended changes: {o['expected']} projected, {round(100 * o['win'])}% to win.")
+            for label, text in assess.risk_lines(a):
+                out.append(f"Injury risk, {label}: {text}")
         for x in a.get("actions", []):
             out.append(f"- [{x['kind'].upper()}] {x['title']}. {x['detail']}")
         for d in a.get("days", []):

@@ -39,16 +39,29 @@ waivers -> assessment -> render / brief / assessment.md.
 config, espn_source, sleeper_source, news_source, schedule_source, history
 (2025 season, nflreadpy), usage (nflverse CSVs: snap/target/carry share, QB
 volume, measured variance), roles (role boost, QB notes, news matching),
+expect (per-player expected points: P(play), momentum, kickoff-aware backups),
 optimizer, rankings, trades, waivers, assess (confidence, cards, actions),
 brief, render.
 
 ## Design decisions
 - Role boost = half of the usage-implied gain (ESPN already reacts to injuries),
   capped at 6 points, always displayed next to ESPN's number.
-- Confidence = chance the lineup outscores the opponent. Player mean =
-  projection x P(play) (Questionable .70, Doubtful .15, Out/bye 0); spread is
-  measured from this season's nflverse points; sums over both lineups.
-  Outlook = chance a player beats the average starter at his position.
+- One expected-points model (`collector/expect.py`) drives the optimizer, the
+  waiver wire and the confidence meter, so a recommended move never lowers the
+  meter. Player mean = (projection + momentum) x P(play) (Questionable .70,
+  Doubtful .15, Out/bye 0). A starter who might not play is credited with a
+  bench backup only if the backup's game kicks off at or after his (swap at
+  inactives); otherwise he counts at P(play). Example that drove this: McLaurin
+  (Questionable, Monday night, no later backup) vs Bernard (Sunday) - raw
+  projections said start McLaurin, the meter said that lowered the win chance.
+  The optimizer tries uncertain players in and out (up to 2^6 lineups).
+- Confidence = chance the lineup outscores the opponent, from those means; spread
+  is measured from this season's nflverse points; sums over both lineups (the
+  opponent's backups are credited the same way). Under the meter, "Injury risk"
+  lines say how each uncertain starter is counted and what starting a benched
+  questionable player would do to the win chance (`assess.risk_lines`).
+  Outlook = chance a player beats the average starter at his position (no
+  backup credit).
 - Week choice (`main._week_finished`): advance past Sleeper's week only when
   ESPN's scoreboard shows every game final. The old test (latest week in the
   nflverse stats) fired after Thursday night's game, so Fri-Sun builds,

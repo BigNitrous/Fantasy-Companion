@@ -23,13 +23,11 @@ from __future__ import annotations
 import math
 from datetime import datetime
 
-from . import optimizer
+from . import expect, optimizer
 from .usage import team as _team
 
 SIGMA_FALLBACK = {"QB": 7.6, "RB": 7.4, "WR": 8.0, "TE": 7.4, "K": 3.6, "D/ST": 5.0}
-P_PLAY = {"ACTIVE": 1.0, "NORMAL": 1.0, "": 1.0, "PROBABLE": 0.95, "QUESTIONABLE": 0.70, "DAY_TO_DAY": 0.75,
-          "DOUBTFUL": 0.15, "OUT": 0.0, "IR": 0.0, "INJURY_RESERVE": 0.0, "SUSPENSION": 0.0}
-PPC, PPT = 0.60, {"RB": 1.5, "WR": 1.7, "TE": 1.6}     # points per carry / per target, PPR
+P_PLAY, PPC, PPT = expect.P_PLAY, expect.PPC, expect.PPT          # shared with the optimizer
 DAY_ORDER = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue", "Wed"]
 POSITIONS = ("QB", "RB", "WR", "TE", "K", "D/ST")
 MODES = {
@@ -47,8 +45,7 @@ def _num(v) -> float:
     return float(v) if isinstance(v, (int, float)) else 0.0
 
 
-def _status(p: dict) -> str:
-    return (p.get("injury") or "").upper().replace(" ", "_")
+_status = expect.status
 
 
 def _pct(x) -> str:
@@ -97,25 +94,13 @@ class Ctx:
     def p_play(self, p: dict) -> float:
         if _team(p.get("team")) in self.bye:
             return 0.0
-        return P_PLAY.get(_status(p), 1.0)
+        return expect.p_play(p)
 
     def sd(self, pos: str) -> float:
         return self.sigma.get(pos, 7.5)
 
 
-def _momentum(p: dict):
-    """Last week's usage against his own recent baseline, as points. Half of the
-    gain is assumed to be in ESPN's number already, and last week gets a 40% weight."""
-    u = p.get("usage") or {}
-    last = u.get("last") or {}
-    pos = p.get("position")
-    if not last or u.get("games", 0) < 3 or pos not in ("RB", "WR", "TE"):
-        return 0.0
-    if pos == "RB":
-        pts = (last["carries"] - u.get("carries_pg", 0.0)) * PPC + (last["targets"] - u.get("targets_pg", 0.0)) * PPT["RB"]
-    else:
-        pts = (last["targets"] - u.get("targets_pg", 0.0)) * PPT[pos]
-    return max(-2.0, min(2.0, 0.2 * pts))
+_momentum = expect.momentum
 
 
 def _story(p: dict, pp: float, mom: float):
@@ -196,8 +181,9 @@ def card(p: dict, ctx: Ctx) -> dict:
     mom = _momentum(p) if proj > 0 and pp > 0 else 0.0
     lastline, avgline, sigs, trend = _story(p, pp, mom)
     s = ctx.sd(pos)
-    mu = proj * pp + (mom if pp > 0 else 0.0)
-    var = pp * s * s + pp * (1 - pp) * proj * proj
+    a = proj + mom
+    mu = pp * a                                    # = expect.mean(p): momentum counts only if he plays
+    var = pp * s * s + pp * (1 - pp) * a * a
     bench = ctx.bench.get(pos, proj)
     outlook = 0 if (proj <= 0 or pp == 0) else round(100 * _phi((mu - bench) / math.sqrt(max(var, 1e-6))))
     if proj <= 0 or pp == 0:
@@ -210,6 +196,28 @@ def card(p: dict, ctx: Ctx) -> dict:
             "p_play": pp, "outlook": outlook, "label": label, "trend": trend, "last": lastline, "avg": avgline,
             "signals": sigs, "news": p.get("news") or p.get("boost_news"), "role": (p.get("usage") or {}).get("text", ""),
             "_mu": mu, "_var": var}
+
+
+def _covered(c: dict, backup: dict, ctx: "Ctx") -> dict:
+    """The card's lineup contribution when a bench backup steps in if he's inactive. His own
+    outlook is unchanged; only the lineup mean and variance (a two-outcome mix) move."""
+    if not backup:
+        return c
+    pp, a, sa = c["p_play"], c["proj"] + c["mom"], ctx.sd(c["position"])
+    b, sb = expect.mean(backup), ctx.sd(backup.get("position"))
+    mu = pp * a + (1 - pp) * b
+    var = pp * (sa * sa + a * a) + (1 - pp) * (sb * sb + b * b) - mu * mu
+    return {**c, "backup": backup["name"], "backup_proj": round(b, 1), "expected": round(mu, 1), "_mu": mu, "_var": var}
+
+
+def _lineup_cards(lineup: list, backups: dict, pool: dict, ctx: "Ctx") -> list:
+    """Cards for a lineup's starters, each credited with his backup if he has one."""
+    out = []
+    for e in lineup:
+        p = e.get("player")
+        if p and p["name"] in pool:
+            out.append(_covered(pool[p["name"]], backups.get(p["name"]), ctx))
+    return out
 
 
 def _totals(cards: list) -> tuple:
@@ -238,22 +246,20 @@ def _days(starters: list, ctx: Ctx) -> list:
     return out
 
 
-def _contingency(roster: list, cards: dict) -> list:
-    """For each starter who might not play, who to start if he's inactive."""
+def _contingency(roster: list, cards: dict, backups: dict, ctx: "Ctx") -> list:
+    """For each starter who might not play: his backup, or the fact that he has none
+    (nobody on the bench kicks off at or after his game)."""
+    by_name = {p["name"]: p for p in roster}
     out = []
     for p in roster:
         c = cards.get(p["name"])
-        if not p.get("starting") or not c or not (0 < c["p_play"] < 1):
+        if not p.get("starting") or not c or not (0 < c["p_play"] < 1) or p.get("locked"):
             continue
-        slot = p.get("slot", "")
-        ok = optimizer.FLEX_ELIGIBLE.get(slot) or {p.get("position")}
-        alts = [q for q in roster if not q.get("starting") and optimizer._playable(q) and q.get("position") in ok
-                and cards.get(q["name"], {}).get("p_play", 0) >= 0.95 and _num(q.get("projected")) > 0]
-        if alts:
-            best = max(alts, key=lambda q: _num(q.get("projected")))
-            out.append({"starter": p["name"], "status": _status(p).replace("_", " ").title(), "p_play": c["p_play"],
-                        "backup": best["name"], "backup_proj": round(_num(best.get("projected")), 1),
-                        "starter_proj": round(c["proj"], 1)})
+        bk = by_name.get(backups.get(p["name"], ""))
+        out.append({"starter": p["name"], "status": _status(p).replace("_", " ").title(), "p_play": c["p_play"],
+                    "day": ctx.slate.get("day", {}).get(_team(p.get("team")), ""),
+                    "backup": bk["name"] if bk else "", "backup_proj": round(expect.mean(bk), 1) if bk else 0.0,
+                    "starter_proj": round(c["proj"], 1)})
     return out
 
 
@@ -263,8 +269,18 @@ def build(data: dict, slate: dict, sigma: dict, mode: str, now: datetime) -> dic
         return {}
     ctx = Ctx(data, slate, sigma)
     cards = {p["name"]: card(p, ctx) for p in roster}
-    starters = [cards[p["name"]] for p in roster if p.get("starting")]
-    opp_cards = [card(p, ctx) for p in data.get("opponent_roster", []) if p.get("starting")]
+
+    # Your lineup as set, with a backup for any starter who might not play (both managers
+    # are assumed to check inactives and swap when a later-kicking backup is on the bench).
+    def as_set(r):
+        return [{"slot": p.get("slot", ""), "player": p} for p in r if p.get("starting")]
+    cur_lineup = as_set(roster)
+    cur_bk = optimizer.evaluate(cur_lineup, roster)[1]
+    starters = _lineup_cards(cur_lineup, cur_bk, cards, ctx)
+    opp_r = data.get("opponent_roster", [])
+    opp_lineup = as_set(opp_r)
+    opp_cards = _lineup_cards(opp_lineup, optimizer.evaluate(opp_lineup, opp_r)[1],
+                              {p["name"]: card(p, ctx) for p in opp_r}, ctx)
 
     mine, opp = _totals(starters), _totals(opp_cards)
     win = _win(mine, opp) if opp_cards else None
@@ -319,11 +335,17 @@ def build(data: dict, slate: dict, sigma: dict, mode: str, now: datetime) -> dic
         if sum(1 for a in actions if a.get("_fa") is not None) >= 3:
             break
 
-    cont = _contingency(roster, cards)
+    cont = _contingency(roster, cards, {k: v["name"] for k, v in cur_bk.items()}, ctx)
     for c in cont:
+        if c["backup"]:
+            detail = (f"About {_pct(c['p_play'])} to play. If he's inactive, start {c['backup']} "
+                      f"({c['backup_proj']}); his game kicks off at the same time or later.")
+        else:
+            when = f" ({_DAY_NAME.get(c['day'], c['day'])})" if c["day"] else ""
+            detail = (f"About {_pct(c['p_play'])} to play{when}. Nobody on your bench plays after his game, "
+                      f"so if he's ruled out late the slot scores 0. The meter counts him at {_pct(c['p_play'])}.")
         actions.append({"kind": "watch", "gain": 0.0, "in": c["backup"], "out": c["starter"],
-                        "title": f"{c['starter']} is {c['status'].lower()}",
-                        "detail": f"About {_pct(c['p_play'])} to play. If he's inactive, start {c['backup']} ({c['backup_proj']})."})
+                        "title": f"{c['starter']} is {c['status'].lower()}", "detail": detail})
 
     order = {"fix": 0, "swap": 1, "pickup": 2, "watch": 3}
     actions.sort(key=lambda a: (order[a["kind"]], -a["gain"]))
@@ -336,9 +358,30 @@ def build(data: dict, slate: dict, sigma: dict, mode: str, now: datetime) -> dic
         pool_cards = dict(cards)
         for fa in extra:
             pool_cards[fa["name"]] = card(fa, ctx)
-        best_cards = [pool_cards[e["player"]["name"]] for e in opt2["lineup"]
-                      if e.get("player") and e["player"]["name"] in pool_cards]
+        roster2 = [p for p in roster if p["name"] not in gone] + extra
+        best_cards = _lineup_cards(opt2["lineup"], optimizer.evaluate(opt2["lineup"], roster2)[1], pool_cards, ctx)
         best = {"expected": round(_totals(best_cards)[0], 1), "win": _win(_totals(best_cards), opp) if opp_cards else None}
+
+    # Questionable players the meter is weighing: starters counted at their play chance (or
+    # covered by a backup), and benched ones who'd start if sure to play, with what that's worth.
+    risks = [{"name": c["starter"], "status": c["status"], "p_play": c["p_play"], "day": c["day"],
+              "backup": c["backup"]} for c in cont]
+    alternatives = []
+    if opt.get("lineup") and opp_cards:
+        rec_names = {e["player"]["name"] for e in opt["lineup"] if e.get("player")}
+        rec_cards = _lineup_cards(opt["lineup"], optimizer.evaluate(opt["lineup"], roster)[1], cards, ctx)
+        rec_win = _win(_totals(rec_cards), opp)
+        for alt in opt.get("alternatives") or []:
+            u = alt["player"]
+            if u.get("starting"):           # already covered by his risk line and the swap action
+                continue
+            names = {e["player"]["name"] for e in alt["lineup"] if e.get("player")}
+            a_cards = _lineup_cards(alt["lineup"], optimizer.evaluate(alt["lineup"], roster)[1], cards, ctx)
+            alternatives.append({"name": u["name"], "status": _status(u).replace("_", " ").title(),
+                                 "p_play": ctx.p_play(u), "day": ctx.slate.get("day", {}).get(_team(u.get("team")), ""),
+                                 "backup": (alt.get("backup") or {}).get("name", ""),
+                                 "instead": sorted(rec_names - names), "win": _win(_totals(a_cards), opp),
+                                 "rec_win": rec_win, "expected": round(_totals(a_cards)[0], 1)})
 
     title, sub = MODES.get(mode, MODES["midweek"])
     score = round(100 * win) if win is not None else None
@@ -348,15 +391,40 @@ def build(data: dict, slate: dict, sigma: dict, mode: str, now: datetime) -> dic
         "mine": round(mine[0], 1), "opp": round(opp[0], 1) if opp_cards else None,
         "margin": round(mine[0] - opp[0], 1) if opp_cards else None,
         "spread": round(math.sqrt(mine[1] + opp[1]), 1),
-        "optimal": best, "days": _days(starters, ctx),
+        "optimal": best, "days": _days(starters, ctx), "risks": risks, "alternatives": alternatives,
         "actions": [{k: v for k, v in a.items() if k != "_fa"} for a in actions],
         "cards": [{k: v for k, v in cards[p["name"]].items() if not k.startswith("_")} for p in roster],
         "benchmarks": {k: round(v, 1) for k, v in ctx.bench.items()}, "league_avg": round(ctx.league_avg, 1),
     }
 
 
+_DAY_NAME = {"Thu": "Thursday", "Fri": "Friday", "Sat": "Saturday", "Sun": "Sunday", "Mon": "Monday night",
+             "Tue": "Tuesday", "Wed": "Wednesday"}
 _ARROW = {"up": "rising", "down": "falling", "flat": "steady"}
 _SIGN = {"+": "+", "-": "-", "i": "*"}
+
+
+def risk_lines(a: dict) -> list:
+    """(label, text) pairs saying how the meter counts players who might not play."""
+    out = []
+    for r in a.get("risks") or []:
+        day = _DAY_NAME.get(r["day"], r["day"])
+        if r["backup"]:
+            out.append((r["name"], f"{r['status']}: counted at {_pct(r['p_play'])} to play, with "
+                                   f"{r['backup']} covering if he's inactive."))
+        else:
+            out.append((r["name"], f"{r['status']}{', ' + day if day else ''}: counted at {_pct(r['p_play'])} to play. "
+                                   f"Nobody on your bench plays after his game, so a late scratch scores 0."))
+    for x in a.get("alternatives") or []:
+        day = _DAY_NAME.get(x["day"], x["day"])
+        over = " and ".join(x["instead"]) or "your current starter"
+        why = (f"{x['backup']} would cover him if he's inactive." if x["backup"] else
+               f"Nobody on your bench plays after his {day + ' game' if day else 'game'}, "
+               f"so he counts at {_pct(x['p_play'])}.")
+        out.append((f"Starting {x['name']} over {over}",
+                    f"{round(100 * x['win'])}% to win instead of {round(100 * x['rec_win'])}%. "
+                    f"He's {x['status'].lower()}. {why}"))
+    return out
 
 
 def markdown(a: dict, data: dict) -> str:
@@ -373,6 +441,8 @@ def markdown(a: dict, data: dict) -> str:
         if a.get("optimal") and a["optimal"].get("win") is not None:
             out.append(f"With the recommended lineup changes: {a['optimal']['expected']} projected, "
                        f"{round(100 * a['optimal']['win'])}% to win.")
+        for label, text in risk_lines(a):
+            out.append(f"- Injury risk, {label}: {text}")
     out.append("")
     if a["actions"]:
         out.append("## Do this")

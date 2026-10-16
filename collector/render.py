@@ -9,6 +9,7 @@ layout on a pale navy-tinted paper.
 from __future__ import annotations
 import html
 from datetime import datetime
+from . import assess
 
 DARK = ("--paper:#0D1626;--sheet:#12203A;--line:#1F2C42;--ink:#E9EEF5;--muted:#8A9BB5;"
         "--green:#22D36E;--green-soft:#122A1C;--green-line:#1E5B36;--green-ink:#7ED9A3;--on-green:#062B14;"
@@ -82,6 +83,7 @@ header .opp .cond{{font-size:1.0625rem}}
 .meter.mid span{{background:var(--quest)}} .meter.lo span{{background:var(--out)}}
 .meter i{{position:absolute;top:-3px;bottom:-3px;left:50%;width:2px;background:var(--muted);opacity:.7}}
 .after{{margin:6px 16px 12px;font-size:.8125rem;color:var(--muted)}} .after b{{color:var(--green);font-weight:600}}
+.qrisk{{margin:-4px 16px 12px;font-size:.8125rem;color:var(--muted)}} .qrisk p{{margin:4px 0}} .qrisk b{{color:var(--quest);font-weight:600}}
 .pl{{border-top:1px solid var(--line)}}
 .pl>summary{{list-style:none;cursor:pointer;border-top:0}}
 .pl>summary::-webkit-details-marker{{display:none}}
@@ -457,6 +459,10 @@ def _hero(a: dict, opp_name: str) -> str:
                  f'({o["expected"]:.1f} projected)</p>')
     else:
         after = '<p class="after">Chance your lineup outscores this week\'s opponent. 50% is a coin flip.</p>'
+
+    lines = assess.risk_lines(a)
+    if lines:
+        after += '<div class="qrisk">' + "".join(f'<p><b>{_e(label)}</b>: {_e(text)}</p>' for label, text in lines) + "</div>"
 
     acts = ""
     for x in a.get("actions", []):

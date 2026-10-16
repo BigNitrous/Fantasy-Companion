@@ -19,7 +19,8 @@ def _ab(a: str) -> str:
 
 def slate(week: int, season: int) -> dict:
     """{"bye": {team}, "day": {team: 'Thu'}, "kickoff": {team: 'Sun 12:00 PM'}, "opp": {team: opponent},
-    "final": {team}, "started": {team whose game has kicked off or finished}} or {} if unavailable."""
+    "ts": {team: kickoff epoch seconds}, "final": {team}, "started": {team whose game has kicked off or
+    finished}} or {} if unavailable."""
     try:
         from zoneinfo import ZoneInfo
         tz = ZoneInfo("America/Chicago")
@@ -34,7 +35,7 @@ def slate(week: int, season: int) -> dict:
     if (d.get("week") or {}).get("number") != week:
         return {}
     out = {"bye": {_ab(t.get("abbreviation")) for t in (d.get("week") or {}).get("teamsOnBye", [])},
-           "day": {}, "kickoff": {}, "final": set(), "started": set(), "opp": {}}
+           "day": {}, "kickoff": {}, "ts": {}, "final": set(), "started": set(), "opp": {}}
     for e in d.get("events", []):
         try:
             when = datetime.strptime(e["date"], "%Y-%m-%dT%H:%MZ")
@@ -53,6 +54,7 @@ def slate(week: int, season: int) -> dict:
                 ab = _ab(c["team"]["abbreviation"])
                 out["day"][ab] = when.strftime("%a")
                 out["kickoff"][ab] = when.strftime("%a %-I:%M %p")
+                out["ts"][ab] = int(when.timestamp())          # for "does his backup kick off later?"
                 if final:
                     out["final"].add(ab)
                 if started:

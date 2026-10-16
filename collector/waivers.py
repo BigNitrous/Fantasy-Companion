@@ -22,7 +22,7 @@ The blended score (same as rankings.py) is still shown, but decides nothing.
 from __future__ import annotations
 import re
 from collections import Counter
-from . import history, optimizer
+from . import expect, history, optimizer
 from .rankings import W_PROJ, W_HIST
 from .optimizer import UNAVAILABLE
 
@@ -57,10 +57,11 @@ def _scored(p: dict, hist: dict) -> dict:
 
 
 def _week(p: dict) -> float:
-    """This week's projection as the lineup optimizer sees it (0 if he can't play for you)."""
+    """This week's expected points as the lineup optimizer and the meter see them
+    (0 if he can't play for you this week)."""
     if not optimizer._playable(p) or p.get("bye") or (p.get("locked") and not p.get("starting")):
         return 0.0
-    return optimizer._proj(p)
+    return expect.mean(p)
 
 
 def _droppable(roster: list[dict]) -> list[dict]:

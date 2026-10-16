@@ -285,7 +285,13 @@ def build(data: dict, slate: dict, sigma: dict, mode: str, now: datetime) -> dic
     base_total = optimizer.optimize(roster)["optimal_total"]
     picks = []
     for fa in ((data.get("waivers") or {}).get("adds") or [])[:10]:
-        gain = round(optimizer.optimize(roster + [fa])["optimal_total"] - base_total, 1)
+        # Same number the waiver card shows: best lineup with the add AND the drop made.
+        if "gain" in fa:
+            gain = fa["gain"]
+        else:
+            gone = fa.get("drop")
+            gain = round(optimizer.optimize([p for p in roster if p["name"] != gone] + [fa])["optimal_total"]
+                         - base_total, 1)
         picks.append((gain, fa))
     picks.sort(key=lambda t: (-t[0], t[1].get("verdict") != "stash"))
     used_drops, used_pos = set(), set()
@@ -325,7 +331,8 @@ def build(data: dict, slate: dict, sigma: dict, mode: str, now: datetime) -> dic
     best = None
     if opt.get("lineup"):
         extra = [a["_fa"] for a in actions if a.get("_fa") is not None]
-        opt2 = optimizer.optimize(roster + extra) if extra else opt
+        gone = {fa.get("drop") for fa in extra if fa.get("drop")}
+        opt2 = optimizer.optimize([p for p in roster if p["name"] not in gone] + extra) if extra else opt
         pool_cards = dict(cards)
         for fa in extra:
             pool_cards[fa["name"]] = card(fa, ctx)

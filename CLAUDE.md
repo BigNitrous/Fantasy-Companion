@@ -53,6 +53,16 @@ brief, render.
   ESPN's scoreboard shows every game final. The old test (latest week in the
   nflverse stats) fired after Thursday night's game, so Fri-Sun builds,
   including the Sunday game-day runs, assessed next week. Fixed 2026-10-16.
+- Waivers (`waivers._judge`): each add/drop pair is judged by re-running the
+  optimizer with the swap made (week_gain) plus the rest-of-season change
+  (ros_gain). The verdict rules are antisymmetric, so following the advice
+  can't make the next build reverse it. Don't put the 2025-blended rankings
+  score back into waiver decisions: it rated rookies (no 2025 games) below
+  7-point veterans and made advice flip-flop (old logic reversed itself in
+  704 of 1500 random test leagues; the new logic in 0). "Empty slot" means the
+  best lineup can't fill it, not that nobody is set there.
+- Players whose game has kicked off are `locked` (scoreboard `started`): they
+  keep their slot, can't be moved in, added or dropped for this week.
 - Optimizer slots come from the league settings (`optimizer.set_league_slots`).
   Inferring them from the roster hid an empty K slot once; don't revert that.
 - Not modeled: defensive matchup strength. Say so; don't oversell the score.

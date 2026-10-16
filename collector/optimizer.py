@@ -55,9 +55,16 @@ def optimize(roster: list[dict]) -> dict:
     if not slots:
         return {"lineup": [], "swaps": [], "gain": 0.0, "current_total": 0.0, "optimal_total": 0.0}
 
-    pool = [p for p in roster if _playable(p)]
+    # Once a game kicks off, its starters stay in their slots and its bench players stay benched.
+    slots = list(slots)
     used: set[str] = set()
     lineup: list[dict] = []
+    for p in roster:
+        if p.get("locked") and p.get("starting") and p.get("slot") in slots:
+            slots.remove(p["slot"])
+            used.add(p["name"])
+            lineup.append({"slot": p["slot"], "player": p})
+    pool = [p for p in roster if _playable(p) and not p.get("locked")]
 
     def take(eligible: set[str], slot: str):
         cands = [p for p in pool if p["name"] not in used and p.get("position") in eligible]
@@ -75,6 +82,8 @@ def optimize(roster: list[dict]) -> dict:
     for s in slots:
         if s in FLEX_LIKE:
             take(FLEX_ELIGIBLE[s], s)
+    rank = {s: i for i, s in enumerate(slot_structure(roster))}
+    lineup.sort(key=lambda e: rank.get(e["slot"], 99))       # stable: locked starters keep slot order
 
     current_starters = {p["name"] for p in roster if p.get("starting")}
     optimal_starters = {e["player"]["name"] for e in lineup if e["player"]}

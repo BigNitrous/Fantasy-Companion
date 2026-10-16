@@ -18,8 +18,8 @@ def _ab(a: str) -> str:
 
 
 def slate(week: int, season: int) -> dict:
-    """{"bye": {team}, "day": {team: 'Thu'}, "kickoff": {team: 'Sun 12:00 PM'}, "opp": {team: opponent}}
-    or {} if unavailable."""
+    """{"bye": {team}, "day": {team: 'Thu'}, "kickoff": {team: 'Sun 12:00 PM'}, "opp": {team: opponent},
+    "final": {team}, "started": {team whose game has kicked off or finished}} or {} if unavailable."""
     try:
         from zoneinfo import ZoneInfo
         tz = ZoneInfo("America/Chicago")
@@ -34,7 +34,7 @@ def slate(week: int, season: int) -> dict:
     if (d.get("week") or {}).get("number") != week:
         return {}
     out = {"bye": {_ab(t.get("abbreviation")) for t in (d.get("week") or {}).get("teamsOnBye", [])},
-           "day": {}, "kickoff": {}, "final": set(), "opp": {}}
+           "day": {}, "kickoff": {}, "final": set(), "started": set(), "opp": {}}
     for e in d.get("events", []):
         try:
             when = datetime.strptime(e["date"], "%Y-%m-%dT%H:%MZ")
@@ -43,7 +43,9 @@ def slate(week: int, season: int) -> dict:
             if tz:
                 when = when.astimezone(tz)
             comp = e["competitions"][0]
-            final = (e.get("status", {}).get("type", {}).get("completed") is True)
+            stype = e.get("status", {}).get("type", {})
+            final = stype.get("completed") is True
+            started = final or stype.get("state") in ("in", "post")
             abbrs = [_ab(c["team"]["abbreviation"]) for c in comp["competitors"]]
             if len(abbrs) == 2:
                 out["opp"][abbrs[0]], out["opp"][abbrs[1]] = abbrs[1], abbrs[0]
@@ -53,6 +55,8 @@ def slate(week: int, season: int) -> dict:
                 out["kickoff"][ab] = when.strftime("%a %-I:%M %p")
                 if final:
                     out["final"].add(ab)
+                if started:
+                    out["started"].add(ab)
         except Exception:
             continue
     return out if out["day"] else {}

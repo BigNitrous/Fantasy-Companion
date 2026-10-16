@@ -108,6 +108,8 @@ def main() -> int:
                     pl["opponent"] = slate["opp"].get(pl.get("team", ""), "")
                 elif not pl.get("opponent"):
                     pl["opponent"] = slate["opp"].get(pl.get("team", ""), "")
+                # A player whose game has kicked off can't be moved, added or dropped for this week.
+                pl["locked"] = pl.get("team", "") in slate.get("started", ())
 
     if data["roster"] and us:
         rl = roles.Roles(us, sleeper_source.all_players(), data["news"])

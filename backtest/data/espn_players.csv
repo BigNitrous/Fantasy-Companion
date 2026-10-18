@@ -1,0 +1,1002 @@
+week,fantasy_team,fantasy_opp,is_mine,slot,name,espn_id,position,pro_team,pro_opponent,projected,actual,game_played,bye,injury_status,active_status
+1,THEEE GUYY,Run CMC,0,RB,Bijan Robinson,4430807,RB,ATL,PIT,18.9,31.3,100,0,ACTIVE,active
+1,THEEE GUYY,Run CMC,0,WR,Drake London,4426502,WR,ATL,PIT,13.82,5.5,100,0,ACTIVE,active
+1,THEEE GUYY,Run CMC,0,RB,Kenneth Walker III,4567048,RB,KC,DEN,14.7,34.1,100,0,ACTIVE,active
+1,THEEE GUYY,Run CMC,0,WR,Davante Adams,16800,WR,LAR,SF,13.82,5.6,100,0,ACTIVE,active
+1,THEEE GUYY,Run CMC,0,RB/WR/TE,Cam Skattebo,4696981,RB,NYG,DAL,13.71,14.1,100,0,ACTIVE,active
+1,THEEE GUYY,Run CMC,0,TE,Sam LaPorta,4430027,TE,DET,NO,10.95,9.8,100,0,ACTIVE,active
+1,THEEE GUYY,Run CMC,0,BE,Courtland Sutton,3128429,WR,DEN,KC,11.7,3.1,100,0,ACTIVE,active
+1,THEEE GUYY,Run CMC,0,BE,Alec Pierce,4360078,WR,IND,BAL,9.7,10.1,100,0,INJURY_RESERVE,active
+1,THEEE GUYY,Run CMC,0,QB,Bo Nix,4426338,QB,DEN,KC,16.13,5.44,100,0,ACTIVE,active
+1,THEEE GUYY,Run CMC,0,BE,Kyle Monangai,4608686,RB,CHI,CAR,10.25,20.4,100,0,OUT,active
+1,THEEE GUYY,Run CMC,0,BE,Mark Andrews,3116365,TE,BAL,IND,10.07,8.9,100,0,ACTIVE,active
+1,THEEE GUYY,Run CMC,0,D/ST,Patriots D/ST,-16017,D/ST,NE,SEA,4.66,7.0,100,0,NORMAL,active
+1,THEEE GUYY,Run CMC,0,K,Tyler Loop,4697745,K,BAL,IND,8.49,14.0,100,0,ACTIVE,active
+1,THEEE GUYY,Run CMC,0,BE,Daniel Jones,3917792,QB,IND,BAL,15.17,9.04,100,0,ACTIVE,active
+1,THEEE GUYY,Run CMC,0,BE,Jalen McMillan,4430834,WR,TB,CIN,0.0,0.0,100,0,INJURY_RESERVE,inactive
+1,THEEE GUYY,Run CMC,0,BE,Dylan Sampson,5081397,RB,CLE,JAX,5.02,0.0,100,0,INJURY_RESERVE,active
+1,Run CMC,THEEE GUYY,0,RB,Christian McCaffrey,3117251,RB,SF,LAR,18.52,13.8,100,0,ACTIVE,active
+1,Run CMC,THEEE GUYY,0,RB,Derrick Henry,3043078,RB,BAL,IND,16.36,35.3,100,0,ACTIVE,active
+1,Run CMC,THEEE GUYY,0,BE,Malik Nabers,4595348,WR,NYG,DAL,12.71,12.9,100,0,ACTIVE,active
+1,Run CMC,THEEE GUYY,0,WR,Tetairoa McMillan,4685472,WR,CAR,CHI,14.78,10.5,100,0,ACTIVE,active
+1,Run CMC,THEEE GUYY,0,TE,Tyler Warren,4431459,TE,IND,BAL,12.22,10.3,100,0,QUESTIONABLE,active
+1,Run CMC,THEEE GUYY,0,RB/WR/TE,Rome Odunze,4431299,WR,CHI,CAR,12.4,7.2,100,0,ACTIVE,active
+1,Run CMC,THEEE GUYY,0,WR,DK Metcalf,4047650,WR,PIT,ATL,12.19,8.0,100,0,ACTIVE,active
+1,Run CMC,THEEE GUYY,0,QB,Brock Purdy,4361741,QB,SF,LAR,15.48,21.1,100,0,ACTIVE,active
+1,Run CMC,THEEE GUYY,0,BE,Wan'Dale Robinson,4569587,WR,TEN,NYJ,10.38,8.8,100,0,ACTIVE,active
+1,Run CMC,THEEE GUYY,0,BE,Aaron Jones Sr.,3042519,RB,MIN,GB,10.42,10.0,100,0,ACTIVE,active
+1,Run CMC,THEEE GUYY,0,D/ST,Steelers D/ST,-16023,D/ST,PIT,ATL,7.22,19.0,100,0,NORMAL,active
+1,Run CMC,THEEE GUYY,0,BE,Hunter Henry,3046439,TE,NE,SEA,8.24,5.6,100,0,ACTIVE,active
+1,Run CMC,THEEE GUYY,0,K,Harrison Butker,3055899,K,KC,DEN,8.51,7.0,100,0,ACTIVE,active
+1,Run CMC,THEEE GUYY,0,BE,Jordan Love,4036378,QB,GB,MIN,14.88,19.48,100,0,ACTIVE,active
+1,Run CMC,THEEE GUYY,0,BE,Denzel Boston,4832800,WR,CLE,JAX,8.28,13.9,100,0,ACTIVE,active
+1,Run CMC,THEEE GUYY,0,BE,Dalton Schultz,3117256,TE,HOU,BUF,8.35,7.5,100,0,ACTIVE,active
+1,Doughboy,Vatos Locos ,0,WR,Jaxon Smith-Njigba,4430878,WR,SEA,NE,18.98,26.2,100,0,ACTIVE,active
+1,Doughboy,Vatos Locos ,0,IR,Brock Bowers,4432665,TE,LV,MIA,0.0,0.0,100,0,ACTIVE,inactive
+1,Doughboy,Vatos Locos ,0,RB,Breece Hall,4427366,RB,NYJ,TEN,16.5,19.8,100,0,OUT,active
+1,Doughboy,Vatos Locos ,0,QB,Lamar Jackson,3916387,QB,BAL,IND,19.13,24.96,100,0,OUT,active
+1,Doughboy,Vatos Locos ,0,RB,Jadarian Price,4685512,RB,SEA,NE,14.1,7.8,100,0,INJURY_RESERVE,active
+1,Doughboy,Vatos Locos ,0,WR,Parker Washington,4432620,WR,JAX,CLE,11.34,19.3,100,0,ACTIVE,active
+1,Doughboy,Vatos Locos ,0,BE,J.K. Dobbins,4241985,RB,DEN,KC,9.53,3.6,100,0,ACTIVE,active
+1,Doughboy,Vatos Locos ,0,BE,Michael Wilson,4360761,WR,ARI,LAC,10.46,10.6,100,0,ACTIVE,active
+1,Doughboy,Vatos Locos ,0,TE,Travis Kelce,15847,TE,KC,DEN,9.81,10.1,100,0,ACTIVE,active
+1,Doughboy,Vatos Locos ,0,BE,Baker Mayfield,3052587,QB,TB,CIN,16.28,11.64,100,0,OUT,active
+1,Doughboy,Vatos Locos ,0,BE,Quentin Johnston,4429025,WR,LAC,ARI,10.35,3.7,100,0,ACTIVE,active
+1,Doughboy,Vatos Locos ,0,BE,Mike Washington Jr.,4686658,RB,LV,MIA,7.43,4.1,100,0,ACTIVE,active
+1,Doughboy,Vatos Locos ,0,BE,Matthew Golden,4701936,WR,GB,MIN,11.0,15.5,100,0,ACTIVE,active
+1,Doughboy,Vatos Locos ,0,D/ST,Chargers D/ST,-16024,D/ST,LAC,ARI,7.42,0.0,100,0,NORMAL,active
+1,Doughboy,Vatos Locos ,0,K,Chris Boswell,17372,K,PIT,ATL,9.02,8.0,100,0,ACTIVE,active
+1,Doughboy,Vatos Locos ,0,RB/WR/TE,Michael Mayer,4429086,TE,LV,MIA,9.32,9.2,100,0,ACTIVE,active
+1,Doughboy,Vatos Locos ,0,BE,Darren Waller,2576925,TE,CAR,CHI,7.12,4.8,100,0,ACTIVE,active
+1,Vatos Locos ,Doughboy,0,WR,Amon-Ra St. Brown,4374302,WR,DET,NO,18.82,28.7,100,0,ACTIVE,active
+1,Vatos Locos ,Doughboy,0,RB,Saquon Barkley,3929630,RB,PHI,WSH,17.67,9.0,100,0,OUT,active
+1,Vatos Locos ,Doughboy,0,BE,Jayden Daniels,4426348,QB,WSH,PHI,16.84,17.66,100,0,ACTIVE,active
+1,Vatos Locos ,Doughboy,0,WR,Chris Olave,4361370,WR,NO,DET,14.78,28.2,100,0,QUESTIONABLE,active
+1,Vatos Locos ,Doughboy,0,RB,Bhayshul Tuten,4882093,RB,JAX,CLE,11.96,9.8,100,0,ACTIVE,active
+1,Vatos Locos ,Doughboy,0,TE,Kyle Pitts Sr.,4360248,TE,ATL,PIT,9.83,0.0,100,0,ACTIVE,active
+1,Vatos Locos ,Doughboy,0,BE,Stefon Diggs,2976212,WR,WSH,PHI,9.7,15.5,100,0,QUESTIONABLE,active
+1,Vatos Locos ,Doughboy,0,BE,Texans D/ST,-16034,D/ST,HOU,BUF,5.25,-4.0,100,0,NORMAL,active
+1,Vatos Locos ,Doughboy,0,RB/WR/TE,MarShawn Lloyd,4429023,RB,GB,MIN,12.75,3.7,100,0,ACTIVE,active
+1,Vatos Locos ,Doughboy,0,D/ST,Rams D/ST,-16014,D/ST,LAR,SF,6.17,1.0,100,0,NORMAL,active
+1,Vatos Locos ,Doughboy,0,QB,Jared Goff,3046779,QB,DET,NO,15.78,16.44,100,0,ACTIVE,active
+1,Vatos Locos ,Doughboy,0,BE,Brenton Strange,4430539,TE,JAX,CLE,8.13,10.3,100,0,ACTIVE,active
+1,Vatos Locos ,Doughboy,0,K,Jake Bates,4689936,K,DET,NO,8.73,7.0,100,0,ACTIVE,active
+1,Vatos Locos ,Doughboy,0,BE,Jalen Coker,4695883,WR,CAR,CHI,9.2,33.8,100,0,ACTIVE,active
+1,Vatos Locos ,Doughboy,0,BE,Jacob Saylors,4383429,RB,DET,NO,4.87,0.0,100,0,ACTIVE,active
+1,Vatos Locos ,Doughboy,0,BE,Emari Demercado,4362478,RB,DAL,NYG,4.85,0.7,100,0,ACTIVE,active
+1,Lynch em All,The G.O.A.T,0,RB,De'Von Achane,4429160,RB,MIA,LV,18.2,10.6,100,0,INJURY_RESERVE,active
+1,Lynch em All,The G.O.A.T,0,RB,Chase Brown,4362238,RB,CIN,TB,16.03,18.8,100,0,ACTIVE,active
+1,Lynch em All,The G.O.A.T,0,RB/WR/TE,Tee Higgins,4239993,WR,CIN,TB,12.96,8.9,100,0,ACTIVE,active
+1,Lynch em All,The G.O.A.T,0,WR,Jaylen Waddle,4372016,WR,DEN,KC,12.24,1.2,100,0,ACTIVE,active
+1,Lynch em All,The G.O.A.T,0,WR,Terry McLaurin,3121422,WR,WSH,PHI,12.23,3.4,100,0,ACTIVE,active
+1,Lynch em All,The G.O.A.T,0,BE,Michael Pittman Jr.,4035687,WR,PIT,ATL,12.31,8.8,100,0,INJURY_RESERVE,active
+1,Lynch em All,The G.O.A.T,0,QB,Trevor Lawrence,4360310,QB,JAX,CLE,16.91,26.1,100,0,ACTIVE,active
+1,Lynch em All,The G.O.A.T,0,K,Brandon Aubrey,3953687,K,DAL,NYG,9.93,2.0,100,0,ACTIVE,active
+1,Lynch em All,The G.O.A.T,0,BE,Jakobi Meyers,3916433,WR,JAX,CLE,10.41,12.2,100,0,ACTIVE,active
+1,Lynch em All,The G.O.A.T,0,TE,Dallas Goedert,3121023,TE,PHI,WSH,10.93,23.7,100,0,ACTIVE,active
+1,Lynch em All,The G.O.A.T,0,BE,Jordan Mason,4360569,RB,MIN,GB,9.6,11.9,100,0,INJURY_RESERVE,active
+1,Lynch em All,The G.O.A.T,0,IR,Zach Charbonnet,4426385,RB,SEA,NE,0.0,0.0,100,0,OUT,inactive
+1,Lynch em All,The G.O.A.T,0,BE,Woody Marks,4429059,RB,HOU,BUF,8.27,5.0,100,0,ACTIVE,active
+1,Lynch em All,The G.O.A.T,0,BE,Rashid Shaheed,4032473,WR,SEA,NE,8.97,1.4,100,0,ACTIVE,active
+1,Lynch em All,The G.O.A.T,0,BE,Terrance Ferguson,4570037,TE,LAR,SF,8.08,0.0,100,0,INJURY_RESERVE,active
+1,Lynch em All,The G.O.A.T,0,BE,Malachi Fields,4682648,WR,NYG,DAL,6.89,4.5,100,0,ACTIVE,active
+1,Lynch em All,The G.O.A.T,0,D/ST,Bears D/ST,-16003,D/ST,CHI,CAR,5.79,2.0,100,0,NORMAL,active
+1,The G.O.A.T,Lynch em All,0,RB,James Cook III,4379399,RB,BUF,HOU,15.88,9.9,100,0,ACTIVE,active
+1,The G.O.A.T,Lynch em All,0,WR,George Pickens,4426354,WR,DAL,NYG,14.69,5.8,100,0,ACTIVE,active
+1,The G.O.A.T,Lynch em All,0,RB,Kyren Williams,4430737,RB,LAR,SF,13.67,15.5,100,0,ACTIVE,active
+1,The G.O.A.T,Lynch em All,0,WR,Rashee Rice,4428331,WR,KC,DEN,14.36,9.9,100,0,OUT,active
+1,The G.O.A.T,Lynch em All,0,RB/WR/TE,DJ Moore,3915416,WR,BUF,HOU,11.57,21.0,100,0,QUESTIONABLE,active
+1,The G.O.A.T,Lynch em All,0,TE,Jake Ferguson,4242355,TE,DAL,NYG,9.81,2.6,100,0,ACTIVE,active
+1,The G.O.A.T,Lynch em All,0,QB,Matthew Stafford,12483,QB,LAR,SF,17.5,4.1,100,0,ACTIVE,active
+1,The G.O.A.T,Lynch em All,0,BE,Deebo Samuel Sr.,3126486,WR,SF,LAR,8.92,18.0,100,0,OUT,active
+1,The G.O.A.T,Lynch em All,0,BE,Alvin Kamara,3054850,RB,NO,DET,0.0,0.0,100,0,QUESTIONABLE,inactive
+1,The G.O.A.T,Lynch em All,0,BE,Harrison Mevis,4574716,K,LAR,SF,9.41,1.0,100,0,ACTIVE,active
+1,The G.O.A.T,Lynch em All,0,D/ST,Seahawks D/ST,-16026,D/ST,SEA,NE,7.22,14.0,100,0,NORMAL,active
+1,The G.O.A.T,Lynch em All,0,BE,Dalton Kincaid,4385690,TE,BUF,HOU,8.65,18.0,100,0,ACTIVE,active
+1,The G.O.A.T,Lynch em All,0,BE,Khalil Shakir,4373678,WR,BUF,HOU,9.47,9.0,100,0,ACTIVE,active
+1,The G.O.A.T,Lynch em All,0,BE,Jake Elliott,3050478,K,PHI,WSH,8.54,6.0,100,0,ACTIVE,active
+1,The G.O.A.T,Lynch em All,0,BE,Keenan Allen,15818,WR,IND,BAL,7.18,9.2,100,0,ACTIVE,active
+1,The G.O.A.T,Lynch em All,0,IR,Isiah Pacheco,4361529,RB,DET,NO,0.0,0.0,100,0,INJURY_RESERVE,inactive
+1,The G.O.A.T,Lynch em All,0,K,Evan McPherson,4360234,K,CIN,TB,8.53,19.0,100,0,ACTIVE,active
+1,Adrian's Raiders Nation ,Lil Pan,0,WR,Puka Nacua,4426515,WR,LAR,SF,21.05,12.4,100,0,ACTIVE,active
+1,Adrian's Raiders Nation ,Lil Pan,0,RB,Ashton Jeanty,4890973,RB,LV,MIA,17.95,32.7,100,0,ACTIVE,active
+1,Adrian's Raiders Nation ,Lil Pan,0,WR,DeVonta Smith,4241478,WR,PHI,WSH,14.83,8.3,100,0,ACTIVE,active
+1,Adrian's Raiders Nation ,Lil Pan,0,TE,Colston Loveland,4723086,TE,CHI,CAR,12.03,0.0,100,0,ACTIVE,active
+1,Adrian's Raiders Nation ,Lil Pan,0,RB,David Montgomery,4035538,RB,HOU,BUF,12.67,28.9,100,0,OUT,active
+1,Adrian's Raiders Nation ,Lil Pan,0,RB/WR/TE,Tony Pollard,3916148,RB,TEN,NYJ,11.53,4.4,100,0,ACTIVE,active
+1,Adrian's Raiders Nation ,Lil Pan,0,BE,Tucker Kraft,4572680,TE,GB,MIN,8.97,9.5,100,0,ACTIVE,active
+1,Adrian's Raiders Nation ,Lil Pan,0,QB,Caleb Williams,4431611,QB,CHI,CAR,16.39,37.26,100,0,QUESTIONABLE,active
+1,Adrian's Raiders Nation ,Lil Pan,0,BE,Travis Hunter,4685415,WR,JAX,CLE,0.0,2.1,100,0,ACTIVE,active
+1,Adrian's Raiders Nation ,Lil Pan,0,BE,Blake Corum,4429096,RB,LAR,SF,9.37,5.4,100,0,ACTIVE,active
+1,Adrian's Raiders Nation ,Lil Pan,0,D/ST,Ravens D/ST,-16033,D/ST,BAL,IND,6.65,8.0,100,0,NORMAL,active
+1,Adrian's Raiders Nation ,Lil Pan,0,K,Ka'imi Fairbairn,2971573,K,HOU,BUF,9.77,9.0,100,0,ACTIVE,active
+1,Adrian's Raiders Nation ,Lil Pan,0,BE,Jacory Croskey-Merritt,4575131,RB,WSH,PHI,8.28,12.6,100,0,OUT,active
+1,Adrian's Raiders Nation ,Lil Pan,0,BE,Romeo Doubs,4361432,WR,NE,SEA,8.19,0.0,100,0,ACTIVE,active
+1,Adrian's Raiders Nation ,Lil Pan,0,BE,Eagles D/ST,-16021,D/ST,PHI,WSH,6.14,5.0,100,0,NORMAL,active
+1,Adrian's Raiders Nation ,Lil Pan,0,BE,Pat Freiermuth,4361411,TE,PIT,ATL,8.43,15.6,100,0,QUESTIONABLE,active
+1,Lil Pan,Adrian's Raiders Nation ,0,WR,CeeDee Lamb,4241389,WR,DAL,NYG,17.26,15.4,100,0,ACTIVE,active
+1,Lil Pan,Adrian's Raiders Nation ,0,WR,Justin Jefferson,4262921,WR,MIN,GB,17.08,31.2,100,0,ACTIVE,active
+1,Lil Pan,Adrian's Raiders Nation ,0,RB,Bucky Irving,4596448,RB,TB,CIN,13.5,20.3,100,0,ACTIVE,active
+1,Lil Pan,Adrian's Raiders Nation ,0,RB/WR/TE,Jeremiyah Love,4870808,RB,ARI,LAC,13.86,13.0,100,0,OUT,active
+1,Lil Pan,Adrian's Raiders Nation ,0,BE,Mike Evans,16737,WR,SF,LAR,10.65,16.9,100,0,QUESTIONABLE,active
+1,Lil Pan,Adrian's Raiders Nation ,0,BE,TreVeyon Henderson,4432710,RB,NE,SEA,0.0,0.0,100,0,QUESTIONABLE,inactive
+1,Lil Pan,Adrian's Raiders Nation ,0,QB,Jaxson Dart,4689114,QB,NYG,DAL,18.52,26.6,100,0,INJURY_RESERVE,active
+1,Lil Pan,Adrian's Raiders Nation ,0,RB,Jonathon Brooks,4678008,RB,CAR,CHI,10.71,7.2,100,0,INJURY_RESERVE,active
+1,Lil Pan,Adrian's Raiders Nation ,0,BE,De'Zhaun Stribling,4710714,WR,SF,LAR,9.59,0.0,100,0,INJURY_RESERVE,active
+1,Lil Pan,Adrian's Raiders Nation ,0,BE,KC Concepcion,4870653,WR,CLE,JAX,9.08,7.8,100,0,ACTIVE,active
+1,Lil Pan,Adrian's Raiders Nation ,0,BE,Tyler Allgeier,4373626,RB,ARI,LAC,7.52,9.0,100,0,ACTIVE,active
+1,Lil Pan,Adrian's Raiders Nation ,0,TE,T.J. Hockenson,4036133,TE,MIN,GB,9.2,13.6,100,0,QUESTIONABLE,active
+1,Lil Pan,Adrian's Raiders Nation ,0,D/ST,Jaguars D/ST,-16030,D/ST,JAX,CLE,8.21,14.0,100,0,NORMAL,active
+1,Lil Pan,Adrian's Raiders Nation ,0,BE,Kyler Murray,3917315,QB,MIN,GB,16.4,-0.38,100,0,ACTIVE,active
+1,Lil Pan,Adrian's Raiders Nation ,0,K,Chase McLaughlin,3150744,K,TB,CIN,8.36,11.0,100,0,ACTIVE,active
+1,Lil Pan,Adrian's Raiders Nation ,0,BE,49ers D/ST,-16025,D/ST,SF,LAR,2.46,9.0,100,0,NORMAL,active
+1,Ceedee and Tapes ,BTAstfuandgivemethe$400alr,0,WR,Ja'Marr Chase,4362628,WR,CIN,TB,19.95,3.2,100,0,ACTIVE,active
+1,Ceedee and Tapes ,BTAstfuandgivemethe$400alr,0,RB,Omarion Hampton,4685382,RB,LAC,ARI,17.58,8.3,100,0,ACTIVE,active
+1,Ceedee and Tapes ,BTAstfuandgivemethe$400alr,0,RB,Javonte Williams,4361579,RB,DAL,NYG,15.29,24.2,100,0,ACTIVE,active
+1,Ceedee and Tapes ,BTAstfuandgivemethe$400alr,0,WR,Ladd McConkey,4612826,WR,LAC,ARI,13.74,19.2,100,0,ACTIVE,active
+1,Ceedee and Tapes ,BTAstfuandgivemethe$400alr,0,RB/WR/TE,Quinshon Judkins,4685702,RB,CLE,JAX,13.15,7.0,100,0,QUESTIONABLE,active
+1,Ceedee and Tapes ,BTAstfuandgivemethe$400alr,0,BE,Luther Burden III,4685278,WR,CHI,CAR,12.0,9.5,100,0,ACTIVE,active
+1,Ceedee and Tapes ,BTAstfuandgivemethe$400alr,0,TE,Harold Fannin Jr.,5083076,TE,CLE,JAX,11.12,4.1,100,0,ACTIVE,active
+1,Ceedee and Tapes ,BTAstfuandgivemethe$400alr,0,QB,Justin Herbert,4038941,QB,LAC,ARI,18.99,13.26,100,0,ACTIVE,active
+1,Ceedee and Tapes ,BTAstfuandgivemethe$400alr,0,BE,Brian Thomas Jr.,4432773,WR,JAX,CLE,10.13,7.0,100,0,ACTIVE,active
+1,Ceedee and Tapes ,BTAstfuandgivemethe$400alr,0,BE,RJ Harvey,4568490,RB,DEN,KC,8.47,8.1,100,0,ACTIVE,active
+1,Ceedee and Tapes ,BTAstfuandgivemethe$400alr,0,BE,Makai Lemon,4870795,WR,PHI,WSH,8.45,2.5,100,0,ACTIVE,active
+1,Ceedee and Tapes ,BTAstfuandgivemethe$400alr,0,K,Eddy Pineiro,4034949,K,SF,LAR,8.7,10.0,100,0,ACTIVE,active
+1,Ceedee and Tapes ,BTAstfuandgivemethe$400alr,0,BE,Jordan Addison,4429205,WR,MIN,GB,9.91,0.0,100,0,QUESTIONABLE,active
+1,Ceedee and Tapes ,BTAstfuandgivemethe$400alr,0,BE,Jonah Coleman,4702555,RB,DEN,KC,4.14,0.0,100,0,INJURY_RESERVE,active
+1,Ceedee and Tapes ,BTAstfuandgivemethe$400alr,0,BE,Brian Robinson Jr.,4241474,RB,ATL,PIT,4.92,3.1,100,0,ACTIVE,active
+1,Ceedee and Tapes ,BTAstfuandgivemethe$400alr,0,D/ST,Cowboys D/ST,-16006,D/ST,DAL,NYG,4.95,2.0,100,0,NORMAL,active
+1,BTAstfuandgivemethe$400alr,Ceedee and Tapes ,0,RB,Jahmyr Gibbs,4429795,RB,DET,NO,22.43,33.6,100,0,ACTIVE,active
+1,BTAstfuandgivemethe$400alr,Ceedee and Tapes ,0,TE,Trey McBride,4361307,TE,ARI,LAC,14.34,24.5,100,0,ACTIVE,active
+1,BTAstfuandgivemethe$400alr,Ceedee and Tapes ,0,WR,Nico Collins,4258173,WR,HOU,BUF,15.59,21.2,100,0,ACTIVE,active
+1,BTAstfuandgivemethe$400alr,Ceedee and Tapes ,0,WR,Zay Flowers,4429615,WR,BAL,IND,14.21,26.0,100,0,ACTIVE,active
+1,BTAstfuandgivemethe$400alr,Ceedee and Tapes ,0,QB,Dak Prescott,2577417,QB,DAL,NYG,16.75,14.4,100,0,ACTIVE,active
+1,BTAstfuandgivemethe$400alr,Ceedee and Tapes ,0,RB,Rhamondre Stevenson,4569173,RB,NE,SEA,13.97,14.5,100,0,ACTIVE,active
+1,BTAstfuandgivemethe$400alr,Ceedee and Tapes ,0,RB/WR/TE,Christian Watson,4248528,WR,GB,MIN,10.92,32.7,100,0,ACTIVE,active
+1,BTAstfuandgivemethe$400alr,Ceedee and Tapes ,0,BE,Rico Dowdle,4038815,RB,PIT,ATL,12.5,4.1,100,0,QUESTIONABLE,active
+1,BTAstfuandgivemethe$400alr,Ceedee and Tapes ,0,D/ST,Broncos D/ST,-16007,D/ST,DEN,KC,5.86,2.0,100,0,NORMAL,active
+1,BTAstfuandgivemethe$400alr,Ceedee and Tapes ,0,BE,Chris Godwin Jr.,3116165,WR,TB,CIN,10.26,8.3,100,0,ACTIVE,active
+1,BTAstfuandgivemethe$400alr,Ceedee and Tapes ,0,K,Jason Myers,2473037,K,SEA,NE,9.38,7.0,100,0,ACTIVE,active
+1,BTAstfuandgivemethe$400alr,Ceedee and Tapes ,0,BE,Juwan Johnson,3929645,TE,NO,DET,8.83,14.4,100,0,ACTIVE,active
+1,BTAstfuandgivemethe$400alr,Ceedee and Tapes ,0,BE,Tre Tucker,4428718,WR,LV,MIA,10.02,4.7,100,0,ACTIVE,active
+1,BTAstfuandgivemethe$400alr,Ceedee and Tapes ,0,BE,Tyler Shough,4360689,QB,NO,DET,14.21,23.2,100,0,ACTIVE,active
+1,BTAstfuandgivemethe$400alr,Ceedee and Tapes ,0,BE,Tyrone Tracy Jr.,4360516,RB,NYG,DAL,2.46,-0.6,100,0,ACTIVE,active
+1,BTAstfuandgivemethe$400alr,Ceedee and Tapes ,0,BE,Jets D/ST,-16020,D/ST,NYJ,TEN,6.55,11.0,100,0,NORMAL,active
+1,"Deshaun, Don't Touchdown there",THE Death Rider,1,RB,Jonathan Taylor,4242335,RB,IND,BAL,17.75,25.1,100,0,ACTIVE,active
+1,"Deshaun, Don't Touchdown there",THE Death Rider,1,WR,A.J. Brown,4047646,WR,NE,SEA,14.18,5.6,100,0,QUESTIONABLE,active
+1,"Deshaun, Don't Touchdown there",THE Death Rider,1,RB,Travis Etienne Jr.,4239996,RB,NO,DET,15.08,14.8,100,0,INJURY_RESERVE,active
+1,"Deshaun, Don't Touchdown there",THE Death Rider,1,WR,Emeka Egbuka,4567750,WR,TB,CIN,14.04,11.3,100,0,ACTIVE,active
+1,"Deshaun, Don't Touchdown there",THE Death Rider,1,RB/WR/TE,D'Andre Swift,4259545,RB,CHI,CAR,12.31,32.4,100,0,ACTIVE,active
+1,"Deshaun, Don't Touchdown there",THE Death Rider,1,TE,George Kittle,3040151,TE,SF,LAR,8.37,3.2,100,0,ACTIVE,active
+1,"Deshaun, Don't Touchdown there",THE Death Rider,1,BE,Carnell Tate,4871023,WR,TEN,NYJ,12.0,7.8,100,0,ACTIVE,active
+1,"Deshaun, Don't Touchdown there",THE Death Rider,1,QB,Patrick Mahomes,3139477,QB,KC,DEN,15.48,21.66,100,0,ACTIVE,active
+1,"Deshaun, Don't Touchdown there",THE Death Rider,1,BE,Chuba Hubbard,4241416,RB,CAR,CHI,12.22,23.7,100,0,ACTIVE,active
+1,"Deshaun, Don't Touchdown there",THE Death Rider,1,BE,Rachaad White,4697815,RB,WSH,PHI,8.85,4.7,100,0,ACTIVE,active
+1,"Deshaun, Don't Touchdown there",THE Death Rider,1,BE,Xavier Worthy,4683062,WR,KC,DEN,9.52,4.8,100,0,ACTIVE,active
+1,"Deshaun, Don't Touchdown there",THE Death Rider,1,K,Cam Little,4686361,K,JAX,CLE,8.81,12.0,100,0,ACTIVE,active
+1,"Deshaun, Don't Touchdown there",THE Death Rider,1,BE,Jayden Reed,4362249,WR,GB,MIN,10.04,5.0,100,0,INJURY_RESERVE,active
+1,"Deshaun, Don't Touchdown there",THE Death Rider,1,BE,Chris Rodriguez Jr.,4362619,RB,JAX,CLE,5.77,2.3,100,0,ACTIVE,active
+1,"Deshaun, Don't Touchdown there",THE Death Rider,1,D/ST,Lions D/ST,-16008,D/ST,DET,NO,7.31,5.0,100,0,NORMAL,active
+1,"Deshaun, Don't Touchdown there",THE Death Rider,1,IR,Jordyn Tyson,4880281,WR,NO,DET,0.0,0.0,100,0,INJURY_RESERVE,inactive
+1,"Deshaun, Don't Touchdown there",THE Death Rider,1,BE,C.J. Stroud,4432577,QB,HOU,BUF,16.23,16.46,100,0,ACTIVE,active
+1,THE Death Rider,"Deshaun, Don't Touchdown there",0,QB,Josh Allen,3918298,QB,BUF,HOU,19.32,35.66,100,0,ACTIVE,active
+1,THE Death Rider,"Deshaun, Don't Touchdown there",0,WR,Garrett Wilson,4569618,WR,NYJ,TEN,14.78,13.9,100,0,ACTIVE,active
+1,THE Death Rider,"Deshaun, Don't Touchdown there",0,BE,Drake Maye,4431452,QB,NE,SEA,16.25,9.82,100,0,ACTIVE,active
+1,THE Death Rider,"Deshaun, Don't Touchdown there",0,BE,Joe Burrow,3915511,QB,CIN,TB,18.15,14.16,100,0,ACTIVE,active
+1,THE Death Rider,"Deshaun, Don't Touchdown there",0,BE,Jalen Hurts,4040715,QB,PHI,WSH,21.05,24.72,100,0,INJURY_RESERVE,active
+1,THE Death Rider,"Deshaun, Don't Touchdown there",0,WR,Jameson Williams,4426388,WR,DET,NO,12.12,8.5,100,0,ACTIVE,active
+1,THE Death Rider,"Deshaun, Don't Touchdown there",0,RB/WR/TE,Marvin Harrison Jr.,4432708,WR,ARI,LAC,11.47,4.3,100,0,ACTIVE,active
+1,THE Death Rider,"Deshaun, Don't Touchdown there",0,RB,Jaylen Warren,4569987,RB,PIT,ATL,12.62,10.3,100,0,ACTIVE,active
+1,THE Death Rider,"Deshaun, Don't Touchdown there",0,RB,Kenny Gainwell,4371733,RB,TB,CIN,12.03,2.8,100,0,ACTIVE,active
+1,THE Death Rider,"Deshaun, Don't Touchdown there",0,TE,Isaiah Likely,4361050,TE,NYG,DAL,9.48,27.8,100,0,ACTIVE,active
+1,THE Death Rider,"Deshaun, Don't Touchdown there",0,K,Cameron Dicker,4362081,K,LAC,ARI,10.26,2.0,100,0,ACTIVE,active
+1,THE Death Rider,"Deshaun, Don't Touchdown there",0,BE,Josh Jacobs,4047365,RB,GB,MIN,0.0,0.0,100,0,DAY_TO_DAY,inactive
+1,THE Death Rider,"Deshaun, Don't Touchdown there",0,BE,Josh Downs,4688813,WR,IND,BAL,9.11,5.7,100,0,ACTIVE,active
+1,THE Death Rider,"Deshaun, Don't Touchdown there",0,BE,Tyjae Spears,4428557,RB,TEN,NYJ,9.36,4.4,100,0,QUESTIONABLE,active
+1,THE Death Rider,"Deshaun, Don't Touchdown there",0,IR,Tank Dell,4366031,WR,HOU,BUF,0.0,0.0,100,0,INJURY_RESERVE,inactive
+1,THE Death Rider,"Deshaun, Don't Touchdown there",0,D/ST,Browns D/ST,-16005,D/ST,CLE,JAX,4.79,-1.0,100,0,NORMAL,active
+2,Run CMC,Vatos Locos ,0,RB,Christian McCaffrey,3117251,RB,SF,MIA,21.48,22.6,100,0,ACTIVE,active
+2,Run CMC,Vatos Locos ,0,RB,Derrick Henry,3043078,RB,BAL,NO,17.61,17.7,100,0,ACTIVE,active
+2,Run CMC,Vatos Locos ,0,WR,Malik Nabers,4595348,WR,NYG,LAR,14.93,1.1,100,0,ACTIVE,active
+2,Run CMC,Vatos Locos ,0,WR,Tetairoa McMillan,4685472,WR,CAR,ATL,13.62,15.1,100,0,ACTIVE,active
+2,Run CMC,Vatos Locos ,0,TE,Tyler Warren,4431459,TE,IND,KC,11.38,14.4,100,0,QUESTIONABLE,active
+2,Run CMC,Vatos Locos ,0,BE,Rome Odunze,4431299,WR,CHI,MIN,11.69,7.3,100,0,ACTIVE,active
+2,Run CMC,Vatos Locos ,0,BE,DK Metcalf,4047650,WR,PIT,NE,12.2,6.7,100,0,ACTIVE,active
+2,Run CMC,Vatos Locos ,0,QB,Brock Purdy,4361741,QB,SF,MIA,20.59,28.48,100,0,ACTIVE,active
+2,Run CMC,Vatos Locos ,0,BE,Wan'Dale Robinson,4569587,WR,TEN,PHI,9.5,1.9,100,0,ACTIVE,active
+2,Run CMC,Vatos Locos ,0,RB/WR/TE,Aaron Jones Sr.,3042519,RB,MIN,CHI,14.15,10.5,100,0,ACTIVE,active
+2,Run CMC,Vatos Locos ,0,D/ST,Steelers D/ST,-16023,D/ST,PIT,NE,6.0,8.0,100,0,NORMAL,active
+2,Run CMC,Vatos Locos ,0,K,Harrison Butker,3055899,K,KC,IND,9.06,16.0,100,0,ACTIVE,active
+2,Run CMC,Vatos Locos ,0,BE,Jordan Love,4036378,QB,GB,NYJ,15.93,13.8,100,0,ACTIVE,active
+2,Run CMC,Vatos Locos ,0,BE,Denzel Boston,4832800,WR,CLE,TB,9.42,20.5,100,0,ACTIVE,active
+2,Run CMC,Vatos Locos ,0,BE,Dalton Schultz,3117256,TE,HOU,CIN,8.93,26.0,100,0,ACTIVE,active
+2,Run CMC,Vatos Locos ,0,BE,Dontayvion Wicks,4428850,WR,PHI,TEN,8.62,12.4,100,0,ACTIVE,active
+2,Vatos Locos ,Run CMC,0,WR,Amon-Ra St. Brown,4374302,WR,DET,BUF,20.39,35.2,100,0,ACTIVE,active
+2,Vatos Locos ,Run CMC,0,RB,Saquon Barkley,3929630,RB,PHI,TEN,17.62,3.0,100,0,OUT,active
+2,Vatos Locos ,Run CMC,0,BE,Jayden Daniels,4426348,QB,WSH,DAL,19.79,14.74,100,0,ACTIVE,active
+2,Vatos Locos ,Run CMC,0,WR,Chris Olave,4361370,WR,NO,BAL,15.92,22.6,100,0,QUESTIONABLE,active
+2,Vatos Locos ,Run CMC,0,RB,Bhayshul Tuten,4882093,RB,JAX,DEN,10.05,14.2,100,0,ACTIVE,active
+2,Vatos Locos ,Run CMC,0,BE,Kyle Pitts Sr.,4360248,TE,ATL,CAR,10.38,2.5,100,0,ACTIVE,active
+2,Vatos Locos ,Run CMC,0,BE,Stefon Diggs,2976212,WR,WSH,DAL,10.33,21.7,100,0,QUESTIONABLE,active
+2,Vatos Locos ,Run CMC,0,D/ST,Texans D/ST,-16034,D/ST,HOU,CIN,6.25,7.0,100,0,NORMAL,active
+2,Vatos Locos ,Run CMC,0,BE,MarShawn Lloyd,4429023,RB,GB,NYJ,11.16,8.6,100,0,ACTIVE,active
+2,Vatos Locos ,Run CMC,0,BE,Rams D/ST,-16014,D/ST,LAR,NYG,5.74,11.0,100,0,NORMAL,active
+2,Vatos Locos ,Run CMC,0,QB,Jared Goff,3046779,QB,DET,BUF,17.01,29.78,100,0,ACTIVE,active
+2,Vatos Locos ,Run CMC,0,TE,Brenton Strange,4430539,TE,JAX,DEN,7.99,3.7,100,0,ACTIVE,active
+2,Vatos Locos ,Run CMC,0,K,Jake Bates,4689936,K,DET,BUF,8.54,7.0,100,0,ACTIVE,active
+2,Vatos Locos ,Run CMC,0,RB/WR/TE,Jalen Coker,4695883,WR,CAR,ATL,11.93,14.6,100,0,ACTIVE,active
+2,Vatos Locos ,Run CMC,0,BE,Alvin Kamara,3054850,RB,NO,BAL,6.39,7.2,100,0,QUESTIONABLE,active
+2,Vatos Locos ,Run CMC,0,BE,Rashod Bateman,4360939,WR,BAL,NO,10.32,21.8,100,0,ACTIVE,active
+2,The G.O.A.T,THEEE GUYY,0,RB,James Cook III,4379399,RB,BUF,DET,18.62,20.9,100,0,ACTIVE,active
+2,The G.O.A.T,THEEE GUYY,0,WR,George Pickens,4426354,WR,DAL,WSH,14.79,10.0,100,0,ACTIVE,active
+2,The G.O.A.T,THEEE GUYY,0,RB,Kyren Williams,4430737,RB,LAR,NYG,14.47,15.7,100,0,ACTIVE,active
+2,The G.O.A.T,THEEE GUYY,0,WR,Rashee Rice,4428331,WR,KC,IND,15.04,12.3,100,0,OUT,active
+2,The G.O.A.T,THEEE GUYY,0,RB/WR/TE,DJ Moore,3915416,WR,BUF,DET,12.58,-0.1,100,0,QUESTIONABLE,active
+2,The G.O.A.T,THEEE GUYY,0,TE,Jake Ferguson,4242355,TE,DAL,WSH,9.62,20.3,100,0,ACTIVE,active
+2,The G.O.A.T,THEEE GUYY,0,QB,Matthew Stafford,12483,QB,LAR,NYG,18.21,26.98,100,0,ACTIVE,active
+2,The G.O.A.T,THEEE GUYY,0,BE,Deebo Samuel Sr.,3126486,WR,SF,MIA,12.03,6.5,100,0,OUT,active
+2,The G.O.A.T,THEEE GUYY,0,D/ST,Seahawks D/ST,-16026,D/ST,SEA,ARI,7.61,10.0,100,0,NORMAL,active
+2,The G.O.A.T,THEEE GUYY,0,BE,Dalton Kincaid,4385690,TE,BUF,DET,10.43,22.5,100,0,ACTIVE,active
+2,The G.O.A.T,THEEE GUYY,0,BE,Khalil Shakir,4373678,WR,BUF,DET,10.33,6.8,100,0,ACTIVE,active
+2,The G.O.A.T,THEEE GUYY,0,K,Jake Elliott,3050478,K,PHI,TEN,8.03,8.0,100,0,ACTIVE,active
+2,The G.O.A.T,THEEE GUYY,0,BE,Keenan Allen,15818,WR,IND,KC,8.7,1.5,100,0,ACTIVE,active
+2,The G.O.A.T,THEEE GUYY,0,IR,Isiah Pacheco,4361529,RB,DET,BUF,0.0,0.0,100,0,INJURY_RESERVE,inactive
+2,The G.O.A.T,THEEE GUYY,0,BE,Evan McPherson,4360234,K,CIN,HOU,7.98,12.0,100,0,ACTIVE,active
+2,The G.O.A.T,THEEE GUYY,0,BE,Caleb Douglas,4869645,WR,MIA,SF,9.4,3.9,100,0,QUESTIONABLE,active
+2,THEEE GUYY,The G.O.A.T,0,RB,Bijan Robinson,4430807,RB,ATL,CAR,22.93,11.1,100,0,ACTIVE,active
+2,THEEE GUYY,The G.O.A.T,0,WR,Drake London,4426502,WR,ATL,CAR,12.85,8.9,100,0,ACTIVE,active
+2,THEEE GUYY,The G.O.A.T,0,RB,Kenneth Walker III,4567048,RB,KC,IND,17.84,23.8,100,0,ACTIVE,active
+2,THEEE GUYY,The G.O.A.T,0,WR,Davante Adams,16800,WR,LAR,NYG,15.5,39.5,100,0,ACTIVE,active
+2,THEEE GUYY,The G.O.A.T,0,RB/WR/TE,Cam Skattebo,4696981,RB,NYG,LAR,12.83,9.5,100,0,ACTIVE,active
+2,THEEE GUYY,The G.O.A.T,0,TE,Sam LaPorta,4430027,TE,DET,BUF,11.25,17.2,100,0,ACTIVE,active
+2,THEEE GUYY,The G.O.A.T,0,BE,Courtland Sutton,3128429,WR,DEN,JAX,11.99,5.5,100,0,ACTIVE,active
+2,THEEE GUYY,The G.O.A.T,0,BE,Alec Pierce,4360078,WR,IND,KC,11.03,2.1,100,0,INJURY_RESERVE,active
+2,THEEE GUYY,The G.O.A.T,0,QB,Bo Nix,4426338,QB,DEN,JAX,18.55,14.12,100,0,ACTIVE,active
+2,THEEE GUYY,The G.O.A.T,0,BE,Kyle Monangai,4608686,RB,CHI,MIN,9.81,7.8,100,0,OUT,active
+2,THEEE GUYY,The G.O.A.T,0,BE,Mark Andrews,3116365,TE,BAL,NO,10.37,10.9,100,0,ACTIVE,active
+2,THEEE GUYY,The G.O.A.T,0,D/ST,Patriots D/ST,-16017,D/ST,NE,PIT,6.64,20.0,100,0,NORMAL,active
+2,THEEE GUYY,The G.O.A.T,0,K,Tyler Loop,4697745,K,BAL,NO,9.06,5.0,100,0,ACTIVE,active
+2,THEEE GUYY,The G.O.A.T,0,BE,Jalen McMillan,4430834,WR,TB,CLE,7.01,0.0,100,0,INJURY_RESERVE,active
+2,THEEE GUYY,The G.O.A.T,0,IR,Dylan Sampson,5081397,RB,CLE,TB,0.0,0.0,100,0,INJURY_RESERVE,inactive
+2,THEEE GUYY,The G.O.A.T,0,BE,Bryce Young,4685720,QB,CAR,ATL,16.6,24.08,100,0,ACTIVE,active
+2,THEEE GUYY,The G.O.A.T,0,BE,Adonai Mitchell,4597500,WR,NYJ,GB,9.06,12.3,100,0,OUT,active
+2,Lil Pan,Doughboy,0,WR,CeeDee Lamb,4241389,WR,DAL,WSH,18.0,35.3,100,0,ACTIVE,active
+2,Lil Pan,Doughboy,0,WR,Justin Jefferson,4262921,WR,MIN,CHI,18.36,8.5,100,0,ACTIVE,active
+2,Lil Pan,Doughboy,0,RB,Bucky Irving,4596448,RB,TB,CLE,14.58,13.0,100,0,ACTIVE,active
+2,Lil Pan,Doughboy,0,RB,Jeremiyah Love,4870808,RB,ARI,SEA,12.88,7.5,100,0,OUT,active
+2,Lil Pan,Doughboy,0,RB/WR/TE,Mike Evans,16737,WR,SF,MIA,12.99,8.4,100,0,QUESTIONABLE,active
+2,Lil Pan,Doughboy,0,BE,TreVeyon Henderson,4432710,RB,NE,PIT,9.31,13.6,100,0,QUESTIONABLE,active
+2,Lil Pan,Doughboy,0,QB,Jaxson Dart,4689114,QB,NYG,LAR,18.18,0.8,100,0,INJURY_RESERVE,active
+2,Lil Pan,Doughboy,0,BE,Jonathon Brooks,4678008,RB,CAR,ATL,8.65,2.1,100,0,INJURY_RESERVE,active
+2,Lil Pan,Doughboy,0,IR,De'Zhaun Stribling,4710714,WR,SF,MIA,0.0,0.0,100,0,INJURY_RESERVE,inactive
+2,Lil Pan,Doughboy,0,BE,KC Concepcion,4870653,WR,CLE,TB,9.49,8.2,100,0,ACTIVE,active
+2,Lil Pan,Doughboy,0,BE,Tyler Allgeier,4373626,RB,ARI,SEA,7.1,3.9,100,0,ACTIVE,active
+2,Lil Pan,Doughboy,0,TE,T.J. Hockenson,4036133,TE,MIN,CHI,9.56,5.9,100,0,QUESTIONABLE,active
+2,Lil Pan,Doughboy,0,IR,Kyler Murray,3917315,QB,MIN,CHI,0.0,0.0,100,0,ACTIVE,inactive
+2,Lil Pan,Doughboy,0,K,Chase McLaughlin,3150744,K,TB,CLE,8.77,16.0,100,0,ACTIVE,active
+2,Lil Pan,Doughboy,0,D/ST,49ers D/ST,-16025,D/ST,SF,MIA,6.61,9.0,100,0,NORMAL,active
+2,Lil Pan,Doughboy,0,BE,Hunter Henry,3046439,TE,NE,PIT,9.37,7.0,100,0,ACTIVE,active
+2,Doughboy,Lil Pan,0,WR,Jaxon Smith-Njigba,4430878,WR,SEA,ARI,18.49,42.5,100,0,ACTIVE,active
+2,Doughboy,Lil Pan,0,IR,Brock Bowers,4432665,TE,LV,LAC,0.0,0.0,100,0,ACTIVE,inactive
+2,Doughboy,Lil Pan,0,RB,Breece Hall,4427366,RB,NYJ,GB,15.79,14.2,100,0,OUT,active
+2,Doughboy,Lil Pan,0,QB,Lamar Jackson,3916387,QB,BAL,NO,21.66,14.8,100,0,OUT,active
+2,Doughboy,Lil Pan,0,RB,Jadarian Price,4685512,RB,SEA,ARI,13.21,5.0,100,0,INJURY_RESERVE,active
+2,Doughboy,Lil Pan,0,WR,Parker Washington,4432620,WR,JAX,DEN,12.19,16.8,100,0,ACTIVE,active
+2,Doughboy,Lil Pan,0,BE,J.K. Dobbins,4241985,RB,DEN,JAX,12.63,3.6,100,0,ACTIVE,active
+2,Doughboy,Lil Pan,0,BE,Michael Wilson,4360761,WR,ARI,SEA,9.95,3.8,100,0,ACTIVE,active
+2,Doughboy,Lil Pan,0,TE,Travis Kelce,15847,TE,KC,IND,10.55,25.1,100,0,ACTIVE,active
+2,Doughboy,Lil Pan,0,BE,Baker Mayfield,3052587,QB,TB,CLE,16.8,12.18,100,0,OUT,active
+2,Doughboy,Lil Pan,0,BE,Quentin Johnston,4429025,WR,LAC,LV,9.94,2.4,100,0,ACTIVE,active
+2,Doughboy,Lil Pan,0,BE,Mike Washington Jr.,4686658,RB,LV,LAC,3.83,0.7,100,0,ACTIVE,active
+2,Doughboy,Lil Pan,0,RB/WR/TE,Matthew Golden,4701936,WR,GB,NYJ,10.85,9.8,100,0,ACTIVE,active
+2,Doughboy,Lil Pan,0,K,Chris Boswell,17372,K,PIT,NE,7.89,4.0,100,0,ACTIVE,active
+2,Doughboy,Lil Pan,0,D/ST,Buccaneers D/ST,-16027,D/ST,TB,CLE,8.21,4.0,100,0,NORMAL,active
+2,Doughboy,Lil Pan,0,BE,Kaelon Black,4696044,RB,SF,MIA,8.32,2.5,100,0,ACTIVE,active
+2,BTAstfuandgivemethe$400alr,Lynch em All,0,RB,Jahmyr Gibbs,4429795,RB,DET,BUF,24.16,23.3,100,0,ACTIVE,active
+2,BTAstfuandgivemethe$400alr,Lynch em All,0,TE,Trey McBride,4361307,TE,ARI,SEA,14.47,18.1,100,0,ACTIVE,active
+2,BTAstfuandgivemethe$400alr,Lynch em All,0,BE,Nico Collins,4258173,WR,HOU,CIN,0.0,0.0,100,0,ACTIVE,inactive
+2,BTAstfuandgivemethe$400alr,Lynch em All,0,BE,Zay Flowers,4429615,WR,BAL,NO,0.0,0.0,100,0,ACTIVE,inactive
+2,BTAstfuandgivemethe$400alr,Lynch em All,0,QB,Dak Prescott,2577417,QB,DAL,WSH,20.01,29.76,100,0,ACTIVE,active
+2,BTAstfuandgivemethe$400alr,Lynch em All,0,RB,Rhamondre Stevenson,4569173,RB,NE,PIT,12.91,3.6,100,0,ACTIVE,active
+2,BTAstfuandgivemethe$400alr,Lynch em All,0,WR,Christian Watson,4248528,WR,GB,NYJ,12.49,14.1,100,0,ACTIVE,active
+2,BTAstfuandgivemethe$400alr,Lynch em All,0,BE,Rico Dowdle,4038815,RB,PIT,NE,10.12,6.4,100,0,QUESTIONABLE,active
+2,BTAstfuandgivemethe$400alr,Lynch em All,0,D/ST,Broncos D/ST,-16007,D/ST,DEN,JAX,6.29,9.0,100,0,NORMAL,active
+2,BTAstfuandgivemethe$400alr,Lynch em All,0,WR,Chris Godwin Jr.,3116165,WR,TB,CLE,10.01,8.8,100,0,ACTIVE,active
+2,BTAstfuandgivemethe$400alr,Lynch em All,0,K,Jason Myers,2473037,K,SEA,ARI,9.41,7.0,100,0,ACTIVE,active
+2,BTAstfuandgivemethe$400alr,Lynch em All,0,RB/WR/TE,Juwan Johnson,3929645,TE,NO,BAL,8.87,10.6,100,0,ACTIVE,active
+2,BTAstfuandgivemethe$400alr,Lynch em All,0,BE,Tyler Shough,4360689,QB,NO,BAL,15.07,22.38,100,0,ACTIVE,active
+2,BTAstfuandgivemethe$400alr,Lynch em All,0,BE,Antonio Williams,5081432,WR,WSH,DAL,6.03,5.4,100,0,ACTIVE,active
+2,BTAstfuandgivemethe$400alr,Lynch em All,0,BE,Devin Singletary,4040761,RB,NYG,LAR,6.82,0.9,100,0,ACTIVE,active
+2,BTAstfuandgivemethe$400alr,Lynch em All,0,BE,Packers D/ST,-16009,D/ST,GB,NYJ,5.99,7.0,100,0,NORMAL,active
+2,Lynch em All,BTAstfuandgivemethe$400alr,0,RB,De'Von Achane,4429160,RB,MIA,SF,17.14,12.3,100,0,INJURY_RESERVE,active
+2,Lynch em All,BTAstfuandgivemethe$400alr,0,RB,Chase Brown,4362238,RB,CIN,HOU,15.45,11.2,100,0,ACTIVE,active
+2,Lynch em All,BTAstfuandgivemethe$400alr,0,WR,Tee Higgins,4239993,WR,CIN,HOU,12.32,14.5,100,0,ACTIVE,active
+2,Lynch em All,BTAstfuandgivemethe$400alr,0,WR,Jaylen Waddle,4372016,WR,DEN,JAX,12.18,21.8,100,0,ACTIVE,active
+2,Lynch em All,BTAstfuandgivemethe$400alr,0,RB/WR/TE,Terry McLaurin,3121422,WR,WSH,DAL,12.44,7.0,100,0,ACTIVE,active
+2,Lynch em All,BTAstfuandgivemethe$400alr,0,BE,Michael Pittman Jr.,4035687,WR,PIT,NE,0.0,0.0,100,0,INJURY_RESERVE,inactive
+2,Lynch em All,BTAstfuandgivemethe$400alr,0,QB,Trevor Lawrence,4360310,QB,JAX,DEN,15.91,6.16,100,0,ACTIVE,active
+2,Lynch em All,BTAstfuandgivemethe$400alr,0,K,Brandon Aubrey,3953687,K,DAL,WSH,10.6,17.0,100,0,ACTIVE,active
+2,Lynch em All,BTAstfuandgivemethe$400alr,0,BE,Jakobi Meyers,3916433,WR,JAX,DEN,9.78,3.8,100,0,ACTIVE,active
+2,Lynch em All,BTAstfuandgivemethe$400alr,0,TE,Dallas Goedert,3121023,TE,PHI,TEN,10.79,1.4,100,0,ACTIVE,active
+2,Lynch em All,BTAstfuandgivemethe$400alr,0,IR,Jordan Mason,4360569,RB,MIN,CHI,0.0,0.0,100,0,INJURY_RESERVE,inactive
+2,Lynch em All,BTAstfuandgivemethe$400alr,0,IR,Zach Charbonnet,4426385,RB,SEA,ARI,0.0,0.0,100,0,OUT,inactive
+2,Lynch em All,BTAstfuandgivemethe$400alr,0,BE,Woody Marks,4429059,RB,HOU,CIN,7.74,8.5,100,0,ACTIVE,active
+2,Lynch em All,BTAstfuandgivemethe$400alr,0,BE,Devaughn Vele,4569559,WR,NO,BAL,9.46,11.4,100,0,ACTIVE,active
+2,Lynch em All,BTAstfuandgivemethe$400alr,0,BE,Kalif Raymond,2973405,WR,CHI,MIN,6.19,9.0,100,0,ACTIVE,active
+2,Lynch em All,BTAstfuandgivemethe$400alr,0,D/ST,Chiefs D/ST,-16012,D/ST,KC,IND,7.21,1.0,100,0,NORMAL,active
+2,Lynch em All,BTAstfuandgivemethe$400alr,0,BE,Emmett Johnson,4832955,RB,KC,IND,6.47,5.5,100,0,ACTIVE,active
+2,Lynch em All,BTAstfuandgivemethe$400alr,0,BE,Malik Washington,4569603,WR,MIA,SF,7.54,8.7,100,0,ACTIVE,active
+2,THE Death Rider,Adrian's Raiders Nation ,0,QB,Josh Allen,3918298,QB,BUF,DET,22.65,40.82,100,0,ACTIVE,active
+2,THE Death Rider,Adrian's Raiders Nation ,0,WR,Garrett Wilson,4569618,WR,NYJ,GB,15.86,16.7,100,0,ACTIVE,active
+2,THE Death Rider,Adrian's Raiders Nation ,0,BE,Drake Maye,4431452,QB,NE,PIT,18.23,8.02,100,0,ACTIVE,active
+2,THE Death Rider,Adrian's Raiders Nation ,0,BE,Joe Burrow,3915511,QB,CIN,HOU,16.5,16.18,100,0,ACTIVE,active
+2,THE Death Rider,Adrian's Raiders Nation ,0,BE,Jalen Hurts,4040715,QB,PHI,TEN,19.95,16.16,100,0,INJURY_RESERVE,active
+2,THE Death Rider,Adrian's Raiders Nation ,0,WR,Jameson Williams,4426388,WR,DET,BUF,12.33,5.3,100,0,ACTIVE,active
+2,THE Death Rider,Adrian's Raiders Nation ,0,RB/WR/TE,Marvin Harrison Jr.,4432708,WR,ARI,SEA,9.3,0.0,100,0,ACTIVE,active
+2,THE Death Rider,Adrian's Raiders Nation ,0,RB,Jaylen Warren,4569987,RB,PIT,NE,11.38,9.7,100,0,ACTIVE,active
+2,THE Death Rider,Adrian's Raiders Nation ,0,RB,Kenny Gainwell,4371733,RB,TB,CLE,9.58,4.5,100,0,ACTIVE,active
+2,THE Death Rider,Adrian's Raiders Nation ,0,TE,Isaiah Likely,4361050,TE,NYG,LAR,10.96,8.3,100,0,ACTIVE,active
+2,THE Death Rider,Adrian's Raiders Nation ,0,K,Cameron Dicker,4362081,K,LAC,LV,9.84,1.0,100,0,ACTIVE,active
+2,THE Death Rider,Adrian's Raiders Nation ,0,BE,Josh Jacobs,4047365,RB,GB,NYJ,0.0,0.0,100,0,DAY_TO_DAY,inactive
+2,THE Death Rider,Adrian's Raiders Nation ,0,BE,Josh Downs,4688813,WR,IND,KC,9.43,14.2,100,0,ACTIVE,active
+2,THE Death Rider,Adrian's Raiders Nation ,0,BE,Tyjae Spears,4428557,RB,TEN,PHI,8.65,9.0,100,0,QUESTIONABLE,active
+2,THE Death Rider,Adrian's Raiders Nation ,0,IR,Tank Dell,4366031,WR,HOU,CIN,0.0,0.0,100,0,INJURY_RESERVE,inactive
+2,THE Death Rider,Adrian's Raiders Nation ,0,D/ST,Browns D/ST,-16005,D/ST,CLE,TB,4.41,5.0,100,0,NORMAL,active
+2,Adrian's Raiders Nation ,THE Death Rider,0,WR,Puka Nacua,4426515,WR,LAR,NYG,0.0,0.0,100,0,ACTIVE,inactive
+2,Adrian's Raiders Nation ,THE Death Rider,0,RB,Ashton Jeanty,4890973,RB,LV,LAC,18.33,10.3,100,0,ACTIVE,active
+2,Adrian's Raiders Nation ,THE Death Rider,0,WR,DeVonta Smith,4241478,WR,PHI,TEN,13.96,27.7,100,0,ACTIVE,active
+2,Adrian's Raiders Nation ,THE Death Rider,0,BE,Colston Loveland,4723086,TE,CHI,MIN,11.43,1.3,100,0,ACTIVE,active
+2,Adrian's Raiders Nation ,THE Death Rider,0,RB,David Montgomery,4035538,RB,HOU,CIN,14.2,4.4,100,0,OUT,active
+2,Adrian's Raiders Nation ,THE Death Rider,0,BE,Tony Pollard,3916148,RB,TEN,PHI,11.13,7.5,100,0,ACTIVE,active
+2,Adrian's Raiders Nation ,THE Death Rider,0,TE,Tucker Kraft,4572680,TE,GB,NYJ,10.58,3.5,100,0,ACTIVE,active
+2,Adrian's Raiders Nation ,THE Death Rider,0,QB,Caleb Williams,4431611,QB,CHI,MIN,19.42,7.72,100,0,QUESTIONABLE,active
+2,Adrian's Raiders Nation ,THE Death Rider,0,BE,Blake Corum,4429096,RB,LAR,NYG,9.73,10.2,100,0,ACTIVE,active
+2,Adrian's Raiders Nation ,THE Death Rider,0,D/ST,Ravens D/ST,-16033,D/ST,BAL,NO,6.85,5.0,100,0,NORMAL,active
+2,Adrian's Raiders Nation ,THE Death Rider,0,K,Ka'imi Fairbairn,2971573,K,HOU,CIN,9.84,6.0,100,0,ACTIVE,active
+2,Adrian's Raiders Nation ,THE Death Rider,0,RB/WR/TE,Jacory Croskey-Merritt,4575131,RB,WSH,DAL,10.18,5.8,100,0,OUT,active
+2,Adrian's Raiders Nation ,THE Death Rider,0,BE,Romeo Doubs,4361432,WR,NE,PIT,10.59,12.6,100,0,ACTIVE,active
+2,Adrian's Raiders Nation ,THE Death Rider,0,BE,Eagles D/ST,-16021,D/ST,PHI,TEN,7.09,4.0,100,0,NORMAL,active
+2,Adrian's Raiders Nation ,THE Death Rider,0,BE,Pat Freiermuth,4361411,TE,PIT,NE,8.5,7.4,100,0,QUESTIONABLE,active
+2,Adrian's Raiders Nation ,THE Death Rider,0,BE,Kirk Cousins,14880,QB,LV,LAC,12.21,20.22,100,0,ACTIVE,active
+2,"Deshaun, Don't Touchdown there",Ceedee and Tapes ,1,RB/WR/TE,Jonathan Taylor,4242335,RB,IND,KC,18.44,29.2,100,0,ACTIVE,active
+2,"Deshaun, Don't Touchdown there",Ceedee and Tapes ,1,IR,A.J. Brown,4047646,WR,NE,PIT,0.0,0.0,100,0,QUESTIONABLE,inactive
+2,"Deshaun, Don't Touchdown there",Ceedee and Tapes ,1,BE,Travis Etienne Jr.,4239996,RB,NO,BAL,12.77,7.1,100,0,INJURY_RESERVE,active
+2,"Deshaun, Don't Touchdown there",Ceedee and Tapes ,1,WR,Emeka Egbuka,4567750,WR,TB,CLE,13.8,10.3,100,0,ACTIVE,active
+2,"Deshaun, Don't Touchdown there",Ceedee and Tapes ,1,RB,D'Andre Swift,4259545,RB,CHI,MIN,13.49,12.9,100,0,ACTIVE,active
+2,"Deshaun, Don't Touchdown there",Ceedee and Tapes ,1,TE,George Kittle,3040151,TE,SF,MIA,10.5,18.0,100,0,ACTIVE,active
+2,"Deshaun, Don't Touchdown there",Ceedee and Tapes ,1,WR,Carnell Tate,4871023,WR,TEN,PHI,11.42,5.7,100,0,ACTIVE,active
+2,"Deshaun, Don't Touchdown there",Ceedee and Tapes ,1,QB,Patrick Mahomes,3139477,QB,KC,IND,18.22,28.98,100,0,ACTIVE,active
+2,"Deshaun, Don't Touchdown there",Ceedee and Tapes ,1,RB,Chuba Hubbard,4241416,RB,CAR,ATL,14.46,14.4,100,0,ACTIVE,active
+2,"Deshaun, Don't Touchdown there",Ceedee and Tapes ,1,BE,Rachaad White,4697815,RB,WSH,DAL,7.56,14.3,100,0,ACTIVE,active
+2,"Deshaun, Don't Touchdown there",Ceedee and Tapes ,1,BE,Xavier Worthy,4683062,WR,KC,IND,11.04,13.5,100,0,ACTIVE,active
+2,"Deshaun, Don't Touchdown there",Ceedee and Tapes ,1,BE,Jayden Reed,4362249,WR,GB,NYJ,9.96,1.4,100,0,INJURY_RESERVE,active
+2,"Deshaun, Don't Touchdown there",Ceedee and Tapes ,1,IR,Jordyn Tyson,4880281,WR,NO,BAL,0.0,0.0,100,0,INJURY_RESERVE,inactive
+2,"Deshaun, Don't Touchdown there",Ceedee and Tapes ,1,BE,C.J. Stroud,4432577,QB,HOU,CIN,16.93,17.02,100,0,ACTIVE,active
+2,"Deshaun, Don't Touchdown there",Ceedee and Tapes ,1,D/ST,Chargers D/ST,-16024,D/ST,LAC,LV,6.8,4.0,100,0,NORMAL,active
+2,"Deshaun, Don't Touchdown there",Ceedee and Tapes ,1,BE,Tre Tucker,4428718,WR,LV,LAC,9.86,22.9,100,0,ACTIVE,active
+2,"Deshaun, Don't Touchdown there",Ceedee and Tapes ,1,BE,Michael Mayer,4429086,TE,LV,LAC,9.98,5.3,100,0,ACTIVE,active
+2,"Deshaun, Don't Touchdown there",Ceedee and Tapes ,1,K,Harrison Mevis,4574716,K,LAR,NYG,9.41,3.0,100,0,ACTIVE,active
+2,Ceedee and Tapes ,"Deshaun, Don't Touchdown there",0,WR,Ja'Marr Chase,4362628,WR,CIN,HOU,19.01,26.5,100,0,ACTIVE,active
+2,Ceedee and Tapes ,"Deshaun, Don't Touchdown there",0,RB,Omarion Hampton,4685382,RB,LAC,LV,15.84,17.5,100,0,ACTIVE,active
+2,Ceedee and Tapes ,"Deshaun, Don't Touchdown there",0,RB,Javonte Williams,4361579,RB,DAL,WSH,16.7,8.0,100,0,ACTIVE,active
+2,Ceedee and Tapes ,"Deshaun, Don't Touchdown there",0,WR,Ladd McConkey,4612826,WR,LAC,LV,14.47,6.5,100,0,ACTIVE,active
+2,Ceedee and Tapes ,"Deshaun, Don't Touchdown there",0,BE,Quinshon Judkins,4685702,RB,CLE,TB,11.97,9.8,100,0,QUESTIONABLE,active
+2,Ceedee and Tapes ,"Deshaun, Don't Touchdown there",0,RB/WR/TE,Luther Burden III,4685278,WR,CHI,MIN,12.46,6.2,100,0,ACTIVE,active
+2,Ceedee and Tapes ,"Deshaun, Don't Touchdown there",0,TE,Harold Fannin Jr.,5083076,TE,CLE,TB,10.03,10.4,100,0,ACTIVE,active
+2,Ceedee and Tapes ,"Deshaun, Don't Touchdown there",0,QB,Justin Herbert,4038941,QB,LAC,LV,19.48,7.88,100,0,ACTIVE,active
+2,Ceedee and Tapes ,"Deshaun, Don't Touchdown there",0,BE,Brian Thomas Jr.,4432773,WR,JAX,DEN,9.74,7.0,100,0,ACTIVE,active
+2,Ceedee and Tapes ,"Deshaun, Don't Touchdown there",0,BE,RJ Harvey,4568490,RB,DEN,JAX,0.0,0.0,100,0,ACTIVE,inactive
+2,Ceedee and Tapes ,"Deshaun, Don't Touchdown there",0,BE,Makai Lemon,4870795,WR,PHI,TEN,9.0,1.9,100,0,ACTIVE,active
+2,Ceedee and Tapes ,"Deshaun, Don't Touchdown there",0,K,Eddy Pineiro,4034949,K,SF,MIA,9.92,5.0,100,0,ACTIVE,active
+2,Ceedee and Tapes ,"Deshaun, Don't Touchdown there",0,BE,Jordan Addison,4429205,WR,MIN,CHI,10.58,4.1,100,0,QUESTIONABLE,active
+2,Ceedee and Tapes ,"Deshaun, Don't Touchdown there",0,BE,Brian Robinson Jr.,4241474,RB,ATL,CAR,6.16,8.7,100,0,ACTIVE,active
+2,Ceedee and Tapes ,"Deshaun, Don't Touchdown there",0,D/ST,Cowboys D/ST,-16006,D/ST,DAL,WSH,4.6,1.0,100,0,NORMAL,active
+2,Ceedee and Tapes ,"Deshaun, Don't Touchdown there",0,BE,Mike Gesicki,3116164,TE,CIN,HOU,6.54,0.0,100,0,ACTIVE,active
+3,The G.O.A.T,Run CMC,0,RB,James Cook III,4379399,RB,BUF,LAC,16.96,19.4,100,0,ACTIVE,active
+3,The G.O.A.T,Run CMC,0,WR,George Pickens,4426354,WR,DAL,BAL,13.8,15.2,100,0,ACTIVE,active
+3,The G.O.A.T,Run CMC,0,RB,Kyren Williams,4430737,RB,LAR,DEN,12.97,21.8,100,0,ACTIVE,active
+3,The G.O.A.T,Run CMC,0,WR,Rashee Rice,4428331,WR,KC,MIA,12.73,15.8,100,0,OUT,active
+3,The G.O.A.T,Run CMC,0,RB/WR/TE,DJ Moore,3915416,WR,BUF,LAC,12.56,12.7,100,0,QUESTIONABLE,active
+3,The G.O.A.T,Run CMC,0,BE,Jake Ferguson,4242355,TE,DAL,BAL,8.71,9.3,100,0,ACTIVE,active
+3,The G.O.A.T,Run CMC,0,QB,Matthew Stafford,12483,QB,LAR,DEN,15.73,20.9,100,0,ACTIVE,active
+3,The G.O.A.T,Run CMC,0,BE,Deebo Samuel Sr.,3126486,WR,SF,ARI,12.33,15.4,100,0,OUT,active
+3,The G.O.A.T,Run CMC,0,D/ST,Seahawks D/ST,-16026,D/ST,SEA,WSH,7.32,4.0,100,0,NORMAL,active
+3,The G.O.A.T,Run CMC,0,TE,Dalton Kincaid,4385690,TE,BUF,LAC,11.62,3.8,100,0,ACTIVE,active
+3,The G.O.A.T,Run CMC,0,BE,Khalil Shakir,4373678,WR,BUF,LAC,10.4,1.6,100,0,ACTIVE,active
+3,The G.O.A.T,Run CMC,0,BE,Keenan Allen,15818,WR,IND,HOU,9.55,18.3,100,0,ACTIVE,active
+3,The G.O.A.T,Run CMC,0,IR,Isiah Pacheco,4361529,RB,DET,NYJ,0.0,0.0,100,0,INJURY_RESERVE,inactive
+3,The G.O.A.T,Run CMC,0,K,Evan McPherson,4360234,K,CIN,PIT,7.8,11.0,100,0,ACTIVE,active
+3,The G.O.A.T,Run CMC,0,BE,Jameis Winston,2969939,QB,NYG,TEN,14.68,6.12,100,0,ACTIVE,active
+3,Run CMC,The G.O.A.T,0,RB,Christian McCaffrey,3117251,RB,SF,ARI,20.9,21.6,100,0,ACTIVE,active
+3,Run CMC,The G.O.A.T,0,RB,Derrick Henry,3043078,RB,BAL,DAL,17.78,21.9,100,0,ACTIVE,active
+3,Run CMC,The G.O.A.T,0,BE,Malik Nabers,4595348,WR,NYG,TEN,14.43,7.6,100,0,ACTIVE,active
+3,Run CMC,The G.O.A.T,0,WR,Tetairoa McMillan,4685472,WR,CAR,CLE,14.21,3.7,100,0,ACTIVE,active
+3,Run CMC,The G.O.A.T,0,TE,Tyler Warren,4431459,TE,IND,HOU,12.32,14.7,100,0,QUESTIONABLE,active
+3,Run CMC,The G.O.A.T,0,BE,Rome Odunze,4431299,WR,CHI,PHI,9.94,7.4,100,0,ACTIVE,active
+3,Run CMC,The G.O.A.T,0,BE,DK Metcalf,4047650,WR,PIT,CIN,11.29,12.1,100,0,ACTIVE,active
+3,Run CMC,The G.O.A.T,0,QB,Brock Purdy,4361741,QB,SF,ARI,20.81,31.28,100,0,ACTIVE,active
+3,Run CMC,The G.O.A.T,0,BE,Wan'Dale Robinson,4569587,WR,TEN,NYG,8.0,18.7,100,0,ACTIVE,active
+3,Run CMC,The G.O.A.T,0,BE,Aaron Jones Sr.,3042519,RB,MIN,TB,13.64,14.2,100,0,ACTIVE,active
+3,Run CMC,The G.O.A.T,0,D/ST,Steelers D/ST,-16023,D/ST,PIT,CIN,6.11,4.0,100,0,NORMAL,active
+3,Run CMC,The G.O.A.T,0,K,Harrison Butker,3055899,K,KC,MIA,9.05,5.0,100,0,ACTIVE,active
+3,Run CMC,The G.O.A.T,0,BE,Jordan Love,4036378,QB,GB,ATL,17.28,18.48,100,0,ACTIVE,active
+3,Run CMC,The G.O.A.T,0,WR,Denzel Boston,4832800,WR,CLE,CAR,11.31,8.1,100,0,ACTIVE,active
+3,Run CMC,The G.O.A.T,0,RB/WR/TE,Dalton Schultz,3117256,TE,HOU,IND,10.99,6.0,100,0,ACTIVE,active
+3,Run CMC,The G.O.A.T,0,BE,Dontayvion Wicks,4428850,WR,PHI,CHI,9.9,5.2,100,0,ACTIVE,active
+3,Vatos Locos ,Lil Pan,0,WR,Amon-Ra St. Brown,4374302,WR,DET,NYJ,19.86,11.9,100,0,ACTIVE,active
+3,Vatos Locos ,Lil Pan,0,RB,Saquon Barkley,3929630,RB,PHI,CHI,17.37,9.0,100,0,OUT,active
+3,Vatos Locos ,Lil Pan,0,IR,Jayden Daniels,4426348,QB,WSH,SEA,0.0,0.0,100,0,ACTIVE,inactive
+3,Vatos Locos ,Lil Pan,0,RB/WR/TE,Chris Olave,4361370,WR,NO,LV,17.75,19.7,100,0,QUESTIONABLE,active
+3,Vatos Locos ,Lil Pan,0,BE,Bhayshul Tuten,4882093,RB,JAX,NE,11.0,17.0,100,0,ACTIVE,active
+3,Vatos Locos ,Lil Pan,0,TE,Kyle Pitts Sr.,4360248,TE,ATL,GB,9.89,1.5,100,0,ACTIVE,active
+3,Vatos Locos ,Lil Pan,0,BE,Stefon Diggs,2976212,WR,WSH,SEA,10.81,7.3,100,0,QUESTIONABLE,active
+3,Vatos Locos ,Lil Pan,0,D/ST,Texans D/ST,-16034,D/ST,HOU,IND,6.43,10.0,100,0,NORMAL,active
+3,Vatos Locos ,Lil Pan,0,BE,Rams D/ST,-16014,D/ST,LAR,DEN,5.38,5.0,100,0,NORMAL,active
+3,Vatos Locos ,Lil Pan,0,QB,Jared Goff,3046779,QB,DET,NYJ,16.62,19.36,100,0,ACTIVE,active
+3,Vatos Locos ,Lil Pan,0,K,Jake Bates,4689936,K,DET,NYJ,8.79,7.0,100,0,ACTIVE,active
+3,Vatos Locos ,Lil Pan,0,WR,Jalen Coker,4695883,WR,CAR,CLE,13.78,3.8,100,0,ACTIVE,active
+3,Vatos Locos ,Lil Pan,0,RB,Alvin Kamara,3054850,RB,NO,LV,9.59,5.1,100,0,QUESTIONABLE,active
+3,Vatos Locos ,Lil Pan,0,BE,Rashod Bateman,4360939,WR,BAL,DAL,8.77,5.7,100,0,ACTIVE,active
+3,Vatos Locos ,Lil Pan,0,BE,Oronde Gadsden,4595342,TE,LAC,BUF,8.68,0.0,100,0,ACTIVE,active
+3,Vatos Locos ,Lil Pan,0,BE,Emanuel Wilson,4887558,RB,SEA,WSH,8.89,1.4,100,0,ACTIVE,active
+3,Vatos Locos ,Lil Pan,0,BE,Tank Bigsby,4429013,RB,PHI,CHI,3.4,-0.5,100,0,INJURY_RESERVE,active
+3,Lil Pan,Vatos Locos ,0,RB/WR/TE,CeeDee Lamb,4241389,WR,DAL,BAL,17.31,20.2,100,0,ACTIVE,active
+3,Lil Pan,Vatos Locos ,0,WR,Justin Jefferson,4262921,WR,MIN,TB,18.26,5.2,100,0,ACTIVE,active
+3,Lil Pan,Vatos Locos ,0,RB,Bucky Irving,4596448,RB,TB,MIN,15.78,7.8,100,0,ACTIVE,active
+3,Lil Pan,Vatos Locos ,0,RB,Jeremiyah Love,4870808,RB,ARI,SF,12.77,21.9,100,0,OUT,active
+3,Lil Pan,Vatos Locos ,0,WR,Mike Evans,16737,WR,SF,ARI,12.48,12.4,100,0,QUESTIONABLE,active
+3,Lil Pan,Vatos Locos ,0,BE,TreVeyon Henderson,4432710,RB,NE,JAX,10.5,3.9,100,0,QUESTIONABLE,active
+3,Lil Pan,Vatos Locos ,0,BE,Jaxson Dart,4689114,QB,NYG,TEN,0.0,0.0,100,0,INJURY_RESERVE,inactive
+3,Lil Pan,Vatos Locos ,0,IR,Jonathon Brooks,4678008,RB,CAR,CLE,0.0,0.0,100,0,INJURY_RESERVE,inactive
+3,Lil Pan,Vatos Locos ,0,IR,De'Zhaun Stribling,4710714,WR,SF,ARI,0.0,0.0,100,0,INJURY_RESERVE,inactive
+3,Lil Pan,Vatos Locos ,0,BE,KC Concepcion,4870653,WR,CLE,CAR,10.97,2.9,100,0,ACTIVE,active
+3,Lil Pan,Vatos Locos ,0,BE,Tyler Allgeier,4373626,RB,ARI,SF,7.52,4.9,100,0,ACTIVE,active
+3,Lil Pan,Vatos Locos ,0,BE,T.J. Hockenson,4036133,TE,MIN,TB,9.18,3.1,100,0,QUESTIONABLE,active
+3,Lil Pan,Vatos Locos ,0,QB,Kyler Murray,3917315,QB,MIN,TB,17.35,10.42,100,0,ACTIVE,active
+3,Lil Pan,Vatos Locos ,0,K,Chase McLaughlin,3150744,K,TB,MIN,8.4,12.0,100,0,ACTIVE,active
+3,Lil Pan,Vatos Locos ,0,D/ST,49ers D/ST,-16025,D/ST,SF,ARI,7.22,0.0,100,0,NORMAL,active
+3,Lil Pan,Vatos Locos ,0,TE,Hunter Henry,3046439,TE,NE,JAX,10.07,1.5,100,0,ACTIVE,active
+3,Lil Pan,Vatos Locos ,0,BE,RJ Harvey,4568490,RB,DEN,LAR,9.1,10.7,100,0,ACTIVE,active
+3,THEEE GUYY,BTAstfuandgivemethe$400alr,0,RB,Bijan Robinson,4430807,RB,ATL,GB,19.54,35.3,100,0,ACTIVE,active
+3,THEEE GUYY,BTAstfuandgivemethe$400alr,0,WR,Drake London,4426502,WR,ATL,GB,15.39,28.4,100,0,ACTIVE,active
+3,THEEE GUYY,BTAstfuandgivemethe$400alr,0,RB,Kenneth Walker III,4567048,RB,KC,MIA,21.0,21.3,100,0,ACTIVE,active
+3,THEEE GUYY,BTAstfuandgivemethe$400alr,0,WR,Davante Adams,16800,WR,LAR,DEN,15.62,20.7,100,0,ACTIVE,active
+3,THEEE GUYY,BTAstfuandgivemethe$400alr,0,RB/WR/TE,Cam Skattebo,4696981,RB,NYG,TEN,14.02,13.0,100,0,ACTIVE,active
+3,THEEE GUYY,BTAstfuandgivemethe$400alr,0,TE,Sam LaPorta,4430027,TE,DET,NYJ,11.19,7.4,100,0,ACTIVE,active
+3,THEEE GUYY,BTAstfuandgivemethe$400alr,0,BE,Courtland Sutton,3128429,WR,DEN,LAR,10.94,7.6,100,0,ACTIVE,active
+3,THEEE GUYY,BTAstfuandgivemethe$400alr,0,IR,Alec Pierce,4360078,WR,IND,HOU,0.0,0.0,100,0,INJURY_RESERVE,inactive
+3,THEEE GUYY,BTAstfuandgivemethe$400alr,0,BE,Bo Nix,4426338,QB,DEN,LAR,16.56,24.14,100,0,ACTIVE,active
+3,THEEE GUYY,BTAstfuandgivemethe$400alr,0,BE,Kyle Monangai,4608686,RB,CHI,PHI,8.46,3.1,100,0,OUT,active
+3,THEEE GUYY,BTAstfuandgivemethe$400alr,0,BE,Mark Andrews,3116365,TE,BAL,DAL,10.23,5.4,100,0,ACTIVE,active
+3,THEEE GUYY,BTAstfuandgivemethe$400alr,0,D/ST,Patriots D/ST,-16017,D/ST,NE,JAX,4.96,0.0,100,0,NORMAL,active
+3,THEEE GUYY,BTAstfuandgivemethe$400alr,0,K,Tyler Loop,4697745,K,BAL,DAL,8.69,12.0,100,0,ACTIVE,active
+3,THEEE GUYY,BTAstfuandgivemethe$400alr,0,IR,Dylan Sampson,5081397,RB,CLE,CAR,0.0,0.0,100,0,INJURY_RESERVE,inactive
+3,THEEE GUYY,BTAstfuandgivemethe$400alr,0,QB,Bryce Young,4685720,QB,CAR,CLE,16.75,13.64,100,0,ACTIVE,active
+3,THEEE GUYY,BTAstfuandgivemethe$400alr,0,BE,Adonai Mitchell,4597500,WR,NYJ,DET,0.0,0.0,100,0,OUT,inactive
+3,THEEE GUYY,BTAstfuandgivemethe$400alr,0,BE,Sam Darnold,3912547,QB,SEA,WSH,15.82,27.66,100,0,ACTIVE,active
+3,THEEE GUYY,BTAstfuandgivemethe$400alr,0,BE,Bengals D/ST,-16004,D/ST,CIN,PIT,6.38,0.0,100,0,NORMAL,active
+3,BTAstfuandgivemethe$400alr,THEEE GUYY,0,RB,Jahmyr Gibbs,4429795,RB,DET,NYJ,25.35,41.4,100,0,ACTIVE,active
+3,BTAstfuandgivemethe$400alr,THEEE GUYY,0,TE,Trey McBride,4361307,TE,ARI,SF,16.52,16.5,100,0,ACTIVE,active
+3,BTAstfuandgivemethe$400alr,THEEE GUYY,0,BE,Nico Collins,4258173,WR,HOU,IND,0.0,0.0,100,0,ACTIVE,inactive
+3,BTAstfuandgivemethe$400alr,THEEE GUYY,0,WR,Zay Flowers,4429615,WR,BAL,DAL,13.86,15.4,100,0,ACTIVE,active
+3,BTAstfuandgivemethe$400alr,THEEE GUYY,0,BE,Dak Prescott,2577417,QB,DAL,BAL,17.12,18.94,100,0,ACTIVE,active
+3,BTAstfuandgivemethe$400alr,THEEE GUYY,0,RB,Rhamondre Stevenson,4569173,RB,NE,JAX,12.05,6.8,100,0,ACTIVE,active
+3,BTAstfuandgivemethe$400alr,THEEE GUYY,0,WR,Christian Watson,4248528,WR,GB,ATL,14.03,22.6,100,0,ACTIVE,active
+3,BTAstfuandgivemethe$400alr,THEEE GUYY,0,BE,Rico Dowdle,4038815,RB,PIT,CIN,0.0,0.0,100,0,QUESTIONABLE,inactive
+3,BTAstfuandgivemethe$400alr,THEEE GUYY,0,BE,Broncos D/ST,-16007,D/ST,DEN,LAR,3.81,9.0,100,0,NORMAL,active
+3,BTAstfuandgivemethe$400alr,THEEE GUYY,0,BE,Chris Godwin Jr.,3116165,WR,TB,MIN,8.8,5.5,100,0,ACTIVE,active
+3,BTAstfuandgivemethe$400alr,THEEE GUYY,0,K,Jason Myers,2473037,K,SEA,WSH,9.44,9.0,100,0,ACTIVE,active
+3,BTAstfuandgivemethe$400alr,THEEE GUYY,0,RB/WR/TE,Juwan Johnson,3929645,TE,NO,LV,9.18,23.3,100,0,ACTIVE,active
+3,BTAstfuandgivemethe$400alr,THEEE GUYY,0,QB,Tyler Shough,4360689,QB,NO,LV,18.88,23.8,100,0,ACTIVE,active
+3,BTAstfuandgivemethe$400alr,THEEE GUYY,0,BE,Antonio Williams,5081432,WR,WSH,SEA,5.12,3.5,100,0,ACTIVE,active
+3,BTAstfuandgivemethe$400alr,THEEE GUYY,0,BE,Devin Singletary,4040761,RB,NYG,TEN,0.0,0.0,100,0,ACTIVE,inactive
+3,BTAstfuandgivemethe$400alr,THEEE GUYY,0,D/ST,Packers D/ST,-16009,D/ST,GB,ATL,4.84,-6.0,100,0,NORMAL,active
+3,Doughboy,THE Death Rider,0,WR,Jaxon Smith-Njigba,4430878,WR,SEA,WSH,20.83,35.36,100,0,ACTIVE,active
+3,Doughboy,THE Death Rider,0,TE,Brock Bowers,4432665,TE,LV,NO,14.18,27.6,100,0,ACTIVE,active
+3,Doughboy,THE Death Rider,0,RB,Breece Hall,4427366,RB,NYJ,DET,16.17,8.5,100,0,OUT,active
+3,Doughboy,THE Death Rider,0,QB,Lamar Jackson,3916387,QB,BAL,DAL,21.08,20.44,100,0,OUT,active
+3,Doughboy,THE Death Rider,0,BE,Jadarian Price,4685512,RB,SEA,WSH,12.08,1.2,100,0,INJURY_RESERVE,active
+3,Doughboy,THE Death Rider,0,WR,Parker Washington,4432620,WR,JAX,NE,15.01,13.0,100,0,ACTIVE,active
+3,Doughboy,THE Death Rider,0,BE,J.K. Dobbins,4241985,RB,DEN,LAR,10.94,6.3,100,0,ACTIVE,active
+3,Doughboy,THE Death Rider,0,RB/WR/TE,Michael Wilson,4360761,WR,ARI,SF,11.32,25.9,100,0,ACTIVE,active
+3,Doughboy,THE Death Rider,0,BE,Baker Mayfield,3052587,QB,TB,MIN,15.6,11.28,100,0,OUT,active
+3,Doughboy,THE Death Rider,0,BE,Quentin Johnston,4429025,WR,LAC,BUF,10.87,7.0,100,0,ACTIVE,active
+3,Doughboy,THE Death Rider,0,BE,Kaelon Black,4696044,RB,SF,ARI,7.38,1.7,100,0,ACTIVE,active
+3,Doughboy,THE Death Rider,0,D/ST,Panthers D/ST,-16029,D/ST,CAR,CLE,7.24,6.0,100,0,NORMAL,active
+3,Doughboy,THE Death Rider,0,K,Daniel Carlson,3051909,K,NO,LV,8.84,3.0,100,0,ACTIVE,active
+3,Doughboy,THE Death Rider,0,BE,Kenyon Sadiq,5083315,TE,NYJ,DET,8.47,23.5,100,0,QUESTIONABLE,active
+3,Doughboy,THE Death Rider,0,BE,Devaughn Vele,4569559,WR,NO,LV,11.51,6.9,100,0,ACTIVE,active
+3,Doughboy,THE Death Rider,0,RB,De'Von Achane,4429160,RB,MIA,KC,19.42,1.7,100,0,INJURY_RESERVE,active
+3,THE Death Rider,Doughboy,0,QB,Josh Allen,3918298,QB,BUF,LAC,23.55,17.46,100,0,ACTIVE,active
+3,THE Death Rider,Doughboy,0,WR,Garrett Wilson,4569618,WR,NYJ,DET,16.09,26.7,100,0,ACTIVE,active
+3,THE Death Rider,Doughboy,0,BE,Joe Burrow,3915511,QB,CIN,PIT,16.42,22.58,100,0,ACTIVE,active
+3,THE Death Rider,Doughboy,0,BE,Jalen Hurts,4040715,QB,PHI,CHI,19.8,12.62,100,0,INJURY_RESERVE,active
+3,THE Death Rider,Doughboy,0,WR,Jameson Williams,4426388,WR,DET,NYJ,10.92,8.9,100,0,ACTIVE,active
+3,THE Death Rider,Doughboy,0,BE,Marvin Harrison Jr.,4432708,WR,ARI,SF,7.05,7.0,100,0,ACTIVE,active
+3,THE Death Rider,Doughboy,0,RB,Jaylen Warren,4569987,RB,PIT,CIN,15.76,20.6,100,0,ACTIVE,active
+3,THE Death Rider,Doughboy,0,BE,Kenny Gainwell,4371733,RB,TB,MIN,7.6,3.0,100,0,ACTIVE,active
+3,THE Death Rider,Doughboy,0,TE,Isaiah Likely,4361050,TE,NYG,TEN,12.25,3.3,100,0,ACTIVE,active
+3,THE Death Rider,Doughboy,0,BE,Josh Jacobs,4047365,RB,GB,ATL,0.0,0.0,100,0,DAY_TO_DAY,inactive
+3,THE Death Rider,Doughboy,0,RB/WR/TE,Josh Downs,4688813,WR,IND,HOU,12.01,12.7,100,0,ACTIVE,active
+3,THE Death Rider,Doughboy,0,RB,Tyjae Spears,4428557,RB,TEN,NYG,9.72,0.5,100,0,QUESTIONABLE,active
+3,THE Death Rider,Doughboy,0,IR,Tank Dell,4366031,WR,HOU,IND,0.0,0.0,100,0,INJURY_RESERVE,inactive
+3,THE Death Rider,Doughboy,0,D/ST,Vikings D/ST,-16016,D/ST,MIN,TB,6.49,19.0,100,0,NORMAL,active
+3,THE Death Rider,Doughboy,0,K,Cam Little,4686361,K,JAX,NE,8.68,4.0,100,0,ACTIVE,active
+3,THE Death Rider,Doughboy,0,BE,Kalif Raymond,2973405,WR,CHI,PHI,7.15,21.0,100,0,ACTIVE,active
+3,THE Death Rider,Doughboy,0,BE,Jakobi Meyers,3916433,WR,JAX,NE,9.29,19.4,100,0,ACTIVE,active
+3,Lynch em All,"Deshaun, Don't Touchdown there",0,RB,Chase Brown,4362238,RB,CIN,PIT,16.58,8.9,100,0,ACTIVE,active
+3,Lynch em All,"Deshaun, Don't Touchdown there",0,WR,Tee Higgins,4239993,WR,CIN,PIT,12.68,21.0,100,0,ACTIVE,active
+3,Lynch em All,"Deshaun, Don't Touchdown there",0,WR,Jaylen Waddle,4372016,WR,DEN,LAR,13.09,6.4,100,0,ACTIVE,active
+3,Lynch em All,"Deshaun, Don't Touchdown there",0,BE,Terry McLaurin,3121422,WR,WSH,SEA,11.81,19.7,100,0,ACTIVE,active
+3,Lynch em All,"Deshaun, Don't Touchdown there",0,BE,Michael Pittman Jr.,4035687,WR,PIT,CIN,11.34,3.6,100,0,INJURY_RESERVE,active
+3,Lynch em All,"Deshaun, Don't Touchdown there",0,BE,Trevor Lawrence,4360310,QB,JAX,NE,17.47,19.78,100,0,ACTIVE,active
+3,Lynch em All,"Deshaun, Don't Touchdown there",0,K,Brandon Aubrey,3953687,K,DAL,BAL,9.72,10.0,100,0,ACTIVE,active
+3,Lynch em All,"Deshaun, Don't Touchdown there",0,BE,Dallas Goedert,3121023,TE,PHI,CHI,0.0,0.0,100,0,ACTIVE,inactive
+3,Lynch em All,"Deshaun, Don't Touchdown there",0,IR,Jordan Mason,4360569,RB,MIN,TB,0.0,0.0,100,0,INJURY_RESERVE,inactive
+3,Lynch em All,"Deshaun, Don't Touchdown there",0,IR,Zach Charbonnet,4426385,RB,SEA,WSH,0.0,0.0,100,0,OUT,inactive
+3,Lynch em All,"Deshaun, Don't Touchdown there",0,RB,Woody Marks,4429059,RB,HOU,IND,8.75,9.1,100,0,ACTIVE,active
+3,Lynch em All,"Deshaun, Don't Touchdown there",0,D/ST,Chiefs D/ST,-16012,D/ST,KC,MIA,6.32,7.0,100,0,NORMAL,active
+3,Lynch em All,"Deshaun, Don't Touchdown there",0,BE,Emmett Johnson,4832955,RB,KC,MIA,6.12,1.7,100,0,ACTIVE,active
+3,Lynch em All,"Deshaun, Don't Touchdown there",0,BE,Rashid Shaheed,4032473,WR,SEA,WSH,10.95,3.4,100,0,ACTIVE,active
+3,Lynch em All,"Deshaun, Don't Touchdown there",0,TE,Travis Kelce,15847,TE,KC,MIA,12.68,13.9,100,0,ACTIVE,active
+3,Lynch em All,"Deshaun, Don't Touchdown there",0,RB/WR/TE,Matthew Golden,4701936,WR,GB,ATL,11.41,21.0,100,0,ACTIVE,active
+3,Lynch em All,"Deshaun, Don't Touchdown there",0,QB,Drake Maye,4431452,QB,NE,JAX,18.64,3.76,100,0,ACTIVE,active
+3,Lynch em All,"Deshaun, Don't Touchdown there",0,BE,Rachaad White,4697815,RB,WSH,SEA,9.3,11.1,100,0,ACTIVE,active
+3,"Deshaun, Don't Touchdown there",Lynch em All,1,RB,Jonathan Taylor,4242335,RB,IND,HOU,20.62,9.2,100,0,ACTIVE,active
+3,"Deshaun, Don't Touchdown there",Lynch em All,1,IR,A.J. Brown,4047646,WR,NE,JAX,0.0,0.0,100,0,QUESTIONABLE,inactive
+3,"Deshaun, Don't Touchdown there",Lynch em All,1,BE,Travis Etienne Jr.,4239996,RB,NO,LV,11.94,9.0,100,0,INJURY_RESERVE,active
+3,"Deshaun, Don't Touchdown there",Lynch em All,1,WR,Emeka Egbuka,4567750,WR,TB,MIN,12.37,11.2,100,0,ACTIVE,active
+3,"Deshaun, Don't Touchdown there",Lynch em All,1,RB/WR/TE,D'Andre Swift,4259545,RB,CHI,PHI,12.83,10.8,100,0,ACTIVE,active
+3,"Deshaun, Don't Touchdown there",Lynch em All,1,TE,George Kittle,3040151,TE,SF,ARI,12.67,26.2,100,0,ACTIVE,active
+3,"Deshaun, Don't Touchdown there",Lynch em All,1,WR,Carnell Tate,4871023,WR,TEN,NYG,11.75,11.8,100,0,ACTIVE,active
+3,"Deshaun, Don't Touchdown there",Lynch em All,1,QB,Patrick Mahomes,3139477,QB,KC,MIA,19.63,15.94,100,0,ACTIVE,active
+3,"Deshaun, Don't Touchdown there",Lynch em All,1,RB,Chuba Hubbard,4241416,RB,CAR,CLE,14.54,15.0,100,0,ACTIVE,active
+3,"Deshaun, Don't Touchdown there",Lynch em All,1,BE,Xavier Worthy,4683062,WR,KC,MIA,11.42,4.0,100,0,ACTIVE,active
+3,"Deshaun, Don't Touchdown there",Lynch em All,1,BE,Jayden Reed,4362249,WR,GB,ATL,0.0,0.0,100,0,INJURY_RESERVE,inactive
+3,"Deshaun, Don't Touchdown there",Lynch em All,1,IR,Jordyn Tyson,4880281,WR,NO,LV,0.0,0.0,100,0,INJURY_RESERVE,inactive
+3,"Deshaun, Don't Touchdown there",Lynch em All,1,BE,C.J. Stroud,4432577,QB,HOU,IND,16.09,11.68,100,0,ACTIVE,active
+3,"Deshaun, Don't Touchdown there",Lynch em All,1,D/ST,Chargers D/ST,-16024,D/ST,LAC,BUF,2.67,13.0,100,0,NORMAL,active
+3,"Deshaun, Don't Touchdown there",Lynch em All,1,BE,Tre Tucker,4428718,WR,LV,NO,9.81,8.3,100,0,ACTIVE,active
+3,"Deshaun, Don't Touchdown there",Lynch em All,1,BE,Michael Mayer,4429086,TE,LV,NO,6.25,12.2,100,0,ACTIVE,active
+3,"Deshaun, Don't Touchdown there",Lynch em All,1,K,Harrison Mevis,4574716,K,LAR,DEN,8.31,16.0,100,0,ACTIVE,active
+3,"Deshaun, Don't Touchdown there",Lynch em All,1,BE,Xavier Hutchinson,4686422,WR,HOU,IND,9.55,8.5,100,0,ACTIVE,active
+3,Adrian's Raiders Nation ,Ceedee and Tapes ,0,BE,Puka Nacua,4426515,WR,LAR,DEN,0.0,0.0,100,0,ACTIVE,inactive
+3,Adrian's Raiders Nation ,Ceedee and Tapes ,0,RB,Ashton Jeanty,4890973,RB,LV,NO,18.87,12.3,100,0,ACTIVE,active
+3,Adrian's Raiders Nation ,Ceedee and Tapes ,0,WR,DeVonta Smith,4241478,WR,PHI,CHI,15.62,12.5,100,0,ACTIVE,active
+3,Adrian's Raiders Nation ,Ceedee and Tapes ,0,BE,Colston Loveland,4723086,TE,CHI,PHI,9.69,7.1,100,0,ACTIVE,active
+3,Adrian's Raiders Nation ,Ceedee and Tapes ,0,RB,David Montgomery,4035538,RB,HOU,IND,12.01,6.8,100,0,OUT,active
+3,Adrian's Raiders Nation ,Ceedee and Tapes ,0,BE,Tony Pollard,3916148,RB,TEN,NYG,10.53,13.6,100,0,ACTIVE,active
+3,Adrian's Raiders Nation ,Ceedee and Tapes ,0,TE,Tucker Kraft,4572680,TE,GB,ATL,10.27,6.6,100,0,ACTIVE,active
+3,Adrian's Raiders Nation ,Ceedee and Tapes ,0,BE,Caleb Williams,4431611,QB,CHI,PHI,0.0,0.0,100,0,QUESTIONABLE,inactive
+3,Adrian's Raiders Nation ,Ceedee and Tapes ,0,BE,Blake Corum,4429096,RB,LAR,DEN,8.98,3.5,100,0,ACTIVE,active
+3,Adrian's Raiders Nation ,Ceedee and Tapes ,0,D/ST,Ravens D/ST,-16033,D/ST,BAL,DAL,4.37,1.0,100,0,NORMAL,active
+3,Adrian's Raiders Nation ,Ceedee and Tapes ,0,K,Ka'imi Fairbairn,2971573,K,HOU,IND,9.28,5.0,100,0,ACTIVE,active
+3,Adrian's Raiders Nation ,Ceedee and Tapes ,0,RB/WR/TE,Jacory Croskey-Merritt,4575131,RB,WSH,SEA,8.77,5.3,100,0,OUT,active
+3,Adrian's Raiders Nation ,Ceedee and Tapes ,0,WR,Romeo Doubs,4361432,WR,NE,JAX,11.52,7.9,100,0,ACTIVE,active
+3,Adrian's Raiders Nation ,Ceedee and Tapes ,0,BE,Eagles D/ST,-16021,D/ST,PHI,CHI,8.02,-1.0,100,0,NORMAL,active
+3,Adrian's Raiders Nation ,Ceedee and Tapes ,0,BE,Pat Freiermuth,4361411,TE,PIT,CIN,8.29,5.1,100,0,QUESTIONABLE,active
+3,Adrian's Raiders Nation ,Ceedee and Tapes ,0,QB,Kirk Cousins,14880,QB,LV,NO,12.99,22.22,100,0,ACTIVE,active
+3,Ceedee and Tapes ,Adrian's Raiders Nation ,0,WR,Ja'Marr Chase,4362628,WR,CIN,PIT,18.94,24.8,100,0,ACTIVE,active
+3,Ceedee and Tapes ,Adrian's Raiders Nation ,0,RB,Omarion Hampton,4685382,RB,LAC,BUF,15.01,5.6,100,0,ACTIVE,active
+3,Ceedee and Tapes ,Adrian's Raiders Nation ,0,RB,Javonte Williams,4361579,RB,DAL,BAL,15.05,18.3,100,0,ACTIVE,active
+3,Ceedee and Tapes ,Adrian's Raiders Nation ,0,WR,Ladd McConkey,4612826,WR,LAC,BUF,13.58,10.6,100,0,ACTIVE,active
+3,Ceedee and Tapes ,Adrian's Raiders Nation ,0,RB/WR/TE,Quinshon Judkins,4685702,RB,CLE,CAR,13.72,9.9,100,0,QUESTIONABLE,active
+3,Ceedee and Tapes ,Adrian's Raiders Nation ,0,BE,Luther Burden III,4685278,WR,CHI,PHI,11.16,19.8,100,0,ACTIVE,active
+3,Ceedee and Tapes ,Adrian's Raiders Nation ,0,TE,Harold Fannin Jr.,5083076,TE,CLE,CAR,9.79,24.1,100,0,ACTIVE,active
+3,Ceedee and Tapes ,Adrian's Raiders Nation ,0,BE,Justin Herbert,4038941,QB,LAC,BUF,17.26,12.74,100,0,ACTIVE,active
+3,Ceedee and Tapes ,Adrian's Raiders Nation ,0,BE,Brian Thomas Jr.,4432773,WR,JAX,NE,10.67,1.8,100,0,ACTIVE,active
+3,Ceedee and Tapes ,Adrian's Raiders Nation ,0,BE,Makai Lemon,4870795,WR,PHI,CHI,7.49,5.9,100,0,ACTIVE,active
+3,Ceedee and Tapes ,Adrian's Raiders Nation ,0,K,Eddy Pineiro,4034949,K,SF,ARI,9.85,8.0,100,0,ACTIVE,active
+3,Ceedee and Tapes ,Adrian's Raiders Nation ,0,BE,Jordan Addison,4429205,WR,MIN,TB,10.57,20.0,100,0,QUESTIONABLE,active
+3,Ceedee and Tapes ,Adrian's Raiders Nation ,0,BE,Brian Robinson Jr.,4241474,RB,ATL,GB,5.74,11.0,100,0,ACTIVE,active
+3,Ceedee and Tapes ,Adrian's Raiders Nation ,0,BE,Jonah Coleman,4702555,RB,DEN,LAR,0.0,0.0,100,0,INJURY_RESERVE,inactive
+3,Ceedee and Tapes ,Adrian's Raiders Nation ,0,QB,Deshaun Watson,3122840,QB,CLE,CAR,15.41,20.26,100,0,ACTIVE,active
+3,Ceedee and Tapes ,Adrian's Raiders Nation ,0,D/ST,Saints D/ST,-16018,D/ST,NO,LV,6.6,2.0,100,0,NORMAL,active
+4,Run CMC,Lil Pan,0,RB,Christian McCaffrey,3117251,RB,SF,DEN,20.26,16.0,100,0,ACTIVE,active
+4,Run CMC,Lil Pan,0,RB,Derrick Henry,3043078,RB,BAL,TEN,20.31,15.9,100,0,ACTIVE,active
+4,Run CMC,Lil Pan,0,WR,Malik Nabers,4595348,WR,NYG,ARI,13.62,23.2,100,0,ACTIVE,active
+4,Run CMC,Lil Pan,0,WR,Tetairoa McMillan,4685472,WR,CAR,DET,15.85,45.2,100,0,ACTIVE,active
+4,Run CMC,Lil Pan,0,TE,Tyler Warren,4431459,TE,IND,WSH,13.05,9.1,100,0,QUESTIONABLE,active
+4,Run CMC,Lil Pan,0,BE,Rome Odunze,4431299,WR,CHI,NYJ,9.91,15.4,100,0,ACTIVE,active
+4,Run CMC,Lil Pan,0,BE,DK Metcalf,4047650,WR,PIT,CLE,10.08,16.5,100,0,ACTIVE,active
+4,Run CMC,Lil Pan,0,QB,Brock Purdy,4361741,QB,SF,DEN,18.74,19.62,100,0,ACTIVE,active
+4,Run CMC,Lil Pan,0,BE,Wan'Dale Robinson,4569587,WR,TEN,BAL,9.19,11.0,100,0,ACTIVE,active
+4,Run CMC,Lil Pan,0,RB/WR/TE,Aaron Jones Sr.,3042519,RB,MIN,MIA,18.02,16.8,100,0,ACTIVE,active
+4,Run CMC,Lil Pan,0,D/ST,Steelers D/ST,-16023,D/ST,PIT,CLE,8.19,5.0,100,0,NORMAL,active
+4,Run CMC,Lil Pan,0,K,Harrison Butker,3055899,K,KC,LV,8.83,6.0,100,0,ACTIVE,active
+4,Run CMC,Lil Pan,0,BE,Jordan Love,4036378,QB,GB,TB,14.86,13.08,100,0,ACTIVE,active
+4,Run CMC,Lil Pan,0,BE,Denzel Boston,4832800,WR,CLE,PIT,10.55,12.9,100,0,ACTIVE,active
+4,Run CMC,Lil Pan,0,BE,Dalton Schultz,3117256,TE,HOU,DAL,9.04,2.9,100,0,ACTIVE,active
+4,Run CMC,Lil Pan,0,BE,Dontayvion Wicks,4428850,WR,PHI,LAR,11.24,4.8,100,0,ACTIVE,active
+4,Lil Pan,Run CMC,0,WR,CeeDee Lamb,4241389,WR,DAL,HOU,16.9,41.3,100,0,ACTIVE,active
+4,Lil Pan,Run CMC,0,BE,Justin Jefferson,4262921,WR,MIN,MIA,0.0,0.0,100,0,ACTIVE,inactive
+4,Lil Pan,Run CMC,0,RB,Bucky Irving,4596448,RB,TB,GB,15.93,6.1,100,0,ACTIVE,active
+4,Lil Pan,Run CMC,0,RB,Jeremiyah Love,4870808,RB,ARI,NYG,15.55,6.5,100,0,OUT,active
+4,Lil Pan,Run CMC,0,WR,Mike Evans,16737,WR,SF,DEN,11.8,12.6,100,0,QUESTIONABLE,active
+4,Lil Pan,Run CMC,0,BE,TreVeyon Henderson,4432710,RB,NE,BUF,9.52,4.2,100,0,QUESTIONABLE,active
+4,Lil Pan,Run CMC,0,IR,Jonathon Brooks,4678008,RB,CAR,DET,0.0,0.0,100,0,INJURY_RESERVE,inactive
+4,Lil Pan,Run CMC,0,IR,De'Zhaun Stribling,4710714,WR,SF,DEN,0.0,0.0,100,0,INJURY_RESERVE,inactive
+4,Lil Pan,Run CMC,0,BE,KC Concepcion,4870653,WR,CLE,PIT,9.45,11.4,100,0,ACTIVE,active
+4,Lil Pan,Run CMC,0,BE,Tyler Allgeier,4373626,RB,ARI,NYG,8.05,12.9,100,0,ACTIVE,active
+4,Lil Pan,Run CMC,0,TE,T.J. Hockenson,4036133,TE,MIN,MIA,9.05,24.9,100,0,QUESTIONABLE,active
+4,Lil Pan,Run CMC,0,QB,Kyler Murray,3917315,QB,MIN,MIA,19.21,11.48,100,0,ACTIVE,active
+4,Lil Pan,Run CMC,0,BE,Chase McLaughlin,3150744,K,TB,GB,8.5,2.0,100,0,ACTIVE,active
+4,Lil Pan,Run CMC,0,BE,49ers D/ST,-16025,D/ST,SF,DEN,5.9,5.0,100,0,NORMAL,active
+4,Lil Pan,Run CMC,0,BE,Hunter Henry,3046439,TE,NE,BUF,8.92,11.2,100,0,ACTIVE,active
+4,Lil Pan,Run CMC,0,RB/WR/TE,RJ Harvey,4568490,RB,DEN,SF,10.12,19.3,100,0,ACTIVE,active
+4,Lil Pan,Run CMC,0,D/ST,Browns D/ST,-16005,D/ST,CLE,PIT,6.58,8.0,100,0,NORMAL,active
+4,Lil Pan,Run CMC,0,K,Will Reichard,4567104,K,MIN,MIA,9.13,19.0,100,0,ACTIVE,active
+4,BTAstfuandgivemethe$400alr,The G.O.A.T,0,RB,Jahmyr Gibbs,4429795,RB,DET,CAR,26.15,17.7,100,0,ACTIVE,active
+4,BTAstfuandgivemethe$400alr,The G.O.A.T,0,TE,Trey McBride,4361307,TE,ARI,NYG,17.41,10.1,100,0,ACTIVE,active
+4,BTAstfuandgivemethe$400alr,The G.O.A.T,0,WR,Nico Collins,4258173,WR,HOU,DAL,15.3,30.8,100,0,ACTIVE,active
+4,BTAstfuandgivemethe$400alr,The G.O.A.T,0,RB/WR/TE,Zay Flowers,4429615,WR,BAL,TEN,15.48,25.8,100,0,ACTIVE,active
+4,BTAstfuandgivemethe$400alr,The G.O.A.T,0,BE,Dak Prescott,2577417,QB,DAL,HOU,17.27,18.1,100,0,ACTIVE,active
+4,BTAstfuandgivemethe$400alr,The G.O.A.T,0,RB,Rhamondre Stevenson,4569173,RB,NE,BUF,11.59,18.4,100,0,ACTIVE,active
+4,BTAstfuandgivemethe$400alr,The G.O.A.T,0,WR,Christian Watson,4248528,WR,GB,TB,14.45,7.7,100,0,ACTIVE,active
+4,BTAstfuandgivemethe$400alr,The G.O.A.T,0,BE,Rico Dowdle,4038815,RB,PIT,CLE,0.0,0.0,100,0,QUESTIONABLE,inactive
+4,BTAstfuandgivemethe$400alr,The G.O.A.T,0,BE,Broncos D/ST,-16007,D/ST,DEN,SF,3.16,1.0,100,0,NORMAL,active
+4,BTAstfuandgivemethe$400alr,The G.O.A.T,0,BE,Chris Godwin Jr.,3116165,WR,TB,GB,7.05,9.1,100,0,ACTIVE,active
+4,BTAstfuandgivemethe$400alr,The G.O.A.T,0,K,Jason Myers,2473037,K,SEA,LAC,9.78,6.0,100,0,ACTIVE,active
+4,BTAstfuandgivemethe$400alr,The G.O.A.T,0,BE,Juwan Johnson,3929645,TE,NO,ATL,10.57,11.9,100,0,ACTIVE,active
+4,BTAstfuandgivemethe$400alr,The G.O.A.T,0,QB,Tyler Shough,4360689,QB,NO,ATL,18.6,15.94,100,0,ACTIVE,active
+4,BTAstfuandgivemethe$400alr,The G.O.A.T,0,BE,Antonio Williams,5081432,WR,WSH,IND,8.57,5.1,100,0,ACTIVE,active
+4,BTAstfuandgivemethe$400alr,The G.O.A.T,0,D/ST,Cardinals D/ST,-16022,D/ST,ARI,NYG,5.45,9.0,100,0,NORMAL,active
+4,BTAstfuandgivemethe$400alr,The G.O.A.T,0,IR,Tyreek Hill,3116406,WR,None,None,0,0,100,1,QUESTIONABLE,bye
+4,BTAstfuandgivemethe$400alr,The G.O.A.T,0,BE,Najee Harris,4241457,RB,NYG,ARI,6.57,3.0,100,0,ACTIVE,active
+4,The G.O.A.T,BTAstfuandgivemethe$400alr,0,RB,James Cook III,4379399,RB,BUF,NE,17.41,16.3,100,0,ACTIVE,active
+4,The G.O.A.T,BTAstfuandgivemethe$400alr,0,WR,George Pickens,4426354,WR,DAL,HOU,13.74,9.5,100,0,ACTIVE,active
+4,The G.O.A.T,BTAstfuandgivemethe$400alr,0,RB,Kyren Williams,4430737,RB,LAR,PHI,13.09,36.7,100,0,ACTIVE,active
+4,The G.O.A.T,BTAstfuandgivemethe$400alr,0,WR,Rashee Rice,4428331,WR,KC,LV,14.9,0.0,100,0,OUT,active
+4,The G.O.A.T,BTAstfuandgivemethe$400alr,0,RB/WR/TE,DJ Moore,3915416,WR,BUF,NE,12.98,2.7,100,0,QUESTIONABLE,active
+4,The G.O.A.T,BTAstfuandgivemethe$400alr,0,BE,Jake Ferguson,4242355,TE,DAL,HOU,8.14,4.1,100,0,ACTIVE,active
+4,The G.O.A.T,BTAstfuandgivemethe$400alr,0,QB,Matthew Stafford,12483,QB,LAR,PHI,16.48,9.68,100,0,ACTIVE,active
+4,The G.O.A.T,BTAstfuandgivemethe$400alr,0,BE,Deebo Samuel Sr.,3126486,WR,SF,DEN,10.76,18.0,100,0,OUT,active
+4,The G.O.A.T,BTAstfuandgivemethe$400alr,0,D/ST,Seahawks D/ST,-16026,D/ST,SEA,LAC,7.86,12.0,100,0,NORMAL,active
+4,The G.O.A.T,BTAstfuandgivemethe$400alr,0,TE,Dalton Kincaid,4385690,TE,BUF,NE,10.7,1.7,100,0,ACTIVE,active
+4,The G.O.A.T,BTAstfuandgivemethe$400alr,0,BE,Khalil Shakir,4373678,WR,BUF,NE,9.78,13.2,100,0,ACTIVE,active
+4,The G.O.A.T,BTAstfuandgivemethe$400alr,0,BE,Keenan Allen,15818,WR,IND,WSH,0.0,0.0,100,0,ACTIVE,inactive
+4,The G.O.A.T,BTAstfuandgivemethe$400alr,0,IR,Isiah Pacheco,4361529,RB,DET,CAR,0.0,0.0,100,0,INJURY_RESERVE,inactive
+4,The G.O.A.T,BTAstfuandgivemethe$400alr,0,K,Evan McPherson,4360234,K,CIN,JAX,8.42,5.0,100,0,ACTIVE,active
+4,The G.O.A.T,BTAstfuandgivemethe$400alr,0,BE,Aaron Rodgers,8439,QB,PIT,CLE,13.78,21.96,100,0,ACTIVE,active
+4,THE Death Rider,Vatos Locos ,0,QB,Josh Allen,3918298,QB,BUF,NE,22.23,18.52,100,0,ACTIVE,active
+4,THE Death Rider,Vatos Locos ,0,WR,Garrett Wilson,4569618,WR,NYJ,CHI,16.47,5.7,100,0,ACTIVE,active
+4,THE Death Rider,Vatos Locos ,0,BE,Joe Burrow,3915511,QB,CIN,JAX,18.1,23.72,100,0,ACTIVE,active
+4,THE Death Rider,Vatos Locos ,0,BE,Jameson Williams,4426388,WR,DET,CAR,10.36,16.2,100,0,ACTIVE,active
+4,THE Death Rider,Vatos Locos ,0,BE,Marvin Harrison Jr.,4432708,WR,ARI,NYG,6.36,8.2,100,0,ACTIVE,active
+4,THE Death Rider,Vatos Locos ,0,RB,Jaylen Warren,4569987,RB,PIT,CLE,16.95,15.6,100,0,ACTIVE,active
+4,THE Death Rider,Vatos Locos ,0,BE,Kenny Gainwell,4371733,RB,TB,GB,8.27,10.7,100,0,ACTIVE,active
+4,THE Death Rider,Vatos Locos ,0,TE,Isaiah Likely,4361050,TE,NYG,ARI,11.74,13.6,100,0,ACTIVE,active
+4,THE Death Rider,Vatos Locos ,0,BE,Josh Jacobs,4047365,RB,GB,TB,0.0,0.0,100,0,DAY_TO_DAY,inactive
+4,THE Death Rider,Vatos Locos ,0,RB,Tyjae Spears,4428557,RB,TEN,BAL,8.02,1.6,100,0,QUESTIONABLE,active
+4,THE Death Rider,Vatos Locos ,0,IR,Tank Dell,4366031,WR,HOU,DAL,0.0,0.0,100,0,INJURY_RESERVE,inactive
+4,THE Death Rider,Vatos Locos ,0,D/ST,Vikings D/ST,-16016,D/ST,MIN,MIA,8.5,10.0,100,0,NORMAL,active
+4,THE Death Rider,Vatos Locos ,0,K,Cam Little,4686361,K,JAX,CIN,8.73,14.0,100,0,ACTIVE,active
+4,THE Death Rider,Vatos Locos ,0,WR,Kalif Raymond,2973405,WR,CHI,NYJ,9.96,2.6,100,0,ACTIVE,active
+4,THE Death Rider,Vatos Locos ,0,BE,Jakobi Meyers,3916433,WR,JAX,CIN,10.79,6.3,100,0,ACTIVE,active
+4,THE Death Rider,Vatos Locos ,0,RB/WR/TE,Rachaad White,4697815,RB,WSH,IND,0.0,0.0,100,0,ACTIVE,inactive
+4,THE Death Rider,Vatos Locos ,0,BE,Drake Maye,4431452,QB,NE,BUF,17.5,26.16,100,0,ACTIVE,active
+4,Vatos Locos ,THE Death Rider,0,WR,Amon-Ra St. Brown,4374302,WR,DET,CAR,20.15,15.5,100,0,ACTIVE,active
+4,Vatos Locos ,THE Death Rider,0,RB,Saquon Barkley,3929630,RB,PHI,LAR,14.32,2.0,100,0,OUT,active
+4,Vatos Locos ,THE Death Rider,0,IR,Jayden Daniels,4426348,QB,WSH,IND,0.0,0.0,100,0,ACTIVE,inactive
+4,Vatos Locos ,THE Death Rider,0,RB/WR/TE,Chris Olave,4361370,WR,NO,ATL,18.24,19.6,100,0,QUESTIONABLE,active
+4,Vatos Locos ,THE Death Rider,0,RB,Bhayshul Tuten,4882093,RB,JAX,CIN,12.67,11.1,100,0,ACTIVE,active
+4,Vatos Locos ,THE Death Rider,0,BE,Kyle Pitts Sr.,4360248,TE,ATL,NO,7.37,7.7,100,0,ACTIVE,active
+4,Vatos Locos ,THE Death Rider,0,WR,Stefon Diggs,2976212,WR,WSH,IND,12.8,8.5,100,0,QUESTIONABLE,active
+4,Vatos Locos ,THE Death Rider,0,BE,Texans D/ST,-16034,D/ST,HOU,DAL,4.85,3.0,100,0,NORMAL,active
+4,Vatos Locos ,THE Death Rider,0,D/ST,Rams D/ST,-16014,D/ST,LAR,PHI,6.18,7.0,100,0,NORMAL,active
+4,Vatos Locos ,THE Death Rider,0,QB,Jared Goff,3046779,QB,DET,CAR,17.31,20.48,100,0,ACTIVE,active
+4,Vatos Locos ,THE Death Rider,0,K,Jake Bates,4689936,K,DET,CAR,8.71,18.0,100,0,ACTIVE,active
+4,Vatos Locos ,THE Death Rider,0,BE,Jalen Coker,4695883,WR,CAR,DET,0.0,0.0,100,0,ACTIVE,inactive
+4,Vatos Locos ,THE Death Rider,0,BE,Alvin Kamara,3054850,RB,NO,ATL,10.58,22.8,100,0,QUESTIONABLE,active
+4,Vatos Locos ,THE Death Rider,0,BE,Braelon Allen,4685247,RB,NYJ,CHI,12.74,8.7,100,0,ACTIVE,active
+4,Vatos Locos ,THE Death Rider,0,TE,Darren Waller,2576925,TE,CAR,DET,10.12,6.6,100,0,ACTIVE,active
+4,Vatos Locos ,THE Death Rider,0,BE,Jaylen Wright,4682745,RB,MIA,MIN,7.48,0.7,100,0,ACTIVE,active
+4,Vatos Locos ,THE Death Rider,0,BE,Kendre Miller,4599739,RB,NO,ATL,8.8,1.9,100,0,ACTIVE,active
+4,"Deshaun, Don't Touchdown there",THEEE GUYY,1,RB,Jonathan Taylor,4242335,RB,IND,WSH,20.35,22.7,100,0,ACTIVE,active
+4,"Deshaun, Don't Touchdown there",THEEE GUYY,1,IR,A.J. Brown,4047646,WR,NE,BUF,0.0,0.0,100,0,QUESTIONABLE,inactive
+4,"Deshaun, Don't Touchdown there",THEEE GUYY,1,BE,Travis Etienne Jr.,4239996,RB,NO,ATL,0.0,0.0,100,0,INJURY_RESERVE,inactive
+4,"Deshaun, Don't Touchdown there",THEEE GUYY,1,WR,Emeka Egbuka,4567750,WR,TB,GB,11.2,3.3,100,0,ACTIVE,active
+4,"Deshaun, Don't Touchdown there",THEEE GUYY,1,RB/WR/TE,D'Andre Swift,4259545,RB,CHI,NYJ,14.66,7.4,100,0,ACTIVE,active
+4,"Deshaun, Don't Touchdown there",THEEE GUYY,1,TE,George Kittle,3040151,TE,SF,DEN,13.73,17.0,100,0,ACTIVE,active
+4,"Deshaun, Don't Touchdown there",THEEE GUYY,1,WR,Carnell Tate,4871023,WR,TEN,BAL,11.91,21.5,100,0,ACTIVE,active
+4,"Deshaun, Don't Touchdown there",THEEE GUYY,1,QB,Patrick Mahomes,3139477,QB,KC,LV,18.69,17.0,100,0,ACTIVE,active
+4,"Deshaun, Don't Touchdown there",THEEE GUYY,1,RB,Chuba Hubbard,4241416,RB,CAR,DET,16.6,25.9,100,0,ACTIVE,active
+4,"Deshaun, Don't Touchdown there",THEEE GUYY,1,BE,Xavier Worthy,4683062,WR,KC,LV,9.8,11.0,100,0,ACTIVE,active
+4,"Deshaun, Don't Touchdown there",THEEE GUYY,1,IR,Jordyn Tyson,4880281,WR,NO,ATL,0.0,0.0,100,0,INJURY_RESERVE,inactive
+4,"Deshaun, Don't Touchdown there",THEEE GUYY,1,BE,C.J. Stroud,4432577,QB,HOU,DAL,16.82,23.08,100,0,ACTIVE,active
+4,"Deshaun, Don't Touchdown there",THEEE GUYY,1,BE,Tre Tucker,4428718,WR,LV,KC,9.26,8.4,100,0,ACTIVE,active
+4,"Deshaun, Don't Touchdown there",THEEE GUYY,1,BE,Michael Mayer,4429086,TE,LV,KC,6.45,16.2,100,0,ACTIVE,active
+4,"Deshaun, Don't Touchdown there",THEEE GUYY,1,K,Harrison Mevis,4574716,K,LAR,PHI,8.54,6.0,100,0,ACTIVE,active
+4,"Deshaun, Don't Touchdown there",THEEE GUYY,1,BE,Terrance Ferguson,4570037,TE,LAR,PHI,0.0,0.0,100,0,INJURY_RESERVE,inactive
+4,"Deshaun, Don't Touchdown there",THEEE GUYY,1,D/ST,Bears D/ST,-16003,D/ST,CHI,NYJ,6.37,9.0,100,0,NORMAL,active
+4,"Deshaun, Don't Touchdown there",THEEE GUYY,1,BE,Mack Hollins,2991662,WR,NE,BUF,9.69,8.3,100,0,INJURY_RESERVE,active
+4,THEEE GUYY,"Deshaun, Don't Touchdown there",0,RB,Bijan Robinson,4430807,RB,ATL,NO,21.45,27.7,100,0,ACTIVE,active
+4,THEEE GUYY,"Deshaun, Don't Touchdown there",0,WR,Drake London,4426502,WR,ATL,NO,16.73,14.6,100,0,ACTIVE,active
+4,THEEE GUYY,"Deshaun, Don't Touchdown there",0,RB,Kenneth Walker III,4567048,RB,KC,LV,20.5,30.9,100,0,ACTIVE,active
+4,THEEE GUYY,"Deshaun, Don't Touchdown there",0,WR,Davante Adams,16800,WR,LAR,PHI,15.63,7.2,100,0,ACTIVE,active
+4,THEEE GUYY,"Deshaun, Don't Touchdown there",0,RB/WR/TE,Cam Skattebo,4696981,RB,NYG,ARI,16.12,7.6,100,0,ACTIVE,active
+4,THEEE GUYY,"Deshaun, Don't Touchdown there",0,TE,Sam LaPorta,4430027,TE,DET,CAR,11.18,22.4,100,0,ACTIVE,active
+4,THEEE GUYY,"Deshaun, Don't Touchdown there",0,BE,Courtland Sutton,3128429,WR,DEN,SF,10.53,1.4,100,0,ACTIVE,active
+4,THEEE GUYY,"Deshaun, Don't Touchdown there",0,IR,Alec Pierce,4360078,WR,IND,WSH,0.0,0.0,100,0,INJURY_RESERVE,inactive
+4,THEEE GUYY,"Deshaun, Don't Touchdown there",0,BE,Bo Nix,4426338,QB,DEN,SF,15.09,13.56,100,0,ACTIVE,active
+4,THEEE GUYY,"Deshaun, Don't Touchdown there",0,BE,Kyle Monangai,4608686,RB,CHI,NYJ,8.26,28.0,100,0,OUT,active
+4,THEEE GUYY,"Deshaun, Don't Touchdown there",0,BE,Mark Andrews,3116365,TE,BAL,TEN,10.09,13.7,100,0,ACTIVE,active
+4,THEEE GUYY,"Deshaun, Don't Touchdown there",0,BE,Patriots D/ST,-16017,D/ST,NE,BUF,2.8,5.0,100,0,NORMAL,active
+4,THEEE GUYY,"Deshaun, Don't Touchdown there",0,K,Tyler Loop,4697745,K,BAL,TEN,9.3,8.0,100,0,ACTIVE,active
+4,THEEE GUYY,"Deshaun, Don't Touchdown there",0,IR,Dylan Sampson,5081397,RB,CLE,PIT,0.0,0.0,100,0,INJURY_RESERVE,inactive
+4,THEEE GUYY,"Deshaun, Don't Touchdown there",0,QB,Bryce Young,4685720,QB,CAR,DET,20.2,21.46,100,0,ACTIVE,active
+4,THEEE GUYY,"Deshaun, Don't Touchdown there",0,BE,Sam Darnold,3912547,QB,SEA,LAC,16.99,13.32,100,0,ACTIVE,active
+4,THEEE GUYY,"Deshaun, Don't Touchdown there",0,D/ST,Bills D/ST,-16002,D/ST,BUF,NE,6.24,1.0,100,0,NORMAL,active
+4,THEEE GUYY,"Deshaun, Don't Touchdown there",0,BE,Spencer Shrader,4571557,K,IND,WSH,8.97,16.0,100,0,ACTIVE,active
+4,Ceedee and Tapes ,Doughboy,0,WR,Ja'Marr Chase,4362628,WR,CIN,JAX,20.43,5.7,100,0,ACTIVE,active
+4,Ceedee and Tapes ,Doughboy,0,BE,Omarion Hampton,4685382,RB,LAC,SEA,10.74,13.3,100,0,ACTIVE,active
+4,Ceedee and Tapes ,Doughboy,0,RB,Javonte Williams,4361579,RB,DAL,HOU,14.55,31.3,100,0,ACTIVE,active
+4,Ceedee and Tapes ,Doughboy,0,BE,Ladd McConkey,4612826,WR,LAC,SEA,11.75,0.0,100,0,ACTIVE,active
+4,Ceedee and Tapes ,Doughboy,0,RB,Quinshon Judkins,4685702,RB,CLE,PIT,12.47,21.6,100,0,QUESTIONABLE,active
+4,Ceedee and Tapes ,Doughboy,0,RB/WR/TE,Luther Burden III,4685278,WR,CHI,NYJ,12.43,11.4,100,0,ACTIVE,active
+4,Ceedee and Tapes ,Doughboy,0,TE,Harold Fannin Jr.,5083076,TE,CLE,PIT,11.11,11.7,100,0,ACTIVE,active
+4,Ceedee and Tapes ,Doughboy,0,BE,Justin Herbert,4038941,QB,LAC,SEA,12.49,9.56,100,0,ACTIVE,active
+4,Ceedee and Tapes ,Doughboy,0,BE,Brian Thomas Jr.,4432773,WR,JAX,CIN,8.21,9.7,100,0,ACTIVE,active
+4,Ceedee and Tapes ,Doughboy,0,K,Eddy Pineiro,4034949,K,SF,DEN,9.27,5.0,100,0,ACTIVE,active
+4,Ceedee and Tapes ,Doughboy,0,WR,Jordan Addison,4429205,WR,MIN,MIA,14.79,9.1,100,0,QUESTIONABLE,active
+4,Ceedee and Tapes ,Doughboy,0,BE,Brian Robinson Jr.,4241474,RB,ATL,NO,6.06,25.7,100,0,ACTIVE,active
+4,Ceedee and Tapes ,Doughboy,0,QB,Deshaun Watson,3122840,QB,CLE,PIT,14.5,12.92,100,0,ACTIVE,active
+4,Ceedee and Tapes ,Doughboy,0,BE,Ollie Gordon II,4711533,RB,MIA,MIN,8.98,18.0,100,0,ACTIVE,active
+4,Ceedee and Tapes ,Doughboy,0,D/ST,Packers D/ST,-16009,D/ST,GB,TB,6.14,10.0,100,0,NORMAL,active
+4,Ceedee and Tapes ,Doughboy,0,BE,Mike Gesicki,3116164,TE,CIN,JAX,7.45,13.0,100,0,ACTIVE,active
+4,Doughboy,Ceedee and Tapes ,0,WR,Jaxon Smith-Njigba,4430878,WR,SEA,LAC,21.86,12.6,100,0,ACTIVE,active
+4,Doughboy,Ceedee and Tapes ,0,TE,Brock Bowers,4432665,TE,LV,KC,15.91,20.6,100,0,ACTIVE,active
+4,Doughboy,Ceedee and Tapes ,0,IR,Breece Hall,4427366,RB,NYJ,CHI,0.0,0.0,100,0,OUT,inactive
+4,Doughboy,Ceedee and Tapes ,0,QB,Lamar Jackson,3916387,QB,BAL,TEN,21.2,18.88,100,0,OUT,active
+4,Doughboy,Ceedee and Tapes ,0,IR,Jadarian Price,4685512,RB,SEA,LAC,0.0,0.0,100,0,INJURY_RESERVE,active
+4,Doughboy,Ceedee and Tapes ,0,WR,Parker Washington,4432620,WR,JAX,CIN,15.34,2.0,100,0,ACTIVE,active
+4,Doughboy,Ceedee and Tapes ,0,RB,J.K. Dobbins,4241985,RB,DEN,SF,10.08,7.2,100,0,ACTIVE,active
+4,Doughboy,Ceedee and Tapes ,0,RB/WR/TE,Michael Wilson,4360761,WR,ARI,NYG,13.35,16.5,100,0,ACTIVE,active
+4,Doughboy,Ceedee and Tapes ,0,BE,Quentin Johnston,4429025,WR,LAC,SEA,8.53,5.0,100,0,ACTIVE,active
+4,Doughboy,Ceedee and Tapes ,0,BE,Kaelon Black,4696044,RB,SF,DEN,5.45,1.3,100,0,ACTIVE,active
+4,Doughboy,Ceedee and Tapes ,0,BE,Kenyon Sadiq,5083315,TE,NYJ,CHI,9.87,0.0,100,0,QUESTIONABLE,active
+4,Doughboy,Ceedee and Tapes ,0,BE,Devaughn Vele,4569559,WR,NO,ATL,10.63,17.4,100,0,ACTIVE,active
+4,Doughboy,Ceedee and Tapes ,0,K,Matt Gay,4249087,K,LV,KC,8.14,16.0,100,0,ACTIVE,active
+4,Doughboy,Ceedee and Tapes ,0,BE,Marcus Mariota,2576980,QB,WSH,IND,18.52,5.34,100,0,OUT,active
+4,Doughboy,Ceedee and Tapes ,0,D/ST,Raiders D/ST,-16013,D/ST,LV,KC,3.69,0.0,100,0,NORMAL,active
+4,Doughboy,Ceedee and Tapes ,0,BE,Makai Lemon,4870795,WR,PHI,LAR,10.51,5.7,100,0,ACTIVE,active
+4,Doughboy,Ceedee and Tapes ,0,RB,Emanuel Wilson,4887558,RB,SEA,LAC,11.51,27.0,100,0,ACTIVE,active
+4,Doughboy,Ceedee and Tapes ,0,BE,Joe Mixon,3116385,RB,None,None,0,0,100,1,QUESTIONABLE,bye
+4,Adrian's Raiders Nation ,Lynch em All,0,WR,Puka Nacua,4426515,WR,LAR,PHI,18.07,27.7,100,0,ACTIVE,active
+4,Adrian's Raiders Nation ,Lynch em All,0,RB,Ashton Jeanty,4890973,RB,LV,KC,18.87,18.6,100,0,ACTIVE,active
+4,Adrian's Raiders Nation ,Lynch em All,0,BE,DeVonta Smith,4241478,WR,PHI,LAR,0.0,0.0,100,0,ACTIVE,inactive
+4,Adrian's Raiders Nation ,Lynch em All,0,BE,Colston Loveland,4723086,TE,CHI,NYJ,8.66,11.7,100,0,ACTIVE,active
+4,Adrian's Raiders Nation ,Lynch em All,0,RB,David Montgomery,4035538,RB,HOU,DAL,13.47,4.3,100,0,OUT,active
+4,Adrian's Raiders Nation ,Lynch em All,0,BE,Tony Pollard,3916148,RB,TEN,BAL,11.77,13.0,100,0,ACTIVE,active
+4,Adrian's Raiders Nation ,Lynch em All,0,TE,Tucker Kraft,4572680,TE,GB,TB,8.9,16.5,100,0,ACTIVE,active
+4,Adrian's Raiders Nation ,Lynch em All,0,BE,Caleb Williams,4431611,QB,CHI,NYJ,0.0,0.0,100,0,QUESTIONABLE,inactive
+4,Adrian's Raiders Nation ,Lynch em All,0,BE,Blake Corum,4429096,RB,LAR,PHI,8.11,3.1,100,0,ACTIVE,active
+4,Adrian's Raiders Nation ,Lynch em All,0,D/ST,Ravens D/ST,-16033,D/ST,BAL,TEN,6.59,7.0,100,0,NORMAL,active
+4,Adrian's Raiders Nation ,Lynch em All,0,K,Ka'imi Fairbairn,2971573,K,HOU,DAL,9.9,16.0,100,0,ACTIVE,active
+4,Adrian's Raiders Nation ,Lynch em All,0,RB/WR/TE,Jacory Croskey-Merritt,4575131,RB,WSH,IND,11.13,7.0,100,0,OUT,active
+4,Adrian's Raiders Nation ,Lynch em All,0,WR,Romeo Doubs,4361432,WR,NE,BUF,9.77,23.8,100,0,ACTIVE,active
+4,Adrian's Raiders Nation ,Lynch em All,0,BE,Eagles D/ST,-16021,D/ST,PHI,LAR,4.02,2.0,100,0,NORMAL,active
+4,Adrian's Raiders Nation ,Lynch em All,0,BE,Pat Freiermuth,4361411,TE,PIT,CLE,8.11,10.7,100,0,QUESTIONABLE,active
+4,Adrian's Raiders Nation ,Lynch em All,0,QB,Kirk Cousins,14880,QB,LV,KC,13.99,22.6,100,0,ACTIVE,active
+4,Lynch em All,Adrian's Raiders Nation ,0,RB,Chase Brown,4362238,RB,CIN,JAX,16.2,19.1,100,0,ACTIVE,active
+4,Lynch em All,Adrian's Raiders Nation ,0,WR,Tee Higgins,4239993,WR,CIN,JAX,13.66,26.7,100,0,ACTIVE,active
+4,Lynch em All,Adrian's Raiders Nation ,0,BE,Jaylen Waddle,4372016,WR,DEN,SF,11.91,14.5,100,0,ACTIVE,active
+4,Lynch em All,Adrian's Raiders Nation ,0,BE,Terry McLaurin,3121422,WR,WSH,IND,0.0,0.0,100,0,ACTIVE,inactive
+4,Lynch em All,Adrian's Raiders Nation ,0,BE,Michael Pittman Jr.,4035687,WR,PIT,CLE,9.72,3.5,100,0,INJURY_RESERVE,active
+4,Lynch em All,Adrian's Raiders Nation ,0,QB,Trevor Lawrence,4360310,QB,JAX,CIN,18.49,13.08,100,0,ACTIVE,active
+4,Lynch em All,Adrian's Raiders Nation ,0,K,Brandon Aubrey,3953687,K,DAL,HOU,9.55,10.0,100,0,ACTIVE,active
+4,Lynch em All,Adrian's Raiders Nation ,0,BE,Dallas Goedert,3121023,TE,PHI,LAR,0.0,0.0,100,0,ACTIVE,inactive
+4,Lynch em All,Adrian's Raiders Nation ,0,IR,Jordan Mason,4360569,RB,MIN,MIA,0.0,0.0,100,0,INJURY_RESERVE,inactive
+4,Lynch em All,Adrian's Raiders Nation ,0,IR,Zach Charbonnet,4426385,RB,SEA,LAC,0.0,0.0,100,0,OUT,inactive
+4,Lynch em All,Adrian's Raiders Nation ,0,RB,Woody Marks,4429059,RB,HOU,DAL,8.46,8.2,100,0,ACTIVE,active
+4,Lynch em All,Adrian's Raiders Nation ,0,D/ST,Chiefs D/ST,-16012,D/ST,KC,LV,6.51,1.0,100,0,NORMAL,active
+4,Lynch em All,Adrian's Raiders Nation ,0,BE,Emmett Johnson,4832955,RB,KC,LV,5.05,2.0,100,0,ACTIVE,active
+4,Lynch em All,Adrian's Raiders Nation ,0,TE,Travis Kelce,15847,TE,KC,LV,11.79,3.5,100,0,ACTIVE,active
+4,Lynch em All,Adrian's Raiders Nation ,0,RB/WR/TE,Matthew Golden,4701936,WR,GB,TB,12.89,11.7,100,0,ACTIVE,active
+4,Lynch em All,Adrian's Raiders Nation ,0,BE,Malik Washington,4569603,WR,MIA,MIN,10.43,12.0,100,0,ACTIVE,active
+4,Lynch em All,Adrian's Raiders Nation ,0,BE,Jalen Hurts,4040715,QB,PHI,LAR,17.62,13.52,100,0,INJURY_RESERVE,active
+4,Lynch em All,Adrian's Raiders Nation ,0,WR,Josh Downs,4688813,WR,IND,WSH,13.6,4.6,100,0,ACTIVE,active
+5,BTAstfuandgivemethe$400alr,Run CMC,0,RB,Jahmyr Gibbs,4429795,RB,DET,ARI,27.0,37.7,100,0,ACTIVE,active
+5,BTAstfuandgivemethe$400alr,Run CMC,0,TE,Trey McBride,4361307,TE,ARI,DET,18.74,21.6,100,0,ACTIVE,active
+5,BTAstfuandgivemethe$400alr,Run CMC,0,WR,Nico Collins,4258173,WR,HOU,TEN,16.45,10.6,100,0,ACTIVE,active
+5,BTAstfuandgivemethe$400alr,Run CMC,0,RB/WR/TE,Zay Flowers,4429615,WR,BAL,ATL,13.99,14.6,100,0,ACTIVE,active
+5,BTAstfuandgivemethe$400alr,Run CMC,0,QB,Dak Prescott,2577417,QB,DAL,TB,17.68,12.64,100,0,ACTIVE,active
+5,BTAstfuandgivemethe$400alr,Run CMC,0,RB,Rhamondre Stevenson,4569173,RB,NE,LV,13.26,17.5,100,0,ACTIVE,active
+5,BTAstfuandgivemethe$400alr,Run CMC,0,WR,Christian Watson,4248528,WR,GB,CHI,13.83,32.3,100,0,ACTIVE,active
+5,BTAstfuandgivemethe$400alr,Run CMC,0,BE,Rico Dowdle,4038815,RB,PIT,IND,0.0,0.0,100,0,QUESTIONABLE,inactive
+5,BTAstfuandgivemethe$400alr,Run CMC,0,D/ST,Broncos D/ST,-16007,D/ST,DEN,LAC,6.23,14.0,100,0,NORMAL,active
+5,BTAstfuandgivemethe$400alr,Run CMC,0,BE,Chris Godwin Jr.,3116165,WR,TB,DAL,6.81,7.0,100,0,ACTIVE,active
+5,BTAstfuandgivemethe$400alr,Run CMC,0,K,Jason Myers,2473037,K,SEA,SF,8.8,23.0,100,0,ACTIVE,active
+5,BTAstfuandgivemethe$400alr,Run CMC,0,BE,Juwan Johnson,3929645,TE,NO,MIN,10.07,5.6,100,0,ACTIVE,active
+5,BTAstfuandgivemethe$400alr,Run CMC,0,BE,Tyler Shough,4360689,QB,NO,MIN,16.51,-0.16,100,0,ACTIVE,active
+5,BTAstfuandgivemethe$400alr,Run CMC,0,BE,Antonio Williams,5081432,WR,WSH,NYG,9.68,6.1,100,0,ACTIVE,active
+5,BTAstfuandgivemethe$400alr,Run CMC,0,IR,Tyreek Hill,3116406,WR,None,None,0,0,100,1,QUESTIONABLE,bye
+5,BTAstfuandgivemethe$400alr,Run CMC,0,BE,Najee Harris,4241457,RB,NYG,WSH,5.28,2.4,100,0,ACTIVE,active
+5,BTAstfuandgivemethe$400alr,Run CMC,0,IR,Isiah Pacheco,4361529,RB,DET,ARI,0.0,0.0,100,0,INJURY_RESERVE,inactive
+5,BTAstfuandgivemethe$400alr,Run CMC,0,BE,Brenton Strange,4430539,TE,JAX,PHI,9.71,13.8,100,0,ACTIVE,active
+5,Run CMC,BTAstfuandgivemethe$400alr,0,RB,Christian McCaffrey,3117251,RB,SF,SEA,18.72,17.3,100,0,ACTIVE,active
+5,Run CMC,BTAstfuandgivemethe$400alr,0,RB,Derrick Henry,3043078,RB,BAL,ATL,16.77,21.0,100,0,ACTIVE,active
+5,Run CMC,BTAstfuandgivemethe$400alr,0,WR,Malik Nabers,4595348,WR,NYG,WSH,13.56,29.1,100,0,ACTIVE,active
+5,Run CMC,BTAstfuandgivemethe$400alr,0,BE,Tetairoa McMillan,4685472,WR,CAR,None,0.0,0,100,1,ACTIVE,bye
+5,Run CMC,BTAstfuandgivemethe$400alr,0,TE,Tyler Warren,4431459,TE,IND,PIT,11.85,21.4,100,0,QUESTIONABLE,active
+5,Run CMC,BTAstfuandgivemethe$400alr,0,BE,Rome Odunze,4431299,WR,CHI,GB,10.94,5.0,100,0,ACTIVE,active
+5,Run CMC,BTAstfuandgivemethe$400alr,0,BE,DK Metcalf,4047650,WR,PIT,IND,12.33,5.3,100,0,ACTIVE,active
+5,Run CMC,BTAstfuandgivemethe$400alr,0,QB,Brock Purdy,4361741,QB,SF,SEA,17.9,16.16,100,0,ACTIVE,active
+5,Run CMC,BTAstfuandgivemethe$400alr,0,BE,Wan'Dale Robinson,4569587,WR,TEN,HOU,8.99,11.3,100,0,ACTIVE,active
+5,Run CMC,BTAstfuandgivemethe$400alr,0,RB/WR/TE,Aaron Jones Sr.,3042519,RB,MIN,NO,17.42,18.7,100,0,ACTIVE,active
+5,Run CMC,BTAstfuandgivemethe$400alr,0,D/ST,Steelers D/ST,-16023,D/ST,PIT,IND,6.72,1.0,100,0,NORMAL,active
+5,Run CMC,BTAstfuandgivemethe$400alr,0,BE,Harrison Butker,3055899,K,KC,None,0.0,0,100,1,ACTIVE,bye
+5,Run CMC,BTAstfuandgivemethe$400alr,0,BE,Jordan Love,4036378,QB,GB,CHI,15.26,25.28,100,0,ACTIVE,active
+5,Run CMC,BTAstfuandgivemethe$400alr,0,WR,Denzel Boston,4832800,WR,CLE,NYJ,11.92,13.6,100,0,ACTIVE,active
+5,Run CMC,BTAstfuandgivemethe$400alr,0,BE,Dontayvion Wicks,4428850,WR,PHI,JAX,10.09,11.3,100,0,ACTIVE,active
+5,Run CMC,BTAstfuandgivemethe$400alr,0,K,Chad Ryland,4363538,K,ARI,DET,8.96,2.0,100,0,ACTIVE,active
+5,Lil Pan,THE Death Rider,0,WR,CeeDee Lamb,4241389,WR,DAL,TB,19.13,2.9,100,0,ACTIVE,active
+5,Lil Pan,THE Death Rider,0,RB/WR/TE,Justin Jefferson,4262921,WR,MIN,NO,18.88,18.8,100,0,ACTIVE,active
+5,Lil Pan,THE Death Rider,0,RB,Bucky Irving,4596448,RB,TB,DAL,15.24,31.5,100,0,ACTIVE,active
+5,Lil Pan,THE Death Rider,0,RB,Jeremiyah Love,4870808,RB,ARI,DET,14.37,2.2,100,0,OUT,active
+5,Lil Pan,THE Death Rider,0,WR,Mike Evans,16737,WR,SF,SEA,12.77,26.3,100,0,QUESTIONABLE,active
+5,Lil Pan,THE Death Rider,0,BE,TreVeyon Henderson,4432710,RB,NE,LV,10.54,4.8,100,0,QUESTIONABLE,active
+5,Lil Pan,THE Death Rider,0,IR,Jonathon Brooks,4678008,RB,CAR,None,0.0,0,100,1,INJURY_RESERVE,bye
+5,Lil Pan,THE Death Rider,0,IR,De'Zhaun Stribling,4710714,WR,SF,SEA,0.0,0.0,100,0,INJURY_RESERVE,inactive
+5,Lil Pan,THE Death Rider,0,BE,KC Concepcion,4870653,WR,CLE,NYJ,10.52,1.5,100,0,ACTIVE,active
+5,Lil Pan,THE Death Rider,0,BE,Tyler Allgeier,4373626,RB,ARI,DET,9.4,3.6,100,0,ACTIVE,active
+5,Lil Pan,THE Death Rider,0,TE,T.J. Hockenson,4036133,TE,MIN,NO,10.51,1.7,100,0,QUESTIONABLE,active
+5,Lil Pan,THE Death Rider,0,QB,Kyler Murray,3917315,QB,MIN,NO,17.91,18.26,100,0,ACTIVE,active
+5,Lil Pan,THE Death Rider,0,BE,Hunter Henry,3046439,TE,NE,LV,7.71,13.4,100,0,ACTIVE,active
+5,Lil Pan,THE Death Rider,0,BE,RJ Harvey,4568490,RB,DEN,LAC,11.29,0.7,100,0,ACTIVE,active
+5,Lil Pan,THE Death Rider,0,K,Will Reichard,4567104,K,MIN,NO,9.53,16.0,100,0,ACTIVE,active
+5,Lil Pan,THE Death Rider,0,BE,Will Shipley,4431545,RB,PHI,JAX,10.25,8.3,100,0,INJURY_RESERVE,active
+5,Lil Pan,THE Death Rider,0,D/ST,Jaguars D/ST,-16030,D/ST,JAX,PHI,7.27,4.0,100,0,NORMAL,active
+5,Lil Pan,THE Death Rider,0,BE,Michael Penix Jr.,4360423,QB,ATL,BAL,14.58,14.4,100,0,ACTIVE,active
+5,THE Death Rider,Lil Pan,0,QB,Josh Allen,3918298,QB,BUF,LAR,19.9,30.5,100,0,ACTIVE,active
+5,THE Death Rider,Lil Pan,0,WR,Garrett Wilson,4569618,WR,NYJ,CLE,14.64,23.4,100,0,ACTIVE,active
+5,THE Death Rider,Lil Pan,0,BE,Joe Burrow,3915511,QB,CIN,MIA,20.06,24.6,100,0,ACTIVE,active
+5,THE Death Rider,Lil Pan,0,WR,Jameson Williams,4426388,WR,DET,ARI,10.94,18.7,100,0,ACTIVE,active
+5,THE Death Rider,Lil Pan,0,BE,Marvin Harrison Jr.,4432708,WR,ARI,DET,0.0,0.0,100,0,ACTIVE,inactive
+5,THE Death Rider,Lil Pan,0,RB,Jaylen Warren,4569987,RB,PIT,IND,17.58,36.8,100,0,ACTIVE,active
+5,THE Death Rider,Lil Pan,0,RB,Kenny Gainwell,4371733,RB,TB,DAL,7.3,5.8,100,0,ACTIVE,active
+5,THE Death Rider,Lil Pan,0,TE,Isaiah Likely,4361050,TE,NYG,WSH,12.88,32.4,100,0,ACTIVE,active
+5,THE Death Rider,Lil Pan,0,BE,Josh Jacobs,4047365,RB,GB,CHI,0.0,0.0,100,0,DAY_TO_DAY,inactive
+5,THE Death Rider,Lil Pan,0,BE,Tyjae Spears,4428557,RB,TEN,HOU,7.49,9.8,100,0,QUESTIONABLE,active
+5,THE Death Rider,Lil Pan,0,IR,Tank Dell,4366031,WR,HOU,TEN,0.0,0.0,100,0,INJURY_RESERVE,inactive
+5,THE Death Rider,Lil Pan,0,D/ST,Vikings D/ST,-16016,D/ST,MIN,NO,6.55,13.0,100,0,NORMAL,active
+5,THE Death Rider,Lil Pan,0,K,Cam Little,4686361,K,JAX,PHI,9.72,9.0,100,0,ACTIVE,active
+5,THE Death Rider,Lil Pan,0,BE,Kalif Raymond,2973405,WR,CHI,GB,7.95,3.4,100,0,ACTIVE,active
+5,THE Death Rider,Lil Pan,0,BE,Jakobi Meyers,3916433,WR,JAX,PHI,10.7,5.7,100,0,ACTIVE,active
+5,THE Death Rider,Lil Pan,0,RB/WR/TE,Rachaad White,4697815,RB,WSH,NYG,7.94,3.0,100,0,ACTIVE,active
+5,THE Death Rider,Lil Pan,0,BE,Drake Maye,4431452,QB,NE,LV,18.47,39.46,100,0,ACTIVE,active
+5,The G.O.A.T,"Deshaun, Don't Touchdown there",0,RB,James Cook III,4379399,RB,BUF,LAR,15.71,22.8,100,0,ACTIVE,active
+5,The G.O.A.T,"Deshaun, Don't Touchdown there",0,WR,George Pickens,4426354,WR,DAL,TB,13.21,28.0,100,0,ACTIVE,active
+5,The G.O.A.T,"Deshaun, Don't Touchdown there",0,RB,Kyren Williams,4430737,RB,LAR,BUF,17.79,19.6,100,0,ACTIVE,active
+5,The G.O.A.T,"Deshaun, Don't Touchdown there",0,BE,Rashee Rice,4428331,WR,KC,None,0.0,0,100,1,OUT,bye
+5,The G.O.A.T,"Deshaun, Don't Touchdown there",0,BE,DJ Moore,3915416,WR,BUF,LAR,0.0,0.0,100,0,QUESTIONABLE,inactive
+5,The G.O.A.T,"Deshaun, Don't Touchdown there",0,BE,Jake Ferguson,4242355,TE,DAL,TB,6.86,4.9,100,0,ACTIVE,active
+5,The G.O.A.T,"Deshaun, Don't Touchdown there",0,QB,Matthew Stafford,12483,QB,LAR,BUF,18.18,27.32,100,0,ACTIVE,active
+5,The G.O.A.T,"Deshaun, Don't Touchdown there",0,WR,Deebo Samuel Sr.,3126486,WR,SF,SEA,11.09,2.5,100,0,OUT,active
+5,The G.O.A.T,"Deshaun, Don't Touchdown there",0,BE,Seahawks D/ST,-16026,D/ST,SEA,SF,3.86,11.0,100,0,NORMAL,active
+5,The G.O.A.T,"Deshaun, Don't Touchdown there",0,TE,Dalton Kincaid,4385690,TE,BUF,LAR,8.82,3.7,100,0,ACTIVE,active
+5,The G.O.A.T,"Deshaun, Don't Touchdown there",0,RB/WR/TE,Khalil Shakir,4373678,WR,BUF,LAR,9.98,11.0,100,0,ACTIVE,active
+5,The G.O.A.T,"Deshaun, Don't Touchdown there",0,K,Evan McPherson,4360234,K,CIN,MIA,8.69,7.0,100,0,ACTIVE,active
+5,The G.O.A.T,"Deshaun, Don't Touchdown there",0,BE,Aaron Rodgers,8439,QB,PIT,IND,15.9,22.0,100,0,ACTIVE,active
+5,The G.O.A.T,"Deshaun, Don't Touchdown there",0,D/ST,Bengals D/ST,-16004,D/ST,CIN,MIA,6.74,9.0,100,0,NORMAL,active
+5,The G.O.A.T,"Deshaun, Don't Touchdown there",0,BE,Roman Wilson,4431492,WR,PIT,IND,10.19,0.0,100,0,INJURY_RESERVE,active
+5,The G.O.A.T,"Deshaun, Don't Touchdown there",0,BE,Travis Etienne Jr.,4239996,RB,NO,MIN,0.0,0.0,100,0,INJURY_RESERVE,inactive
+5,"Deshaun, Don't Touchdown there",The G.O.A.T,1,RB,Jonathan Taylor,4242335,RB,IND,PIT,18.95,11.2,100,0,ACTIVE,active
+5,"Deshaun, Don't Touchdown there",The G.O.A.T,1,IR,A.J. Brown,4047646,WR,NE,LV,0.0,0.0,100,0,QUESTIONABLE,inactive
+5,"Deshaun, Don't Touchdown there",The G.O.A.T,1,WR,Emeka Egbuka,4567750,WR,TB,DAL,9.76,17.2,100,0,ACTIVE,active
+5,"Deshaun, Don't Touchdown there",The G.O.A.T,1,RB,D'Andre Swift,4259545,RB,CHI,GB,17.06,17.3,100,0,ACTIVE,active
+5,"Deshaun, Don't Touchdown there",The G.O.A.T,1,TE,George Kittle,3040151,TE,SF,SEA,13.66,7.4,100,0,ACTIVE,active
+5,"Deshaun, Don't Touchdown there",The G.O.A.T,1,WR,Carnell Tate,4871023,WR,TEN,HOU,13.51,1.6,100,0,ACTIVE,active
+5,"Deshaun, Don't Touchdown there",The G.O.A.T,1,BE,Patrick Mahomes,3139477,QB,KC,None,0.0,0,100,1,ACTIVE,bye
+5,"Deshaun, Don't Touchdown there",The G.O.A.T,1,BE,Chuba Hubbard,4241416,RB,CAR,None,0.0,0,100,1,ACTIVE,bye
+5,"Deshaun, Don't Touchdown there",The G.O.A.T,1,BE,Xavier Worthy,4683062,WR,KC,None,0.0,0,100,1,ACTIVE,bye
+5,"Deshaun, Don't Touchdown there",The G.O.A.T,1,IR,Jordyn Tyson,4880281,WR,NO,MIN,0.0,0.0,100,0,INJURY_RESERVE,inactive
+5,"Deshaun, Don't Touchdown there",The G.O.A.T,1,QB,C.J. Stroud,4432577,QB,HOU,TEN,15.37,20.94,100,0,ACTIVE,active
+5,"Deshaun, Don't Touchdown there",The G.O.A.T,1,RB/WR/TE,Tre Tucker,4428718,WR,LV,NE,9.14,7.5,100,0,ACTIVE,active
+5,"Deshaun, Don't Touchdown there",The G.O.A.T,1,BE,Michael Mayer,4429086,TE,LV,NE,8.16,1.2,100,0,ACTIVE,active
+5,"Deshaun, Don't Touchdown there",The G.O.A.T,1,K,Harrison Mevis,4574716,K,LAR,BUF,9.43,2.0,100,0,ACTIVE,active
+5,"Deshaun, Don't Touchdown there",The G.O.A.T,1,D/ST,Bears D/ST,-16003,D/ST,CHI,GB,5.51,-2.0,100,0,NORMAL,active
+5,"Deshaun, Don't Touchdown there",The G.O.A.T,1,BE,Dohnte Meyers,4384852,WR,CIN,MIA,7.53,3.2,100,0,ACTIVE,active
+5,"Deshaun, Don't Touchdown there",The G.O.A.T,1,BE,Keaton Mitchell,4596334,RB,LAC,DEN,8.26,5.9,100,0,ACTIVE,active
+5,"Deshaun, Don't Touchdown there",The G.O.A.T,1,BE,Odell Beckham Jr.,16733,WR,MIN,NO,0.0,0.0,100,0,ACTIVE,inactive
+5,Vatos Locos ,Ceedee and Tapes ,0,WR,Amon-Ra St. Brown,4374302,WR,DET,ARI,20.0,12.9,100,0,ACTIVE,active
+5,Vatos Locos ,Ceedee and Tapes ,0,BE,Saquon Barkley,3929630,RB,PHI,JAX,0.0,0.0,100,0,OUT,inactive
+5,Vatos Locos ,Ceedee and Tapes ,0,BE,Jayden Daniels,4426348,QB,WSH,NYG,20.5,32.26,100,0,ACTIVE,active
+5,Vatos Locos ,Ceedee and Tapes ,0,WR,Chris Olave,4361370,WR,NO,MIN,16.54,8.6,100,0,QUESTIONABLE,active
+5,Vatos Locos ,Ceedee and Tapes ,0,RB,Bhayshul Tuten,4882093,RB,JAX,PHI,13.94,11.6,100,0,ACTIVE,active
+5,Vatos Locos ,Ceedee and Tapes ,0,TE,Kyle Pitts Sr.,4360248,TE,ATL,BAL,7.14,15.2,100,0,ACTIVE,active
+5,Vatos Locos ,Ceedee and Tapes ,0,IR,Stefon Diggs,2976212,WR,WSH,NYG,0.0,0.0,100,0,QUESTIONABLE,inactive
+5,Vatos Locos ,Ceedee and Tapes ,0,D/ST,Texans D/ST,-16034,D/ST,HOU,TEN,6.7,15.0,100,0,NORMAL,active
+5,Vatos Locos ,Ceedee and Tapes ,0,BE,Rams D/ST,-16014,D/ST,LAR,BUF,4.44,-1.0,100,0,NORMAL,active
+5,Vatos Locos ,Ceedee and Tapes ,0,QB,Jared Goff,3046779,QB,DET,ARI,19.41,28.94,100,0,ACTIVE,active
+5,Vatos Locos ,Ceedee and Tapes ,0,K,Jake Bates,4689936,K,DET,ARI,9.12,10.0,100,0,ACTIVE,active
+5,Vatos Locos ,Ceedee and Tapes ,0,BE,Jalen Coker,4695883,WR,CAR,None,0.0,0,100,1,ACTIVE,bye
+5,Vatos Locos ,Ceedee and Tapes ,0,RB/WR/TE,Alvin Kamara,3054850,RB,NO,MIN,11.17,2.6,100,0,QUESTIONABLE,active
+5,Vatos Locos ,Ceedee and Tapes ,0,RB,Braelon Allen,4685247,RB,NYJ,CLE,14.1,18.6,100,0,ACTIVE,active
+5,Vatos Locos ,Ceedee and Tapes ,0,BE,Malachi Fields,4682648,WR,NYG,WSH,7.76,4.0,100,0,ACTIVE,active
+5,Vatos Locos ,Ceedee and Tapes ,0,BE,Mike Washington Jr.,4686658,RB,LV,NE,4.88,2.0,100,0,ACTIVE,active
+5,Vatos Locos ,Ceedee and Tapes ,0,BE,Kendre Miller,4599739,RB,NO,MIN,7.82,9.0,100,0,ACTIVE,active
+5,Ceedee and Tapes ,Vatos Locos ,0,WR,Ja'Marr Chase,4362628,WR,CIN,MIA,21.78,19.7,100,0,ACTIVE,active
+5,Ceedee and Tapes ,Vatos Locos ,0,BE,Omarion Hampton,4685382,RB,LAC,DEN,12.01,4.9,100,0,ACTIVE,active
+5,Ceedee and Tapes ,Vatos Locos ,0,RB,Javonte Williams,4361579,RB,DAL,TB,17.5,14.2,100,0,ACTIVE,active
+5,Ceedee and Tapes ,Vatos Locos ,0,BE,Ladd McConkey,4612826,WR,LAC,DEN,0.0,0.0,100,0,ACTIVE,inactive
+5,Ceedee and Tapes ,Vatos Locos ,0,RB,Quinshon Judkins,4685702,RB,CLE,NYJ,14.63,8.0,100,0,QUESTIONABLE,active
+5,Ceedee and Tapes ,Vatos Locos ,0,BE,Luther Burden III,4685278,WR,CHI,GB,12.28,8.9,100,0,ACTIVE,active
+5,Ceedee and Tapes ,Vatos Locos ,0,TE,Harold Fannin Jr.,5083076,TE,CLE,NYJ,11.99,1.4,100,0,ACTIVE,active
+5,Ceedee and Tapes ,Vatos Locos ,0,BE,Brian Thomas Jr.,4432773,WR,JAX,PHI,7.56,0.0,100,0,ACTIVE,active
+5,Ceedee and Tapes ,Vatos Locos ,0,K,Eddy Pineiro,4034949,K,SF,SEA,8.56,6.0,100,0,ACTIVE,active
+5,Ceedee and Tapes ,Vatos Locos ,0,WR,Jordan Addison,4429205,WR,MIN,NO,0.0,0.0,100,0,QUESTIONABLE,inactive
+5,Ceedee and Tapes ,Vatos Locos ,0,BE,Brian Robinson Jr.,4241474,RB,ATL,BAL,8.1,1.6,100,0,ACTIVE,active
+5,Ceedee and Tapes ,Vatos Locos ,0,QB,Deshaun Watson,3122840,QB,CLE,NYJ,16.89,12.2,100,0,ACTIVE,active
+5,Ceedee and Tapes ,Vatos Locos ,0,RB/WR/TE,Ollie Gordon II,4711533,RB,MIA,CIN,10.91,14.8,100,0,ACTIVE,active
+5,Ceedee and Tapes ,Vatos Locos ,0,BE,Mike Gesicki,3116164,TE,CIN,MIA,7.32,7.4,100,0,ACTIVE,active
+5,Ceedee and Tapes ,Vatos Locos ,0,D/ST,Cowboys D/ST,-16006,D/ST,DAL,TB,7.45,-2.0,100,0,NORMAL,active
+5,Ceedee and Tapes ,Vatos Locos ,0,BE,Malik Washington,4569603,WR,MIA,CIN,11.1,12.1,100,0,ACTIVE,active
+5,THEEE GUYY,Adrian's Raiders Nation ,0,RB,Bijan Robinson,4430807,RB,ATL,BAL,22.21,15.8,100,0,ACTIVE,active
+5,THEEE GUYY,Adrian's Raiders Nation ,0,WR,Drake London,4426502,WR,ATL,BAL,16.02,18.8,100,0,ACTIVE,active
+5,THEEE GUYY,Adrian's Raiders Nation ,0,BE,Kenneth Walker III,4567048,RB,KC,None,0.0,0,100,1,ACTIVE,bye
+5,THEEE GUYY,Adrian's Raiders Nation ,0,WR,Davante Adams,16800,WR,LAR,BUF,15.51,22.1,100,0,ACTIVE,active
+5,THEEE GUYY,Adrian's Raiders Nation ,0,RB,Cam Skattebo,4696981,RB,NYG,WSH,13.21,7.1,100,0,ACTIVE,active
+5,THEEE GUYY,Adrian's Raiders Nation ,0,TE,Sam LaPorta,4430027,TE,DET,ARI,13.09,19.8,100,0,ACTIVE,active
+5,THEEE GUYY,Adrian's Raiders Nation ,0,BE,Courtland Sutton,3128429,WR,DEN,LAC,10.27,9.8,100,0,ACTIVE,active
+5,THEEE GUYY,Adrian's Raiders Nation ,0,IR,Alec Pierce,4360078,WR,IND,PIT,0.0,0.0,100,0,INJURY_RESERVE,inactive
+5,THEEE GUYY,Adrian's Raiders Nation ,0,QB,Bo Nix,4426338,QB,DEN,LAC,16.19,7.92,100,0,ACTIVE,active
+5,THEEE GUYY,Adrian's Raiders Nation ,0,BE,Kyle Monangai,4608686,RB,CHI,GB,0.0,0.0,100,0,OUT,inactive
+5,THEEE GUYY,Adrian's Raiders Nation ,0,RB/WR/TE,Mark Andrews,3116365,TE,BAL,ATL,9.54,4.8,100,0,ACTIVE,active
+5,THEEE GUYY,Adrian's Raiders Nation ,0,BE,Patriots D/ST,-16017,D/ST,NE,LV,5.91,6.0,100,0,NORMAL,active
+5,THEEE GUYY,Adrian's Raiders Nation ,0,BE,Tyler Loop,4697745,K,BAL,ATL,7.95,14.0,100,0,ACTIVE,active
+5,THEEE GUYY,Adrian's Raiders Nation ,0,IR,Dylan Sampson,5081397,RB,CLE,NYJ,0.0,0.0,100,0,INJURY_RESERVE,inactive
+5,THEEE GUYY,Adrian's Raiders Nation ,0,BE,Bryce Young,4685720,QB,CAR,None,0.0,0,100,1,ACTIVE,bye
+5,THEEE GUYY,Adrian's Raiders Nation ,0,BE,Sam Darnold,3912547,QB,SEA,SF,15.54,8.3,100,0,ACTIVE,active
+5,THEEE GUYY,Adrian's Raiders Nation ,0,K,Spencer Shrader,4571557,K,IND,PIT,8.87,21.0,100,0,ACTIVE,active
+5,THEEE GUYY,Adrian's Raiders Nation ,0,D/ST,Browns D/ST,-16005,D/ST,CLE,NYJ,5.69,11.0,100,0,NORMAL,active
+5,Adrian's Raiders Nation ,THEEE GUYY,0,WR,Puka Nacua,4426515,WR,LAR,BUF,21.68,37.7,100,0,ACTIVE,active
+5,Adrian's Raiders Nation ,THEEE GUYY,0,RB,Ashton Jeanty,4890973,RB,LV,NE,17.84,10.7,100,0,ACTIVE,active
+5,Adrian's Raiders Nation ,THEEE GUYY,0,BE,DeVonta Smith,4241478,WR,PHI,JAX,0.0,0.0,100,0,ACTIVE,inactive
+5,Adrian's Raiders Nation ,THEEE GUYY,0,BE,Colston Loveland,4723086,TE,CHI,GB,9.67,3.9,100,0,ACTIVE,active
+5,Adrian's Raiders Nation ,THEEE GUYY,0,RB,David Montgomery,4035538,RB,HOU,TEN,11.87,1.1,100,0,OUT,active
+5,Adrian's Raiders Nation ,THEEE GUYY,0,BE,Tony Pollard,3916148,RB,TEN,HOU,13.59,5.2,100,0,ACTIVE,active
+5,Adrian's Raiders Nation ,THEEE GUYY,0,TE,Tucker Kraft,4572680,TE,GB,CHI,10.48,11.6,100,0,ACTIVE,active
+5,Adrian's Raiders Nation ,THEEE GUYY,0,BE,Caleb Williams,4431611,QB,CHI,GB,0.0,0.0,100,0,QUESTIONABLE,inactive
+5,Adrian's Raiders Nation ,THEEE GUYY,0,BE,Blake Corum,4429096,RB,LAR,BUF,8.37,16.2,100,0,ACTIVE,active
+5,Adrian's Raiders Nation ,THEEE GUYY,0,D/ST,Ravens D/ST,-16033,D/ST,BAL,ATL,2.43,5.0,100,0,NORMAL,active
+5,Adrian's Raiders Nation ,THEEE GUYY,0,K,Ka'imi Fairbairn,2971573,K,HOU,TEN,8.99,17.0,100,0,ACTIVE,active
+5,Adrian's Raiders Nation ,THEEE GUYY,0,RB/WR/TE,Jacory Croskey-Merritt,4575131,RB,WSH,NYG,8.93,14.2,100,0,OUT,active
+5,Adrian's Raiders Nation ,THEEE GUYY,0,WR,Romeo Doubs,4361432,WR,NE,LV,12.16,2.6,100,0,ACTIVE,active
+5,Adrian's Raiders Nation ,THEEE GUYY,0,BE,Eagles D/ST,-16021,D/ST,PHI,JAX,3.81,1.0,100,0,NORMAL,active
+5,Adrian's Raiders Nation ,THEEE GUYY,0,BE,Pat Freiermuth,4361411,TE,PIT,IND,8.31,21.5,100,0,QUESTIONABLE,active
+5,Adrian's Raiders Nation ,THEEE GUYY,0,QB,Kirk Cousins,14880,QB,LV,NE,14.19,13.72,100,0,ACTIVE,active
+5,Doughboy,Lynch em All,0,WR,Jaxon Smith-Njigba,4430878,WR,SEA,SF,20.48,22.8,100,0,ACTIVE,active
+5,Doughboy,Lynch em All,0,TE,Brock Bowers,4432665,TE,LV,NE,16.33,23.0,100,0,ACTIVE,active
+5,Doughboy,Lynch em All,0,IR,Breece Hall,4427366,RB,NYJ,CLE,0.0,0.0,100,0,OUT,inactive
+5,Doughboy,Lynch em All,0,BE,Lamar Jackson,3916387,QB,BAL,ATL,0.0,0.0,100,0,OUT,inactive
+5,Doughboy,Lynch em All,0,IR,Jadarian Price,4685512,RB,SEA,SF,0.0,0.0,100,0,INJURY_RESERVE,inactive
+5,Doughboy,Lynch em All,0,WR,Parker Washington,4432620,WR,JAX,PHI,14.11,30.4,100,0,ACTIVE,active
+5,Doughboy,Lynch em All,0,RB,J.K. Dobbins,4241985,RB,DEN,LAC,10.61,15.4,100,0,ACTIVE,active
+5,Doughboy,Lynch em All,0,RB/WR/TE,Michael Wilson,4360761,WR,ARI,DET,16.82,7.28,100,0,ACTIVE,active
+5,Doughboy,Lynch em All,0,BE,Kaelon Black,4696044,RB,SF,SEA,5.19,1.6,100,0,ACTIVE,active
+5,Doughboy,Lynch em All,0,BE,Kenyon Sadiq,5083315,TE,NYJ,CLE,9.43,0.3,100,0,QUESTIONABLE,active
+5,Doughboy,Lynch em All,0,BE,Devaughn Vele,4569559,WR,NO,MIN,10.79,6.6,100,0,ACTIVE,active
+5,Doughboy,Lynch em All,0,K,Matt Gay,4249087,K,LV,NE,7.96,5.0,100,0,ACTIVE,active
+5,Doughboy,Lynch em All,0,D/ST,Raiders D/ST,-16013,D/ST,LV,NE,4.81,-6.0,100,0,NORMAL,active
+5,Doughboy,Lynch em All,0,RB,Emanuel Wilson,4887558,RB,SEA,SF,13.59,13.2,100,0,ACTIVE,active
+5,Doughboy,Lynch em All,0,QB,Jacoby Brissett,2578570,QB,ARI,DET,18.82,25.28,100,0,ACTIVE,active
+5,Doughboy,Lynch em All,0,BE,Tre' Harris,4686612,WR,LAC,DEN,9.79,3.6,100,0,OUT,active
+5,Doughboy,Lynch em All,0,BE,Dameon Pierce,4360238,RB,PHI,JAX,7.34,3.2,100,0,ACTIVE,active
+5,Lynch em All,Doughboy,0,RB,Chase Brown,4362238,RB,CIN,MIA,17.44,7.0,100,0,ACTIVE,active
+5,Lynch em All,Doughboy,0,WR,Tee Higgins,4239993,WR,CIN,MIA,12.8,4.2,100,0,ACTIVE,active
+5,Lynch em All,Doughboy,0,WR,Jaylen Waddle,4372016,WR,DEN,LAC,11.37,4.8,100,0,ACTIVE,active
+5,Lynch em All,Doughboy,0,BE,Terry McLaurin,3121422,WR,WSH,NYG,12.79,12.2,100,0,ACTIVE,active
+5,Lynch em All,Doughboy,0,QB,Trevor Lawrence,4360310,QB,JAX,PHI,18.87,21.74,100,0,ACTIVE,active
+5,Lynch em All,Doughboy,0,K,Brandon Aubrey,3953687,K,DAL,TB,10.8,5.0,100,0,ACTIVE,active
+5,Lynch em All,Doughboy,0,TE,Dallas Goedert,3121023,TE,PHI,JAX,10.87,9.8,100,0,ACTIVE,active
+5,Lynch em All,Doughboy,0,IR,Jordan Mason,4360569,RB,MIN,NO,0.0,0.0,100,0,INJURY_RESERVE,inactive
+5,Lynch em All,Doughboy,0,IR,Zach Charbonnet,4426385,RB,SEA,SF,0.0,0.0,100,0,OUT,inactive
+5,Lynch em All,Doughboy,0,BE,Emmett Johnson,4832955,RB,KC,None,0.0,0,100,1,ACTIVE,bye
+5,Lynch em All,Doughboy,0,BE,Travis Kelce,15847,TE,KC,None,0.0,0,100,1,ACTIVE,bye
+5,Lynch em All,Doughboy,0,RB/WR/TE,Matthew Golden,4701936,WR,GB,CHI,12.77,20.3,100,0,ACTIVE,active
+5,Lynch em All,Doughboy,0,BE,Jalen Hurts,4040715,QB,PHI,JAX,16.04,13.0,100,0,INJURY_RESERVE,active
+5,Lynch em All,Doughboy,0,BE,Josh Downs,4688813,WR,IND,PIT,12.04,7.7,100,0,ACTIVE,active
+5,Lynch em All,Doughboy,0,BE,Keon Coleman,4635008,WR,BUF,LAR,8.83,7.7,100,0,ACTIVE,active
+5,Lynch em All,Doughboy,0,D/ST,Commanders D/ST,-16028,D/ST,WSH,NYG,7.25,3.0,100,0,NORMAL,active
+5,Lynch em All,Doughboy,0,RB,MarShawn Lloyd,4429023,RB,GB,CHI,9.28,16.7,100,0,ACTIVE,active

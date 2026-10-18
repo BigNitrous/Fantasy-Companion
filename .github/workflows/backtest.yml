@@ -6,7 +6,7 @@ name: Backtest data (one-off)
 on:
   push:
     branches: [backtest]
-    paths: ["backtest/fetch_espn.py", "backtest/fetch_sources.py", ".github/workflows/backtest.yml"]
+    paths: ["backtest/fetch_espn.py", "backtest/fetch_sources.py", "backtest/fetch_nfl.py", ".github/workflows/backtest.yml"]
 
 permissions:
   contents: write
@@ -28,8 +28,7 @@ jobs:
           ESPN_SWID: ${{ secrets.ESPN_SWID }}
           SEASON: "2026"
         run: |
-          python backtest/fetch_espn.py
-          python backtest/fetch_sources.py
+          python backtest/fetch_nfl.py
       - name: Commit the data to this branch
         run: |
           git config user.name "github-actions[bot]"

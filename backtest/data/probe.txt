@@ -1,0 +1,13 @@
+200  2083034 https://api.sleeper.com/projections/nfl/2026/1
+200  2087812 https://api.sleeper.com/projections/nfl/2026/2
+200  2083511 https://api.sleeper.com/projections/nfl/2026/3
+200  2077333 https://api.sleeper.com/projections/nfl/2026/4
+200  2067087 https://api.sleeper.com/projections/nfl/2026/5
+200  2059202 https://api.sleeper.com/projections/nfl/2026/6
+404       20 https://api.fantasy.nfl.com/v1/players/stats
+404       20 https://api.fantasy.nfl.com/v1/players/stats
+404       20 https://api.fantasy.nfl.com/v1/players/stats
+404       20 https://api.fantasy.nfl.com/v1/players/stats
+404       20 https://api.fantasy.nfl.com/v1/players/stats
+404       20 https://api.fantasy.nfl.com/v1/players/stats
+200  1466815 https://fantasy.nfl.com/research/projections

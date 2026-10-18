@@ -24,6 +24,7 @@ def _player_dict(p, week):
         opponent = getattr(p, "pro_opponent", "") or ""
     return {
         "name": getattr(p, "name", "?"),
+        "espn_id": getattr(p, "playerId", None),
         "position": getattr(p, "position", ""),
         "team": getattr(p, "proTeam", ""),
         "slot": getattr(p, "lineupSlot", ""),
@@ -55,6 +56,8 @@ def _league_meta(league, my_team) -> dict:
             slots += [k] * int(v or 0)
     return {
         "slots": slots,                                   # starting slots, from the league settings
+        "scoring": [{"abbr": x.get("abbr"), "points": x.get("points")} for x in (getattr(st, "scoring_format", None) or [])
+                    if isinstance(x, dict)],                # used to score other sites' projected stats
         "roster_limit": sum(int(v or 0) for v in counts.values()),
         "faab": bool(getattr(st, "faab", False)),
         "budget": getattr(st, "acquisition_budget", None),

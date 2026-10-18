@@ -1,0 +1,41 @@
+name: Preview build (no deploy)
+
+# Lives only on the `preview` branch: runs the full build with the league
+# secrets and commits site/brief.md and site/assessment.md back to this branch
+# for review. Never deploys the dashboard.
+on:
+  push:
+    branches: [preview]
+    paths-ignore: ["preview-site/**"]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Collect and render
+        env:
+          LEAGUE_ID: ${{ secrets.LEAGUE_ID }}
+          TEAM_NAME: ${{ secrets.TEAM_NAME }}
+          ESPN_S2: ${{ secrets.ESPN_S2 }}
+          ESPN_SWID: ${{ secrets.ESPN_SWID }}
+          SEASON: "2026"
+          SCORING: "ppr"
+        run: python main.py | tee build.log
+      - name: Save the preview to this branch
+        run: |
+          mkdir -p preview-site && cp site/brief.md site/assessment.md site/index.html preview-site/
+          grep -E "NFL week|sources:|roles:|optimizer:|assessment|waivers:|OK:|NOT CONNECTED|NOTE" build.log > preview-site/build-summary.txt || true
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f preview-site
+          git commit -m "Preview build [skip ci]" || echo "nothing new"
+          git push origin HEAD:preview

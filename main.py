@@ -12,7 +12,7 @@ import traceback
 from datetime import datetime
 
 from collector import (config, sleeper_source, news_source, render, brief, history, optimizer, rankings, trades,
-                       waivers, usage, roles, schedule_source, assess)
+                       waivers, usage, roles, schedule_source, assess, sources)
 
 
 def _now_ct() -> datetime:
@@ -114,6 +114,14 @@ def main() -> int:
                 pl["kickoff_ts"] = slate.get("ts", {}).get(tm)
                 if tm in slate.get("bye", ()):
                     pl["bye"] = True
+
+    if data["roster"]:
+        # Second opinions: Sleeper's (RotoWire's) projection scored with this league's rules, averaged with ESPN's.
+        lists = [data.get(k, []) for k in ("roster", "opponent_roster", "free_agents", "league_pool")]
+        sl = sources.sleeper_week(config.SEASON, week, (data.get("league") or {}).get("scoring"))
+        up = sources.usage_points(config.SEASON, week)
+        n = sources.apply(lists, sl, up, sources.Index(sleeper_source.all_players()))
+        print(f"  sources: Sleeper projections for {n} player(s), usage numbers for {len(up)}")
 
     if data["roster"] and us:
         rl = roles.Roles(us, sleeper_source.all_players(), data["news"])

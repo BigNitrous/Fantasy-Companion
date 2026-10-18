@@ -26,7 +26,7 @@ from datetime import datetime
 from . import expect, optimizer
 from .usage import team as _team
 
-SIGMA_FALLBACK = {"QB": 7.6, "RB": 7.4, "WR": 8.0, "TE": 7.4, "K": 3.6, "D/ST": 5.0}
+SIGMA_FALLBACK = {"QB": 7.6, "RB": 7.4, "WR": 8.0, "TE": 7.4, "K": 5.6, "D/ST": 5.4}   # K, D/ST measured, 2026 wks 1-5
 P_PLAY, PPC, PPT = expect.P_PLAY, expect.PPC, expect.PPT          # shared with the optimizer
 DAY_ORDER = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue", "Wed"]
 POSITIONS = ("QB", "RB", "WR", "TE", "K", "D/ST")
@@ -83,7 +83,7 @@ class Ctx:
             for e in lineup:
                 pl = e.get("player")
                 if pl:
-                    x = _num(pl.get("projected")) * self.p_play(pl)
+                    x = expect.if_plays(pl) * self.p_play(pl)
                     by.setdefault(pl["position"], []).append(x)
                     tot += x
             if lineup:
@@ -181,8 +181,8 @@ def card(p: dict, ctx: Ctx) -> dict:
     mom = _momentum(p) if proj > 0 and pp > 0 else 0.0
     lastline, avgline, sigs, trend = _story(p, pp, mom)
     s = ctx.sd(pos)
-    a = proj + mom
-    mu = pp * a                                    # = expect.mean(p): momentum counts only if he plays
+    a = expect.if_plays(p)                         # projection when he plays (x LIMITED if tagged)
+    mu = pp * a                                    # = expect.mean(p)
     var = pp * s * s + pp * (1 - pp) * a * a
     bench = ctx.bench.get(pos, proj)
     outlook = 0 if (proj <= 0 or pp == 0) else round(100 * _phi((mu - bench) / math.sqrt(max(var, 1e-6))))
@@ -195,7 +195,8 @@ def card(p: dict, ctx: Ctx) -> dict:
             "proj": proj, "mom": round(mom, 1), "expected": round(mu, 1), "bench": round(bench, 1),
             "p_play": pp, "outlook": outlook, "label": label, "trend": trend, "last": lastline, "avg": avgline,
             "signals": sigs, "news": p.get("news") or p.get("boost_news"), "role": (p.get("usage") or {}).get("text", ""),
-            "_mu": mu, "_var": var}
+            "sources": p.get("sources") or {}, "split": bool(p.get("split")), "usage_pts": p.get("usage_pts"),
+            "boost": p.get("boost") or 0.0, "_a": a, "_mu": mu, "_var": var}
 
 
 def _covered(c: dict, backup: dict, ctx: "Ctx") -> dict:
@@ -203,7 +204,7 @@ def _covered(c: dict, backup: dict, ctx: "Ctx") -> dict:
     outlook is unchanged; only the lineup mean and variance (a two-outcome mix) move."""
     if not backup:
         return c
-    pp, a, sa = c["p_play"], c["proj"] + c["mom"], ctx.sd(c["position"])
+    pp, a, sa = c["p_play"], c["_a"], ctx.sd(c["position"])
     b, sb = expect.mean(backup), ctx.sd(backup.get("position"))
     mu = pp * a + (1 - pp) * b
     var = pp * (sa * sa + a * a) + (1 - pp) * (sb * sb + b * b) - mu * mu
@@ -462,11 +463,16 @@ def markdown(a: dict, data: dict) -> str:
         out.append("")
     out += ["## Every player on my roster",
             "Outlook = chance the player outscores the average starter at his position in this league this week (0 if not playing). "
-            "Expected = projection x chance to play, plus a small adjustment when last week's usage ran above or below "
-            "his recent average.", ""]
+            "Projection = average of ESPN and Sleeper (RotoWire), both in this league's scoring, plus a small role boost when a "
+            "teammate is out. Expected = projection x chance to play (x 0.85 if he's tagged, since tagged players who play "
+            "score less).", ""]
     for c in sorted(a["cards"], key=lambda c: (not c["starting"], -c["outlook"])):
         where = f"starting at {c['slot']}" if c["starting"] else ("IR" if c["slot"] == "IR" else "bench")
-        espn = f"ESPN {c['proj_espn']:.1f}, " if isinstance(c["proj_espn"], (int, float)) else ""
+        src = c.get("sources") or {}
+        espn = (" / ".join(f"{k} {v:.1f}" for k, v in src.items()) + (" (sources split)" if c.get("split") else "") + ", "
+                if len(src) >= 2 else f"ESPN {c['proj_espn']:.1f}, " if isinstance(c["proj_espn"], (int, float)) else "")
+        if c.get("usage_pts") is not None:
+            espn += f"usage {c['usage_pts']:.1f}/g, "
         out.append(f"### {c['name']} ({c['position']}, {c['team']}) - {where} - outlook {c['outlook']} ({c['label']}, {_ARROW[c['trend']]})")
         out.append(f"- {espn}adjusted {c['proj']:.1f}, expected {c['expected']:.1f} vs typical {c['position']} starter {c['bench']:.1f}")
         if c["role"]:
@@ -481,5 +487,6 @@ def markdown(a: dict, data: dict) -> str:
         if n and n.get("link"):
             out.append(f"- Link: {n['link']}")
         out.append("")
-    out += ["---", "Caveat: projections come from ESPN and the confidence is arithmetic on them. Matchup strength is not modeled."]
+    out += ["---", "Caveat: projections are the average of ESPN's and Sleeper's (RotoWire), and the confidence is arithmetic on "
+                   "them. Matchup strength is only what those projections already include."]
     return "\n".join(out)

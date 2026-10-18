@@ -9,7 +9,7 @@ layout on a pale navy-tinted paper.
 from __future__ import annotations
 import html
 from datetime import datetime
-from . import assess
+from . import assess, sources
 
 DARK = ("--paper:#0D1626;--sheet:#12203A;--line:#1F2C42;--ink:#E9EEF5;--muted:#8A9BB5;"
         "--green:#22D36E;--green-soft:#122A1C;--green-line:#1E5B36;--green-ink:#7ED9A3;--on-green:#062B14;"
@@ -389,20 +389,33 @@ _DAYS = {"Thu": "Thursday", "Fri": "Friday", "Sat": "Saturday", "Sun": "Sunday",
 
 
 def _use(p: dict) -> str:
-    """One quiet line under a name: role and usage, plus any role boost."""
+    """Quiet lines under a name: role and usage plus any role boost, then each source's projection."""
     t = (p.get("usage") or {}).get("text", "")
-    if not t:
-        return ""
     boost = f' &middot; <span class="f-go">+{p["boost"]:.1f} role</span>' if p.get("boost") else ""
-    return f'<div class="use">{_e(t)}{boost}</div>'
+    out = f'<div class="use">{_e(t)}{boost}</div>' if t else ""
+    src = sources.line(p)
+    if src:
+        cls = ' class="f-quest"' if p.get("split") else ""
+        out += f'<div class="use"><span{cls}>{_e(src)}</span></div>'
+    return out
 
 
 def _deep(c: dict) -> str:
     """The expandable player card: outlook, last week, recent baseline, and why."""
     parts = [f'<div class="ln"><b>{c["outlook"]}</b> outlook ({_e(c["label"].lower())}, {_e(_TRENDW[c["trend"]])}) &middot; '
              f'expected <b>{c["expected"]:.1f}</b> vs {c["bench"]:.1f} for the average {_e(c["position"])} starter</div>']
-    if isinstance(c.get("proj_espn"), (int, float)) and abs(c["proj"] - c["proj_espn"]) >= 0.05:
+    src = c.get("sources") or {}
+    if len(src) >= 2:
+        s_txt = " &middot; ".join(f"{_e(k)} {v:.1f}" for k, v in src.items())
+        blend = c["proj"] - (c.get("boost") or 0.0)
+        extra = f' + {c["boost"]:.1f} role = <b>{c["proj"]:.1f}</b>' if c.get("boost") else ""
+        split = ' &middot; <span class="f-quest">sources split</span>' if c.get("split") else ""
+        parts.append(f'<div class="ln">{s_txt} &rarr; average {blend:.1f}{extra}{split}</div>')
+    elif isinstance(c.get("proj_espn"), (int, float)) and abs(c["proj"] - c["proj_espn"]) >= 0.05:
         parts.append(f'<div class="ln">ESPN {c["proj_espn"]:.1f} &rarr; {c["proj"]:.1f} with the role change</div>')
+    if c.get("usage_pts") is not None:
+        parts.append(f'<div class="ln">Usage: his recent targets, carries and throws were worth '
+                     f'{c["usage_pts"]:.1f} a game (context, not in the number)</div>')
     if c.get("last"):
         parts.append(f'<div class="ln"><b>{_e(c["last"])}</b></div>')
     if c.get("avg"):

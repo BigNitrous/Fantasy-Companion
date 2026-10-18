@@ -3,18 +3,27 @@
 The lineup optimizer, the waiver wire and the confidence meter all rank players
 by these numbers, so a recommended move always raises the meter.
 
-- mean(p): projection (role boost included) plus usage momentum, times the
-  chance he plays.
+- mean(p): projection (ESPN + Sleeper average, role boost included) times the
+  chance he plays, times LIMITED when a tagged player plays.
 - A starter who might not play (Questionable, Day-to-day) can be covered by a
   bench player whose game kicks off at or after his: you start the questionable
   player and swap at inactives if he's out. backup_for() finds that player;
   with no such backup his value is simply mean(p).
+
+Backtested on 2022-2026 injury reports and snap counts, and this league's 2026
+weeks: fantasy-relevant Questionable players played 74% of the time (RB/WR/TE,
+n=852) but QBs only 40% (n=123); Doubtful 1% (n=106). Questionable players
+who played scored 80-84% of normal. Last week's usage jump predicted the
+opposite of what it suggested (players regressed), so MOMENTUM_WEIGHT is 0.
 """
 
 from __future__ import annotations
 
-P_PLAY = {"ACTIVE": 1.0, "NORMAL": 1.0, "": 1.0, "PROBABLE": 0.95, "QUESTIONABLE": 0.70, "DAY_TO_DAY": 0.75,
-          "DOUBTFUL": 0.15, "OUT": 0.0, "IR": 0.0, "INJURY_RESERVE": 0.0, "SUSPENSION": 0.0}
+P_PLAY = {"ACTIVE": 1.0, "NORMAL": 1.0, "": 1.0, "PROBABLE": 0.95, "QUESTIONABLE": 0.74, "DAY_TO_DAY": 0.75,
+          "DOUBTFUL": 0.02, "OUT": 0.0, "IR": 0.0, "INJURY_RESERVE": 0.0, "SUSPENSION": 0.0}
+P_PLAY_QB = {"QUESTIONABLE": 0.40}           # questionable starting QBs sit far more often
+LIMITED = {"QUESTIONABLE": 0.85, "DOUBTFUL": 0.85}   # share of the projection a tagged player scores when he plays
+MOMENTUM_WEIGHT = 0.0       # was 0.2; backtest: -0.43 (95% range -0.66 to -0.19), so it's off
 SURE = 0.9                  # at or above this, treat the player as certain to play
 PPC, PPT = 0.60, {"RB": 1.5, "WR": 1.7, "TE": 1.6}     # points per carry / per target, PPR
 
@@ -30,12 +39,15 @@ def status(p: dict) -> str:
 def p_play(p: dict) -> float:
     if p.get("bye"):
         return 0.0
-    return P_PLAY.get(status(p), 1.0)
+    st = status(p)
+    if p.get("position") == "QB" and st in P_PLAY_QB:
+        return P_PLAY_QB[st]
+    return P_PLAY.get(st, 1.0)
 
 
 def momentum(p: dict) -> float:
-    """Last week's usage against his own recent baseline, as points. Half of the
-    gain is assumed to be in ESPN's number already, and last week gets a 40% weight."""
+    """Last week's usage against his own recent baseline, as points, times MOMENTUM_WEIGHT
+    (0: the backtest found usage jumps regress, and the projections already react to them)."""
     u = p.get("usage") or {}
     last = u.get("last") or {}
     pos = p.get("position")
@@ -45,13 +57,13 @@ def momentum(p: dict) -> float:
         pts = (last["carries"] - u.get("carries_pg", 0.0)) * PPC + (last["targets"] - u.get("targets_pg", 0.0)) * PPT["RB"]
     else:
         pts = (last["targets"] - u.get("targets_pg", 0.0)) * PPT[pos]
-    return max(-2.0, min(2.0, 0.2 * pts))
+    return max(-2.0, min(2.0, MOMENTUM_WEIGHT * pts))
 
 
 def if_plays(p: dict) -> float:
-    """Expected points given that he plays."""
+    """Expected points given that he plays (a tagged player who plays scores less)."""
     proj = num(p.get("projected"))
-    return proj + momentum(p) if proj > 0 else 0.0
+    return (proj + momentum(p)) * LIMITED.get(status(p), 1.0) if proj > 0 else 0.0
 
 
 def mean(p: dict) -> float:

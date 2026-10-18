@@ -6,7 +6,7 @@ you re-explaining your league every time.
 """
 
 from __future__ import annotations
-from . import assess
+from . import assess, sources
 
 
 def _line(p: dict) -> str:
@@ -17,8 +17,10 @@ def _line(p: dict) -> str:
     opp = f" vs {p['opponent']}" if p.get("opponent") else " (no game)"
     own = p.get("pct_started")
     own = f", started in {own}% of leagues" if isinstance(own, (int, float)) and own >= 0 else ""
-    boost = (f" [ESPN {p['projected_espn']:.1f}, +{p['boost']} role: {p.get('boost_why', '')}]"
-             if p.get("boost") and isinstance(p.get("projected_espn"), (int, float)) else "")
+    src = sources.line(p)
+    role = f", +{p['boost']} role: {p.get('boost_why', '')}" if p.get("boost") else ""
+    boost = (f" [{src}{role}]" if src else
+             f" [ESPN {p['projected_espn']:.1f}{role}]" if role and isinstance(p.get("projected_espn"), (int, float)) else "")
     return (f"- {p.get('name')} ({p.get('position')}, {p.get('team')}){opp}"
             f" - projected {proj}{boost}{inj}{own}")
 

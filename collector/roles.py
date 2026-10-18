@@ -5,10 +5,10 @@ week: a teammate who is out leaves carries and targets on the table, and the
 healthy players at his position pick them up. The next man up is guaranteed
 a floor even if he hasn't touched the ball yet (the classic handcuff).
 
-The points are an estimate, and deliberately conservative: ESPN's own
-projection already reacts to injury news, so only ADJ_WEIGHT of the
+The points are an estimate, and deliberately small: ESPN's and Sleeper's
+projections already react to injury news, so only ADJ_WEIGHT of the
 usage-implied gain is added, capped at CAP points. Every adjustment is shown
-next to the ESPN number so you can overrule it.
+next to the source numbers so you can overrule it.
 
 Headlines from ESPN are matched to players by name and attached as evidence.
 """
@@ -18,7 +18,9 @@ import re
 
 from . import usage as U
 
-ADJ_WEIGHT = 0.5      # share of the usage-implied gain added to ESPN's number
+ADJ_WEIGHT = 0.15     # share of the usage-implied gain added to the projection. Backtest (2026 wks 2-5):
+                      # on top of the ESPN+Sleeper average only ~0.13 of it showed up (95% range -0.40 to 0.65),
+                      # since both sources already react to injuries. Was 0.5.
 CAP = 6.0             # most points a role change can add
 MIN_BOOST = 0.3       # ignore anything smaller than this
 MAX_DC, MAX_DT = 0.35, 0.15   # most carry / target share a teammate can inherit
@@ -251,7 +253,7 @@ class Roles:
             ppc, ppt = PTS.get(pos, (0.0, 1.5))
             dc, dt = min(e["dc"], MAX_DC), min(e["dt"], MAX_DT)
             raw = dc * tm["car_pg"] * ppc + dt * tm["att_pg"] * ppt
-            val = round(min(CAP, ADJ_WEIGHT * raw), 1) if field == "boost" else round(min(CAP, raw), 1)
+            val = round(min(CAP, ADJ_WEIGHT * raw), 1)
             if val < MIN_BOOST:
                 continue
             who = sorted(e["who"], key=lambda w: -(w["dc"] + w["dt"]))
@@ -264,12 +266,13 @@ class Roles:
 
     def annotate(self, players: list) -> int:
         """Adds usage, role boost, news to each player dict and folds the boost into
-        'projected' (the ESPN number is kept as 'projected_espn'). Returns how many got a boost."""
+        'projected' (ESPN's own number stays in 'projected_espn'). Returns how many got a boost."""
         n = 0
         for p in players:
-            if "projected_espn" in p:           # the same dict can sit in several lists
+            if p.get("_roles"):                 # the same dict can sit in several lists
                 continue
-            p["projected_espn"] = p.get("projected")
+            p["_roles"] = True
+            p.setdefault("projected_espn", p.get("projected"))
             info = self.info(p)
             if not info:
                 continue

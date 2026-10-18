@@ -291,13 +291,14 @@ def build(data: dict, slate: dict, sigma: dict, mode: str, now: datetime) -> dic
     # --- actions ---------------------------------------------------------------
     actions = []
     for s in (opt.get("swaps") or []):
-        if s["gain"] < 0.5:
+        if s["gain"] < 0.1:                  # every swap the "with the recommended changes" total counts is listed
             continue
         out_p, in_p = s.get("out"), s["in"]
         broken = bool(out_p) and (cards.get(out_p["name"], {}).get("p_play", 1) == 0 or _num(out_p.get("projected")) <= 0)
+        close = "" if broken or s["gain"] >= 1.0 else " Close call: a small edge, so your read of the matchup matters more."
         actions.append({"kind": "fix" if broken else "swap", "gain": s["gain"], "in": in_p["name"],
                         "out": out_p["name"] if out_p else "", "title": f"Start {in_p['name']} over {out_p['name'] if out_p else 'an empty slot'}",
-                        "detail": ("Starter is not expected to play. " if broken else "") + f"+{s['gain']} projected points."})
+                        "detail": ("Starter is not expected to play. " if broken else "") + f"+{s['gain']} projected points.{close}"})
 
     base_total = optimizer.optimize(roster)["optimal_total"]
     picks = []

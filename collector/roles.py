@@ -290,11 +290,21 @@ class Roles:
 _SUFFIX_RE = re.compile(r"\b(jr|sr|ii|iii|iv)\b\.?", re.I)
 
 
+ROLE_CHANGE = 2.0      # inherited carries + targets per game that make a role change worth showing
+
+
+def inherited(p: dict) -> float:
+    """Extra carries plus targets per game he picks up from absent teammates."""
+    g = p.get("boost_gain") or {}
+    return (g.get("carries") or 0.0) + (g.get("targets") or 0.0)
+
+
 def watch(roster: list, free_agents: list, limit: int = 6) -> list:
-    """Players whose situation changed enough to look at: yours first, then the wire."""
+    """Players whose situation changed enough to look at: yours first, then the wire. Judged by
+    the extra work he inherits, not the (deliberately small) points added to his projection."""
     def interesting(p):
         n = p.get("news") or {}
-        return bool((p.get("boost") or 0) >= 1.0 or p.get("qb_note") or n.get("tag") == "role")
+        return bool(inherited(p) >= ROLE_CHANGE or p.get("qb_note") or n.get("tag") == "role")
 
     def entry(p, mine):
         return {"name": p["name"], "position": p.get("position"), "team": p.get("team"), "mine": mine,
@@ -302,5 +312,5 @@ def watch(roster: list, free_agents: list, limit: int = 6) -> list:
                 "news": p.get("news") or p.get("boost_news"), "text": (p.get("usage") or {}).get("text", "")}
 
     mine = sorted((entry(p, True) for p in roster if interesting(p)), key=lambda e: -e["boost"])
-    wire = sorted((entry(p, False) for p in free_agents if (p.get("boost") or 0) >= 1.0), key=lambda e: -e["boost"])
+    wire = sorted((entry(p, False) for p in free_agents if inherited(p) >= ROLE_CHANGE), key=lambda e: -e["boost"])
     return (mine + wire)[:limit]

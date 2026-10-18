@@ -479,7 +479,7 @@ def _hero(a: dict, opp_name: str) -> str:
 
     acts = ""
     for x in a.get("actions", []):
-        gain = f'<div class="num f-go">+{x["gain"]:.1f}</div>' if x["gain"] >= 0.5 else ""
+        gain = f'<div class="num f-go">+{x["gain"]:.1f}</div>' if x["gain"] >= 0.1 else ""
         acts += (f'<div class="row"><span class="chip k-{x["kind"]}">{x["kind"].upper()}</span><div class="who">'
                  f'<div class="nm free">{_e(x["title"])}</div><div class="reason">{_e(x["detail"])}</div></div>{gain}</div>')
     if not acts:

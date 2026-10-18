@@ -30,13 +30,16 @@ python3 -m py_compile collector/*.py main.py    # fast syntax check
 ## Pipeline (main.py order)
 usage (nflverse) -> choose the upcoming week (if every game of Sleeper's week
 is final on ESPN's scoreboard, use the next) -> ESPN fetch (`load_roster_week` for
-that week; league slots from settings) -> slate (ESPN scoreboard: opponents,
-byes, game days) -> news -> roles (vacated opportunity, adjusted `projected`,
-ESPN's number kept as `projected_espn`) -> optimizer -> rankings -> trades ->
-waivers -> assessment -> render / brief / assessment.md.
+that week; league slots and scoring from settings) -> slate (ESPN scoreboard:
+opponents, byes, game days) -> news -> sources (Sleeper projection scored with
+the league's rules, averaged with ESPN's into `projected`; ESPN's own number in
+`projected_espn`, each source in `sources`) -> roles (vacated opportunity, small
+boost added to `projected`) -> optimizer -> rankings -> trades -> waivers ->
+assessment -> render / brief / assessment.md.
 
 ## Modules (collector/)
-config, espn_source, sleeper_source, news_source, schedule_source, history
+config, espn_source, sleeper_source, news_source, schedule_source, sources
+(Sleeper/RotoWire projections + ffopportunity usage number, blend), history
 (2025 season, nflreadpy), usage (nflverse CSVs: snap/target/carry share, QB
 volume, measured variance), roles (role boost, QB notes, news matching),
 expect (per-player expected points: P(play), momentum, kickoff-aware backups),
@@ -44,19 +47,41 @@ optimizer, rankings, trades, waivers, assess (confidence, cards, actions),
 brief, render.
 
 ## Design decisions
-- Role boost = half of the usage-implied gain (ESPN already reacts to injuries),
-  capped at 6 points, always displayed next to ESPN's number.
+- Projection = plain average of ESPN and Sleeper (RotoWire's numbers; Sleeper
+  publishes projected stats, scored here with the league's rules). Backtest,
+  2026 wks 1-5, players who played: ESPN missed by 6.16 pts, Sleeper 6.07; wks
+  3-5 average 5.99 vs ESPN 6.05. Fitted weights swung week to week, so equal
+  weights (Clemen 1989; Armstrong 2001). ffopportunity expected points ("usage
+  X/g") tested worse (6.43) and adding it didn't help: shown, not blended.
+  NFL.com has no public projections any more (old research page redirects; the
+  v1 API 404s). A source split (3+ pts apart) is shown but did not predict
+  bigger misses, so it doesn't widen the spread.
+- Role boost = 15% of the usage-implied gain, capped at 6 (was 50%). On top of
+  the blend only ~13% showed up (95% range -40% to 65%). Role watch and the
+  waiver "bigger role" note use inherited carries+targets (2+/game) instead.
+- Usage momentum is off (MOMENTUM_WEIGHT 0): players whose usage jumped did
+  ~1.9 pts worse than projected next week, drops ~2.5 better (both weeks, WRs
+  most). Don't turn it back on without a new backtest.
+- Backtest data and scripts live on the `backtest` branch (GitHub job saves
+  ESPN box scores, Sleeper projections, league scoring). The `preview` branch
+  runs a full build with the secrets and commits the output, without deploying:
+  push a branch to `preview` to test changes on real data.
 - One expected-points model (`collector/expect.py`) drives the optimizer, the
   waiver wire and the confidence meter, so a recommended move never lowers the
-  meter. Player mean = (projection + momentum) x P(play) (Questionable .70,
-  Doubtful .15, Out/bye 0). A starter who might not play is credited with a
+  meter. Player mean = projection x P(play) x LIMITED (Questionable .74, QB
+  Questionable .40, Doubtful .02, Out/bye 0; a tagged player who plays scores
+  .85 of his projection). From 2022-26 injury reports + snap counts:
+  starters tagged Questionable played 74% (RB/WR/TE), QBs 40%, Doubtful 1%;
+  Q players who played scored 80-84% of normal. Friday practice also predicts
+  play (full 88%, limited 70%, none 53%) - not used yet. A starter who might not play is credited with a
   bench backup only if the backup's game kicks off at or after his (swap at
   inactives); otherwise he counts at P(play). Example that drove this: McLaurin
   (Questionable, Monday night, no later backup) vs Bernard (Sunday) - raw
   projections said start McLaurin, the meter said that lowered the win chance.
   The optimizer tries uncertain players in and out (up to 2^6 lineups).
 - Confidence = chance the lineup outscores the opponent, from those means; spread
-  is measured from this season's nflverse points; sums over both lineups (the
+  is measured from this season's nflverse points (backtest: QB-TE spreads match
+  real misses; K 5.6 and D/ST 5.4 are measured fallbacks); sums over both lineups (the
   opponent's backups are credited the same way). Under the meter, "Injury risk"
   lines say how each uncertain starter is counted and what starting a benched
   questionable player would do to the win chance (`assess.risk_lines`).
@@ -78,7 +103,8 @@ brief, render.
   keep their slot, can't be moved in, added or dropped for this week.
 - Optimizer slots come from the league settings (`optimizer.set_league_slots`).
   Inferring them from the roster hid an empty K slot once; don't revert that.
-- Not modeled: defensive matchup strength. Say so; don't oversell the score.
+- Matchup strength is only what ESPN's and Sleeper's projections include; the
+  dashboard adds none of its own. Say so; don't oversell the score.
 
 ## Schedule
 Actions cron (UTC): Tue 18:00 (waiver check-up), Wed 13:00, Thu 21:07, Sun

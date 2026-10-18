@@ -22,7 +22,7 @@ The blended score (same as rankings.py) is still shown, but decides nothing.
 from __future__ import annotations
 import re
 from collections import Counter
-from . import expect, history, optimizer
+from . import expect, history, optimizer, roles
 from .rankings import W_PROJ, W_HIST
 from .optimizer import UNAVAILABLE
 
@@ -189,8 +189,10 @@ def build(free_agents: list[dict], roster: list[dict], hist: dict, trending: lis
             reason = f"{fa['ros']:.0f} projected rest of season vs {vs}"
         if fa.get("locked"):
             reason += ". His game this week has already kicked off"
-        if (fa.get("boost") or 0) >= 1.0:
-            reason += f". Inherits a bigger role: +{fa['boost']} ({fa.get('boost_why', '')})"
+        if roles.inherited(fa) >= roles.ROLE_CHANGE:
+            g = fa.get("boost_gain") or {}
+            more = " and ".join(f"{g[k]:.1f} more {k}" for k in ("carries", "targets") if (g.get(k) or 0) >= 0.5)
+            reason += f". Inherits a bigger role: about {more} a game ({fa.get('boost_why', '')})"
 
         k = _key(fa["name"])
         adds.append({**fa, "verdict": verdict, "reason": reason,

@@ -1,0 +1,7 @@
+NFL week 6
+  OK: 18 players on Deshaun, Don't Touchdown there
+  sources: Sleeper projections for 329 player(s), usage numbers for 384
+  roles: 25 projection(s) adjusted for vacated opportunity, 2 on the watch list
+  optimizer: 2 swap(s), +2.0
+  waivers: 5 add candidate(s), 4 hot & unclaimed, 8 recently dropped
+  assessment (Game-day report): 56 confidence (Slight edge), 122.8 vs 118.2, 2 action(s)

@@ -27,7 +27,8 @@ def _line(p: dict) -> str:
 
 def build(data: dict) -> str:
     roster = data.get("roster", [])
-    starters = [p for p in roster if p.get("starting")]
+    from .render import _slot_rank
+    starters = sorted((p for p in roster if p.get("starting")), key=_slot_rank)
     bench = sorted((p for p in roster if not p.get("starting")), key=lambda p: p.get("slot") == "IR")  # IR last
 
     out = [

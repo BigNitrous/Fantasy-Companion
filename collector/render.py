@@ -278,9 +278,18 @@ def _verdicts(roster: list[dict], opt: dict) -> dict:
     return out
 
 
+# ESPN's lineup order: QB, RB, WR, TE, FLEX, D/ST, K (stable within a slot).
+_SLOT_ORDER = ["QB", "RB", "WR", "TE", "RB/WR/TE", "FLEX", "OP", "D/ST", "K"]
+
+
+def _slot_rank(p: dict) -> int:
+    s = p.get("slot") or ""
+    return _SLOT_ORDER.index(s) if s in _SLOT_ORDER else len(_SLOT_ORDER)
+
+
 def _lineup(roster: list[dict], opt: dict, cards: dict = None, open_all: bool = False, rw: list = None) -> str:
     cards = cards or {}
-    starters = [p for p in roster if p.get("starting")]
+    starters = sorted((p for p in roster if p.get("starting")), key=_slot_rank)  # ESPN order
     bench = sorted((p for p in roster if not p.get("starting")), key=lambda p: p.get("slot") == "IR")  # IR last
     v = _verdicts(roster, opt)
 

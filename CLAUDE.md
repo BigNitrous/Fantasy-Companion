@@ -103,6 +103,12 @@ brief, render.
   keep their slot, can't be moved in, added or dropped for this week.
 - Optimizer slots come from the league settings (`optimizer.set_league_slots`).
   Inferring them from the roster hid an empty K slot once; don't revert that.
+- Predicting breakouts (tested 2026-10-20, `analysis/wk2-6/`): matchup, Vegas lines, usage shares,
+  momentum, bench selection and per-player variance all added nothing beyond the ESPN+Sleeper
+  average (every CI includes zero, verified adversarially). Week 6's bench surprises (Tucker,
+  Bernard, Tate) were variance: a bench player beats his projection by 8+ about 1 time in 11.
+  Don't re-test these without 12+ weeks of data. Cards show a calibrated middle-80% outcome range
+  and a weak "higher upside" note (display only); the projection is unchanged.
 - Matchup strength is only what ESPN's and Sleeper's projections include; the
   dashboard adds none of its own. Say so; don't oversell the score.
 

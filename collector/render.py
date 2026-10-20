@@ -436,6 +436,13 @@ def _deep(c: dict) -> str:
     if c.get("usage_pts") is not None:
         parts.append(f'<div class="ln">Usage: his recent targets, carries and throws were worth '
                      f'{c["usage_pts"]:.1f} a game (context, not in the number)</div>')
+    if c.get("range"):
+        up = ""
+        if not c.get("starting") and c.get("boom") and c["boom"] >= assess.UPSIDE_AT:
+            up = (' Higher upside than a typical bench player: about 1 in 7 like him beat their projection by 8+, '
+                  'against 1 in 11 overall. A weak signal that mostly reflects a higher projection.')
+        parts.append(f'<div class="ln">Typical range <b>{c["range"][0]}&ndash;{c["range"][1]}</b> if he plays '
+                     f'(middle 80% of past outcomes in this league).{up}</div>')
     if c.get("last"):
         parts.append(f'<div class="ln"><b>{_e(c["last"])}</b></div>')
     if c.get("avg"):

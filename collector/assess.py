@@ -37,6 +37,33 @@ MODES = {
 }
 
 
+# Spread of real outcomes around the projection, from this league's weeks 2-6 (771 player-games):
+# the 10th and 90th percentile of (actual - projection). Bench players have less upside than
+# starters. Not player-specific: a player's own past variance did not predict his misses.
+RANGE_ALL = {"QB": (-8.3, 9.1), "RB": (-8.6, 6.9), "WR": (-8.3, 10.3), "TE": (-8.5, 11.1)}
+RANGE_BENCH = {"QB": (-7.8, 8.3), "RB": (-6.1, 4.2), "WR": (-6.7, 7.6), "TE": (-7.9, 9.7)}
+RANGE_START = {"QB": (-9.0, 9.7), "RB": (-9.8, 8.7), "WR": (-9.6, 13.9), "TE": (-8.4, 13.7)}
+BOOM_POS = {"QB": 0.0, "RB": -0.3518, "WR": 0.2496, "TE": 0.4803}
+UPSIDE_AT = 0.15            # chance of beating the projection by 8+ at which a bench player is flagged
+
+
+def outcome_range(pos: str, a: float, starting: bool):
+    """(low, high) points for the middle 80% of outcomes if he plays, or None."""
+    if pos not in RANGE_ALL or a <= 0:
+        return None
+    lo, hi = (RANGE_START if starting else RANGE_BENCH)[pos]
+    return max(0, round(a + lo)), round(a + hi)
+
+
+def boom_prob(pos: str, a: float):
+    """Chance he beats his projection by 8+ points. Weak: it mostly says higher projections have
+    more headroom (bench AUC 0.60, CI 0.50-0.70), so it is shown as a tier, never as a prediction."""
+    if pos not in BOOM_POS or a <= 0:
+        return None
+    z = -3.2030 + 0.0979 * a + BOOM_POS[pos]
+    return min(0.25, max(0.05, 1.0 / (1.0 + math.exp(-z))))
+
+
 def _phi(x: float) -> float:
     return 0.5 * (1.0 + math.erf(x / math.sqrt(2.0)))
 
@@ -196,7 +223,10 @@ def card(p: dict, ctx: Ctx) -> dict:
             "p_play": pp, "outlook": outlook, "label": label, "trend": trend, "last": lastline, "avg": avgline,
             "signals": sigs, "news": p.get("news") or p.get("boost_news"), "role": (p.get("usage") or {}).get("text", ""),
             "sources": p.get("sources") or {}, "split": bool(p.get("split")), "usage_pts": p.get("usage_pts"),
-            "boost": p.get("boost") or 0.0, "_a": a, "_mu": mu, "_var": var}
+            "boost": p.get("boost") or 0.0,
+            "range": outcome_range(pos, a, bool(p.get("starting"))) if pp > 0 else None,
+            "boom": boom_prob(pos, a) if pp > 0 else None,
+            "_a": a, "_mu": mu, "_var": var}
 
 
 def _covered(c: dict, backup: dict, ctx: "Ctx") -> dict:
@@ -476,6 +506,10 @@ def markdown(a: dict, data: dict) -> str:
             espn += f"usage {c['usage_pts']:.1f}/g, "
         out.append(f"### {c['name']} ({c['position']}, {c['team']}) - {where} - outlook {c['outlook']} ({c['label']}, {_ARROW[c['trend']]})")
         out.append(f"- {espn}adjusted {c['proj']:.1f}, expected {c['expected']:.1f} vs typical {c['position']} starter {c['bench']:.1f}")
+        if c.get("range"):
+            out.append(f"- Typical range {c['range'][0]}-{c['range'][1]} points if he plays (middle 80% of past outcomes)"
+                       + (f"; higher upside than a typical bench player ({round(100 * c['boom'])}% chance to beat his projection by 8+)"
+                          if (not c["starting"] and c.get("boom") and c["boom"] >= UPSIDE_AT) else ""))
         if c["role"]:
             out.append(f"- Role: {c['role']}")
         if c["last"]:

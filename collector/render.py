@@ -169,9 +169,28 @@ nav.bottom a:active{transform:scale(.94)}
 .seg button[aria-pressed=true]{background:var(--fill);color:var(--ink);box-shadow:inset 0 0 0 1px var(--fill2)}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 @media(min-width:640px){.wrap{padding-top:32px}}
+/* phones: one column in reading order; desktop: two columns, top tab bar */
+.cols{display:flex;flex-direction:column}
+.col{display:contents}
+#checkup{order:1} .stats{order:2} #lineup{order:3} #waiver{order:4} #rank{order:5} #trades{order:6} #news{order:7}
+@media(min-width:1024px){
+  html{scroll-padding-top:84px}
+  .wrap{max-width:1180px;padding:24px 28px 40px}
+  .cols{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);gap:0 20px;align-items:start}
+  .col{display:block}
+  header{padding:8px 4px 18px} header h1{font-size:2.125rem}
+  nav.bottom{display:none}
+  nav.top{display:block;position:sticky;top:12px;z-index:20;margin:0 0 20px}
+  nav.top ul{list-style:none;margin:0;padding:6px;display:flex;gap:4px;background:var(--glass);border:1px solid var(--line);border-radius:22px;
+    -webkit-backdrop-filter:saturate(180%) blur(22px);backdrop-filter:saturate(180%) blur(22px);box-shadow:var(--shadow)}
+  nav.top a{display:block;padding:9px 16px;border-radius:16px;text-decoration:none;color:var(--muted);font-size:.875rem;font-weight:700;transition:background .15s,color .15s}
+  nav.top a:hover{color:var(--ink);background:var(--fill)}
+  nav.top a.on{background:var(--accent-soft);color:var(--accent-ink)}
+  nav.top li:last-child{margin-left:auto}
+}
 """.replace("__DARK__", DARK).replace("__LIGHT__", LIGHT)
 
-HEAD_JS = """(function(){try{var t=localStorage.getItem('ff-theme');if(t&&t!=='dark')document.documentElement.setAttribute('data-theme',t);
+HEAD_JS = """(function(){try{localStorage.removeItem('ff-theme');var t=localStorage.getItem('ff-theme2');if(t&&t!=='dark')document.documentElement.setAttribute('data-theme',t);
 var s=localStorage.getItem('ff-size');if(s&&s!=='default')document.documentElement.setAttribute('data-size',s);}catch(e){}})();"""
 
 JS = """
@@ -186,7 +205,7 @@ JS = """
     function paint(v){btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.v===v?'true':'false')});if(v===def)root.removeAttribute(attr);else root.setAttribute(attr,v);}
     paint(get(key,def));btns.forEach(function(b){b.addEventListener('click',function(){set(key,b.dataset.v);paint(b.dataset.v)})});
   }
-  wire('theme','ff-theme','data-theme','dark');wire('size','ff-size','data-size','default');
+  wire('theme','ff-theme2','data-theme','dark');wire('size','ff-size','data-size','default');
   document.querySelectorAll('.pos').forEach(function(tabs){
     var btns=tabs.querySelectorAll('button');
     btns.forEach(function(b){b.addEventListener('click',function(){
@@ -194,9 +213,9 @@ JS = """
       tabs.parentElement.querySelectorAll('.panel').forEach(function(p){if(p.dataset.pos===b.dataset.pos)p.setAttribute('data-active','');else p.removeAttribute('data-active')});
     })});
   });
-  var links=document.querySelectorAll('nav.bottom a[href^="#"]'),secs=[];
+  var links=document.querySelectorAll('nav a[href^="#"]'),secs=[];
   links.forEach(function(a){var s=document.querySelector(a.getAttribute('href'));if(s)secs.push([s,a])});
-  function mark(){var y=window.scrollY+120,cur=null,best=-1;secs.forEach(function(p){var t=p[0].offsetTop;if(p[0].offsetParent!==null&&t<=y&&t>best){best=t;cur=p[1]}});if(!cur&&secs.length)cur=secs[0][1];links.forEach(function(a){a.classList.toggle('on',a===cur)});}
+  function mark(){var y=window.scrollY+120,cur=null,best=-1;secs.forEach(function(p){var t=p[0].getBoundingClientRect().top+window.scrollY;if(p[0].offsetParent!==null&&t<=y&&t>best){best=t;cur=p[0]}});if(!cur&&secs.length)cur=secs[0][0];links.forEach(function(a){a.classList.toggle('on',document.querySelector(a.getAttribute('href'))===cur)});}
   window.addEventListener('scroll',mark,{passive:true});mark();
 })();
 """
@@ -688,6 +707,7 @@ def build(data: dict) -> str:
 <div class="setrow" style="padding-bottom:14px"><label>Text size</label><div class="seg" data-set="size"><button data-v="small">Small</button><button data-v="default">Default</button><button data-v="large">Large</button><button data-v="xl">XL</button></div></div></section>
 
 {_status(data.get("espn"))}
+<div class="cols"><div class="col">
 {hero_html}
 {stats}
 
@@ -695,13 +715,14 @@ def build(data: dict) -> str:
 {_alerts(roster)}{_lineup(roster, opt, cards, assessment.get("mode") == "gameday", data.get("role_watch"))}
 {('<div class="grp">RECOMMENDED SWAPS</div>' + _swaps(opt)) if opt.get("lineup") else ""}</section>
 
-{waiver_html}
-
 <section class="sheet" id="rank"><div class="hd"><h2>Rankings</h2><span class="m">PPR &middot; this week</span></div>{_rankings(data.get("rankings", {}))}</section>
+</div><div class="col">
+{waiver_html}
 
 <section class="sheet" id="trades"><div class="hd"><h2>Trade targets</h2></div>{_trades(data.get("trades", {}))}</section>
 
 <section class="sheet news" id="news"><div class="hd"><h2>Headlines</h2></div>{news}</section>
+</div></div>
 
 <p class="foot">Updated {_e(data.get("generated", ""))}. Rankings blend this week's projection (65%) with 2025 points per game (35%). Tiers break on a 12% drop.</p>
 </div>

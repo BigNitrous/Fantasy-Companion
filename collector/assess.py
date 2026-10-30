@@ -15,8 +15,8 @@ Player outlook is the chance that player outscores a typical starter at his
 position this week. A bye or an out player is 0.
 
 All of it is a projection, not a promise: one game of football is noisy and
-the projections come from ESPN. The score tells you how much to trust the
-lineup, not what will happen.
+the projections are an ESPN + Sleeper average (plus a small role boost). The
+score tells you how much to trust the lineup, not what will happen.
 """
 
 from __future__ import annotations

@@ -1,8 +1,9 @@
 """Weekly position rankings across the whole league player pool.
 
-Score = 0.65 * this week's ESPN projection + 0.35 * last season's PPR
-points per game. The projection carries the matchup and injury context;
-the per-game rate keeps a slow start from hiding a proven player.
+Score = 0.65 * this week's blended projection (ESPN + Sleeper average, plus
+any role boost) + 0.35 * last season's PPR points per game. The projection
+carries the matchup and injury context; the per-game rate keeps a slow start
+from hiding a proven player.
 """
 
 from __future__ import annotations

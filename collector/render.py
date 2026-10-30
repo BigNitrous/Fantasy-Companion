@@ -124,12 +124,12 @@ header .sub b{color:var(--ink2);font-weight:700}
 .reason a,.row .m a{color:var(--accent-ink);text-decoration:none} .reason a:hover{text-decoration:underline}
 .num small.ol-s{color:var(--green)} .num small.ol-w{color:var(--quest)} .num small.ol-x{color:var(--out)}
 .act{padding:8px 20px;font-size:.8125rem;border-top:1px solid var(--line);color:var(--muted)} .act b{font-weight:700;color:var(--ink)}
-.f-out{color:var(--out)} .f-quest{color:var(--quest)} .f-go{color:var(--green)}
+.f-out{color:var(--out)} .f-quest{color:var(--quest)} .f-go{color:var(--green)} .f-live{color:var(--accent-ink);font-weight:800} .f-dim{color:var(--dim)}
 .grp{padding:14px 20px 6px;font-size:.6875rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--line)}
 /* segmented pills for positions */
 .pos{display:flex;gap:6px;padding:10px 16px 8px}
 .pos button{flex:1;text-align:center;padding:8px 0;border-radius:999px;font-size:.75rem;font-weight:800;color:var(--muted);
-   background:var(--fill);border:1px solid var(--fill2);transition:background .15s,color .15s,transform .12s}
+   background:var(--fill);border:1px solid var(--fill2);cursor:pointer;transition:background .15s,color .15s,transform .12s}
 .pos button:active{transform:scale(.95)}
 .pos button[aria-selected=true]{background:var(--btn);color:#fff;border-color:var(--btn);box-shadow:var(--glow)}
 .panel{display:none} .panel[data-active]{display:block}
@@ -196,16 +196,22 @@ var s=localStorage.getItem('ff-size');if(s&&s!=='default')document.documentEleme
 JS = """
 (function(){
   var root=document.documentElement,panel=document.getElementById('settings');
-  function toggle(e){e.preventDefault();if(panel.hasAttribute('data-open'))panel.removeAttribute('data-open');else{panel.setAttribute('data-open','');panel.scrollIntoView({block:'start'});}}
-  document.querySelectorAll('[data-gear]').forEach(function(b){b.addEventListener('click',toggle)});
+  var themeMeta=document.querySelector('meta[name="theme-color"]');
+  function themeColor(){var t=root.getAttribute('data-theme');if(t==='light')return '#f2f2f7';if(t==='auto'&&window.matchMedia('(prefers-color-scheme:light)').matches)return '#f2f2f7';return '#020617';}
+  function paintTheme(){if(themeMeta)themeMeta.setAttribute('content',themeColor());}
+  function setGear(open){document.querySelectorAll('[data-gear]').forEach(function(b){b.setAttribute('aria-expanded',open?'true':'false')});}
+  function toggle(e){e.preventDefault();var open=!panel.hasAttribute('data-open');if(open){panel.setAttribute('data-open','');panel.scrollIntoView({block:'start'});}else panel.removeAttribute('data-open');setGear(open);}
+  document.querySelectorAll('[data-gear]').forEach(function(b){b.addEventListener('click',toggle)});setGear(false);
   function get(k,d){try{return localStorage.getItem(k)||d}catch(e){return d}}
   function set(k,v){try{localStorage.setItem(k,v)}catch(e){}}
   function wire(name,key,attr,def){
     var btns=panel.querySelectorAll('[data-set="'+name+'"] button');
-    function paint(v){btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.v===v?'true':'false')});if(v===def)root.removeAttribute(attr);else root.setAttribute(attr,v);}
+    function paint(v){btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.v===v?'true':'false')});if(v===def)root.removeAttribute(attr);else root.setAttribute(attr,v);if(name==='theme')paintTheme();}
     paint(get(key,def));btns.forEach(function(b){b.addEventListener('click',function(){set(key,b.dataset.v);paint(b.dataset.v)})});
   }
   wire('theme','ff-theme2','data-theme','dark');wire('size','ff-size','data-size','default');
+  paintTheme();
+  try{window.matchMedia('(prefers-color-scheme:light)').addEventListener('change',paintTheme);}catch(e){}
   document.querySelectorAll('.pos').forEach(function(tabs){
     var btns=tabs.querySelectorAll('button');
     btns.forEach(function(b){b.addEventListener('click',function(){
@@ -265,11 +271,21 @@ def _inj(p: dict) -> str:
     return ""
 
 
+def _kick(p: dict) -> str:
+    """Kickoff, Live, or Final — game-day cues the pipeline already knows but the page hid."""
+    if p.get("final"):
+        return ' &middot; <span class="f-dim">Final</span>'
+    if p.get("locked"):
+        return ' &middot; <span class="f-live">Live</span>'
+    ko = p.get("kickoff")
+    return f" &middot; {_e(ko)}" if ko else ""
+
+
 def _meta(p: dict, extra: str = "") -> str:
     bits = " ".join(b for b in [p.get("position"), p.get("team")] if b)
     if p.get("opponent"):
         bits += f" vs {p['opponent']}"
-    return f'<div class="m">{_e(bits)}{_inj(p)}{extra}</div>'
+    return f'<div class="m">{_e(bits)}{_inj(p)}{_kick(p)}{extra}</div>'
 
 
 def _verdicts(roster: list[dict], opt: dict) -> dict:
@@ -384,7 +400,7 @@ def _rankings(rk: dict) -> str:
         return '<p class="empty">Needs your roster. See the note at the top of the page.</p>'
     order = ["QB", "RB", "WR", "TE", "D/ST", "K"]
     tabs = '<div class="pos" role="tablist">' + "".join(
-        f'<button role="tab" data-pos="{_e(p)}" aria-selected="{"true" if i == 0 else "false"}">{_e(p)}</button>'
+        f'<button type="button" role="tab" data-pos="{_e(p)}" aria-selected="{"true" if i == 0 else "false"}">{_e(p)}</button>'
         for i, p in enumerate(order)) + "</div>"
     panels = ""
     for i, pos in enumerate(order):
@@ -688,23 +704,29 @@ def build(data: dict) -> str:
     bottom = "".join(f'<li><a href="{h}">{ICONS[i]}{l}</a></li>' for h, i, l in navitems if i != "news") + f'<li><a href="#settings" data-gear>{ICONS["gear"]}Settings</a></li>'
     top = "".join(f'<li><a href="{h}">{l}</a></li>' for h, i, l in navitems) + '<li><a href="#settings" data-gear>Settings</a></li>'
 
+    desc = f"Week {week} start/sit, waivers, and win chance for {_e(team)}"
     return f"""<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#020617">
+<meta name="description" content="{desc}">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="{_e(team)[:12] or 'Fantasy'}">
 <title>Week {week} &mdash; {_e(team)}</title>
 <script>{HEAD_JS}</script>
 <style>{CSS}</style>
 </head><body><div class="wrap">
 
 <header><div class="grow"><div class="eb">{_e(wk_line)}</div><h1>{_e(team)}</h1>{opp_html}</div>
-<button class="gear" data-gear aria-label="Settings">{ICONS["gear"].replace('<svg', '<svg width="19" height="19" style="stroke:currentColor;fill:none;stroke-width:1.7"')}</button></header>
+<button type="button" class="gear" data-gear aria-label="Settings" aria-controls="settings" aria-expanded="false">{ICONS["gear"].replace('<svg', '<svg width="19" height="19" aria-hidden="true" style="stroke:currentColor;fill:none;stroke-width:1.7"')}</button></header>
 
 <nav class="top" aria-label="Sections"><ul>{top}</ul></nav>
 
 <section class="sheet" id="settings"><div class="hd"><h2>Settings</h2><span class="m">saved on this device</span></div>
-<div class="setrow"><label>Theme</label><div class="seg" data-set="theme"><button data-v="auto">Auto</button><button data-v="light">Light</button><button data-v="dark">Dark</button></div></div>
-<div class="setrow" style="padding-bottom:14px"><label>Text size</label><div class="seg" data-set="size"><button data-v="small">Small</button><button data-v="default">Default</button><button data-v="large">Large</button><button data-v="xl">XL</button></div></div></section>
+<div class="setrow"><label>Theme</label><div class="seg" data-set="theme" role="group" aria-label="Theme"><button type="button" data-v="auto">Auto</button><button type="button" data-v="light">Light</button><button type="button" data-v="dark">Dark</button></div></div>
+<div class="setrow" style="padding-bottom:14px"><label>Text size</label><div class="seg" data-set="size" role="group" aria-label="Text size"><button type="button" data-v="small">Small</button><button type="button" data-v="default">Default</button><button type="button" data-v="large">Large</button><button type="button" data-v="xl">XL</button></div></div></section>
 
 {_status(data.get("espn"))}
 <div class="cols"><div class="col">
@@ -724,7 +746,7 @@ def build(data: dict) -> str:
 <section class="sheet news" id="news"><div class="hd"><h2>Headlines</h2></div>{news}</section>
 </div></div>
 
-<p class="foot">Updated {_e(data.get("generated", ""))}. Rankings blend this week's projection (65%) with 2025 points per game (35%). Tiers break on a 12% drop.</p>
+<p class="foot">Updated {_e(data.get("generated", ""))}. Projections average ESPN and Sleeper. Rankings blend that number (65%) with 2025 points per game (35%). Tiers break on a 12% drop. Matchup strength is only what those sources already bake in.</p>
 </div>
 <nav class="bottom" aria-label="Sections"><ul>{bottom}</ul></nav>
 <script>{JS}</script></body></html>"""

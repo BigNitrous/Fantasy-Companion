@@ -52,6 +52,9 @@ header .grow{flex:1}
 header h1{font-size:1.75rem;font-weight:900;line-height:1.08;margin:4px 0 0;letter-spacing:-.025em;color:var(--ink);text-wrap:balance}
 header .sub{font-size:.8125rem;color:var(--muted);margin-top:5px;overflow-wrap:anywhere}
 header .sub b{color:var(--ink2);font-weight:700}
+.age{margin:8px 2px 4px;font-size:.8125rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.age[data-stale=stale]{color:var(--quest)} .age[data-stale=old]{color:var(--out)}
+.age b{font-weight:800;color:inherit}
 .gear{width:42px;height:42px;border-radius:15px;border:1px solid var(--fill2);background:var(--fill);color:var(--ink2);
       display:inline-grid;place-items:center;flex:none;transition:transform .12s,background .15s}
 .gear:active{transform:scale(.94)}
@@ -224,6 +227,28 @@ JS = """
   links.forEach(function(a){var s=document.querySelector(a.getAttribute('href'));if(s)secs.push([s,a])});
   function mark(){var y=window.scrollY+120,cur=null,best=-1;secs.forEach(function(p){var t=p[0].getBoundingClientRect().top+window.scrollY;if(p[0].offsetParent!==null&&t<=y&&t>best){best=t;cur=p[0]}});if(!cur&&secs.length)cur=secs[0][0];links.forEach(function(a){a.classList.toggle('on',document.querySelector(a.getAttribute('href'))===cur)});}
   window.addEventListener('scroll',mark,{passive:true});mark();
+  /* Relative age from the build's ISO timestamp so a static Pages deploy still reads "2h ago". */
+  function ageLabel(ms){
+    if(ms<0)ms=0;
+    var m=Math.floor(ms/60000);
+    if(m<1)return 'just now';
+    if(m<60)return m+'m ago';
+    var h=Math.floor(m/60);
+    if(h<48)return h+'h ago';
+    return Math.floor(h/24)+'d ago';
+  }
+  function paintAge(){
+    document.querySelectorAll('[data-generated-at]').forEach(function(el){
+      var t=Date.parse(el.getAttribute('data-generated-at')||'');
+      if(!t)return;
+      var ms=Date.now()-t,label=ageLabel(ms);
+      el.querySelectorAll('[data-age]').forEach(function(s){s.textContent=label});
+      var stale=ms>=18*3600*1000?'old':(ms>=6*3600*1000?'stale':'');
+      if(stale)el.setAttribute('data-stale',stale);else el.removeAttribute('data-stale');
+    });
+  }
+  paintAge();setInterval(paintAge,60000);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)paintAge()});
 })();
 """
 
@@ -724,6 +749,9 @@ def build(data: dict) -> str:
 
     opp = data.get("opponent_name")
     opp_html = f'<div class="sub">vs <b>{_e(opp)}</b></div>' if opp else ""
+    gen_iso, gen_human = data.get("generated_at", ""), data.get("generated", "")
+    age_html = _age_line(gen_iso, gen_human)
+    age_inner = _age_inner(gen_iso, gen_human) or f"Updated {_e(gen_human)}"
 
     cards = {c["name"]: c for c in assessment.get("cards", [])}
     hero_html = _hero(assessment, data.get("opponent_name", ""))
@@ -751,7 +779,7 @@ def build(data: dict) -> str:
 <style>{CSS}</style>
 </head><body><div class="wrap">
 
-<header><div class="grow"><div class="eb">{_e(wk_line)}</div><h1>{_e(team)}</h1>{opp_html}</div>
+<header><div class="grow"><div class="eb">{_e(wk_line)}</div><h1>{_e(team)}</h1>{opp_html}{age_html}</div>
 <button type="button" class="gear" data-gear aria-label="Settings" aria-controls="settings" aria-expanded="false">{ICONS["gear"].replace('<svg', '<svg width="19" height="19" aria-hidden="true" style="stroke:currentColor;fill:none;stroke-width:1.7"')}</button></header>
 
 <nav class="top" aria-label="Sections"><ul>{top}</ul></nav>
@@ -778,17 +806,68 @@ def build(data: dict) -> str:
 <section class="sheet news" id="news"><div class="hd"><h2>Headlines</h2></div>{news}</section>
 </div></div>
 
-<p class="foot">Updated {_e(data.get("generated", ""))}. Projections average ESPN and Sleeper. Rankings blend that number (65%) with 2025 points per game (35%). Tiers break on a 12% drop. Matchup strength is only what those sources already bake in.</p>
+<p class="foot"{f' data-generated-at="{_e(gen_iso)}"' if gen_iso else ""}>{age_inner}. Projections average ESPN and Sleeper. Rankings blend that number (65%) with 2025 points per game (35%). Tiers break on a 12% drop. Matchup strength is only what those sources already bake in.</p>
 </div>
 <nav class="bottom" aria-label="Sections"><ul>{bottom}</ul></nav>
 <script>{JS}</script></body></html>"""
 
 
-def timestamp() -> str:
-    """Central time: the workflow schedule is written for it, and Actions runs in UTC."""
+def _now_ct() -> datetime:
     try:
         from zoneinfo import ZoneInfo
-        now = datetime.now(ZoneInfo("America/Chicago"))
+        return datetime.now(ZoneInfo("America/Chicago"))
     except Exception:  # no tz database on this machine
-        now = datetime.now()
-    return now.strftime("%a %b %d, %-I:%M %p %Z").strip()
+        return datetime.now()
+
+
+def stamp() -> tuple:
+    """(human Central label, ISO-8601 with offset) for the build time. The ISO value drives
+    the live 'Xh ago' age on the static Pages deploy."""
+    now = _now_ct()
+    human = now.strftime("%a %b %d, %-I:%M %p %Z").strip()
+    return human, now.isoformat(timespec="seconds")
+
+
+def timestamp() -> str:
+    """Central time label only. Prefer stamp() when the page also needs a machine time."""
+    return stamp()[0]
+
+
+def _age_seed(iso: str) -> str:
+    """Server-side relative age so the first paint isn't blank before JS runs."""
+    try:
+        built = datetime.fromisoformat(iso)
+        if built.tzinfo is None:
+            built = built.replace(tzinfo=_now_ct().tzinfo)
+        mins = max(0, int((_now_ct() - built).total_seconds() // 60))
+    except Exception:
+        return "just now"
+    if mins < 1:
+        return "just now"
+    if mins < 60:
+        return f"{mins}m ago"
+    hours = mins // 60
+    if hours < 48:
+        return f"{hours}h ago"
+    return f"{hours // 24}d ago"
+
+
+def _age_inner(iso: str, human: str) -> str:
+    """'Updated Xm ago · Fri Oct 30, 1:00 PM CDT' — relative span is refreshed by JS."""
+    when = _e(human) or _e(iso)
+    if not when:
+        return ""
+    if not iso:
+        return f"Updated {when}"
+    return (f'<time datetime="{_e(iso)}">Updated <b data-age>{_e(_age_seed(iso))}</b>'
+            f" &middot; {when}</time>")
+
+
+def _age_line(iso: str, human: str) -> str:
+    """Header line with data-generated-at so JS can keep the relative age current."""
+    inner = _age_inner(iso, human)
+    if not inner:
+        return ""
+    if not iso:
+        return f'<p class="age">{inner}</p>'
+    return f'<p class="age" data-generated-at="{_e(iso)}">{inner}</p>'

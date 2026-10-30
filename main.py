@@ -55,10 +55,12 @@ def main() -> int:
         print(f"  week {week} is complete, assessing week {week + 1}")
         week += 1
 
+    generated, generated_at = render.stamp()
     data = {
         "week": week,
         "scoring": config.SCORING,
-        "generated": render.timestamp(),
+        "generated": generated,          # human Central label for brief.md / footers
+        "generated_at": generated_at,    # ISO-8601; drives the live "Xh ago" age on the page
         "roster": [],
         "team_name": "",
         "record": "",

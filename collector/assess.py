@@ -333,6 +333,21 @@ def build(data: dict, slate: dict, sigma: dict, mode: str, now: datetime) -> dic
     mine, opp = _totals(starters), _totals(opp_cards)
     win = _win(mine, opp) if opp_cards else None
 
+    # ESPN app scoreboard (actuals so far + ESPN's own remaining projections). Separate from
+    # `mine`/`opp`, which use our blend for still-to-play games so advice stays consistent.
+    def _espn_board(lineup):
+        live = proj = 0.0
+        for e in lineup:
+            pl = e.get("player")
+            if not pl:
+                continue
+            live += expect.espn_live(pl)
+            proj += expect.espn_board(pl)
+        return round(live, 1), round(proj, 1)
+
+    espn_live_mine, espn_proj_mine = _espn_board(cur_lineup)
+    espn_live_opp, espn_proj_opp = _espn_board(opp_lineup) if opp_lineup else (None, None)
+
     opt = data.get("optimizer") or {}
 
     # --- actions ---------------------------------------------------------------
@@ -442,6 +457,8 @@ def build(data: dict, slate: dict, sigma: dict, mode: str, now: datetime) -> dic
         "margin": round(mine[0] - opp[0], 1) if opp_cards else None,
         "spread": round(math.sqrt(mine[1] + opp[1]), 1),
         "has_actuals": has_actuals,
+        "espn_live": espn_live_mine, "espn_proj": espn_proj_mine,
+        "espn_live_opp": espn_live_opp, "espn_proj_opp": espn_proj_opp,
         "optimal": best, "days": _days(starters, ctx), "risks": risks, "alternatives": alternatives,
         "actions": [{k: v for k, v in a.items() if k != "_fa"} for a in actions],
         "cards": [{k: v for k, v in cards[p["name"]].items() if not k.startswith("_")} for p in roster],

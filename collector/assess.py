@@ -21,6 +21,7 @@ score tells you how much to trust the lineup, not what will happen.
 
 from __future__ import annotations
 import math
+import re
 from datetime import datetime
 
 from . import expect, optimizer
@@ -182,8 +183,10 @@ def _story(p: dict, pp: float, mom: float):
                           f"{g.get('targets', 0)} more targets): {p.get('boost_why', '')}"))
     if p.get("if_out"):
         why = p.get("if_out_why", "")
-        # roles may list several teammates ("A, B"); don't say "is" for a plural subject.
-        verb = "are" if "," in why else "is"
+        # roles may list several teammates ("A, B"). Commas inside "(Questionable, Ankle)"
+        # are not a plural subject — strip parentheticals before choosing the verb.
+        flat = re.sub(r"\([^)]*\)", "", why)
+        verb = "are" if "," in flat else "is"
         sigs.append(("i", f"If {why} {verb} ruled out: another +{p['if_out']} pts"))
     # health
     if pp == 0 and _num(p.get("projected_espn")) == 0:
@@ -207,16 +210,23 @@ def _story(p: dict, pp: float, mom: float):
 
 def card(p: dict, ctx: Ctx) -> dict:
     pos = p.get("position")
-    proj, pp = _num(p.get("projected")), ctx.p_play(p)
-    mom = _momentum(p) if proj > 0 and pp > 0 else 0.0
+    proj = _num(p.get("projected"))
+    scored = expect.actual_points(p)
+    pp = 1.0 if scored is not None else ctx.p_play(p)
+    mom = _momentum(p) if scored is None and proj > 0 and pp > 0 else 0.0
     lastline, avgline, sigs, trend = _story(p, pp, mom)
     s = ctx.sd(pos)
-    a = expect.if_plays(p)                         # projection when he plays (x LIMITED if tagged)
-    mu = pp * a                                    # = expect.mean(p)
-    var = pp * s * s + pp * (1 - pp) * a * a
+    if scored is not None:
+        # Game started: lineup contribution is the ESPN actual (same number the app shows).
+        a, mu, var = scored, scored, 0.0
+    else:
+        a = expect.if_plays(p)                     # projection when he plays (x LIMITED if tagged)
+        mu = pp * a                                # = expect.mean(p)
+        var = pp * s * s + pp * (1 - pp) * a * a
     bench = ctx.bench.get(pos, proj)
-    outlook = 0 if (proj <= 0 or pp == 0) else round(100 * _phi((mu - bench) / math.sqrt(max(var, 1e-6))))
-    if proj <= 0 or pp == 0:
+    outlook = 0 if (scored is None and (proj <= 0 or pp == 0)) else round(
+        100 * _phi((mu - bench) / math.sqrt(max(var, 1e-6))))
+    if scored is None and (proj <= 0 or pp == 0):
         label = "Not playing"
     else:
         label = "Strong" if outlook >= 70 else "Solid" if outlook >= 50 else "Shaky" if outlook >= 35 else "Weak"
@@ -226,16 +236,17 @@ def card(p: dict, ctx: Ctx) -> dict:
             "p_play": pp, "outlook": outlook, "label": label, "trend": trend, "last": lastline, "avg": avgline,
             "signals": sigs, "news": p.get("news") or p.get("boost_news"), "role": (p.get("usage") or {}).get("text", ""),
             "sources": p.get("sources") or {}, "split": bool(p.get("split")), "usage_pts": p.get("usage_pts"),
-            "boost": p.get("boost") or 0.0,
-            "range": outcome_range(pos, a, bool(p.get("starting"))) if pp > 0 else None,
-            "boom": boom_prob(pos, a) if pp > 0 else None,
+            "boost": p.get("boost") or 0.0, "actual": scored, "final": bool(p.get("final")),
+            "locked": bool(p.get("locked")),
+            "range": outcome_range(pos, a, bool(p.get("starting"))) if scored is None and pp > 0 else None,
+            "boom": boom_prob(pos, a) if scored is None and pp > 0 else None,
             "_a": a, "_mu": mu, "_var": var}
 
 
 def _covered(c: dict, backup: dict, ctx: "Ctx") -> dict:
     """The card's lineup contribution when a bench backup steps in if he's inactive. His own
     outlook is unchanged; only the lineup mean and variance (a two-outcome mix) move."""
-    if not backup:
+    if not backup or c.get("actual") is not None:
         return c
     pp, a, sa = c["p_play"], c["_a"], ctx.sd(c["position"])
     b, sb = expect.mean(backup), ctx.sd(backup.get("position"))
@@ -274,8 +285,11 @@ def _days(starters: list, ctx: Ctx) -> list:
         cs = groups[day]
         mu, var = _totals(cs)
         ref = sum(ctx.bench.get(c["position"], 0.0) for c in cs)
-        score = 0 if day == "Bye" else round(100 * _phi((mu - ref) / math.sqrt(max(var, 1e-6))))
+        done = bool(cs) and all(c.get("final") or c.get("actual") is not None for c in cs)
+        score = 0 if day == "Bye" else (
+            100 if done and mu >= ref else 0 if done else round(100 * _phi((mu - ref) / math.sqrt(max(var, 1e-6)))))
         out.append({"day": day, "n": len(cs), "expected": round(mu, 1), "vs_typical": round(mu - ref, 1), "score": score,
+                    "final": done,
                     "names": [c["name"] for c in sorted(cs, key=lambda c: -c["_mu"])[:3]]})
     return out
 
@@ -420,12 +434,14 @@ def build(data: dict, slate: dict, sigma: dict, mode: str, now: datetime) -> dic
 
     title, sub = MODES.get(mode, MODES["midweek"])
     score = round(100 * win) if win is not None else None
+    has_actuals = any(c.get("actual") is not None for c in starters + opp_cards)
     return {
         "mode": mode, "title": title, "sub": sub, "week": data.get("week"), "generated": now.strftime("%Y-%m-%d %H:%M"),
         "score": score, "label": band(score) if score is not None else "",
         "mine": round(mine[0], 1), "opp": round(opp[0], 1) if opp_cards else None,
         "margin": round(mine[0] - opp[0], 1) if opp_cards else None,
         "spread": round(math.sqrt(mine[1] + opp[1]), 1),
+        "has_actuals": has_actuals,
         "optimal": best, "days": _days(starters, ctx), "risks": risks, "alternatives": alternatives,
         "actions": [{k: v for k, v in a.items() if k != "_fa"} for a in actions],
         "cards": [{k: v for k, v in cards[p["name"]].items() if not k.startswith("_")} for p in roster],

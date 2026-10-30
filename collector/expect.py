@@ -36,7 +36,20 @@ def status(p: dict) -> str:
     return (p.get("injury") or "").upper().replace(" ", "_")
 
 
+def actual_points(p: dict):
+    """ESPN fantasy points once his game has kicked off (live or final). None if it hasn't.
+
+    Mid-week and game-day totals must use these — otherwise Thursday finals stay stuck at
+    their pre-game projection and the win chance drifts ~20 pts off the ESPN app."""
+    if not (p.get("locked") or p.get("final")):
+        return None
+    v = p.get("actual")
+    return float(v) if isinstance(v, (int, float)) else None
+
+
 def p_play(p: dict) -> float:
+    if actual_points(p) is not None:
+        return 1.0          # already played (or playing): no injury uncertainty left
     if p.get("bye"):
         return 0.0
     st = status(p)
@@ -61,17 +74,26 @@ def momentum(p: dict) -> float:
 
 
 def if_plays(p: dict) -> float:
-    """Expected points given that he plays (a tagged player who plays scores less)."""
+    """Expected points given that he plays (a tagged player who plays scores less).
+    Once the game has started, this is just his ESPN actual."""
+    scored = actual_points(p)
+    if scored is not None:
+        return scored
     proj = num(p.get("projected"))
     return (proj + momentum(p)) * LIMITED.get(status(p), 1.0) if proj > 0 else 0.0
 
 
 def mean(p: dict) -> float:
-    """Expected points with no backup plan: if_plays x chance he plays."""
+    """Expected points with no backup plan: actual if the game started, else if_plays x P(play)."""
+    scored = actual_points(p)
+    if scored is not None:
+        return scored
     return if_plays(p) * p_play(p)
 
 
 def uncertain(p: dict) -> bool:
+    if actual_points(p) is not None:
+        return False
     return 0.0 < p_play(p) < SURE
 
 
@@ -100,6 +122,10 @@ def backup_for(lineup: list[dict], bench: list[dict], eligible) -> dict:
 
 
 def value(p: dict, backup: dict = None) -> float:
-    """Expected points for a starter, crediting his backup if he's ruled out."""
+    """Expected points for a starter, crediting his backup if he's ruled out.
+    Locked/final players are just their ESPN actual — no backup math."""
+    scored = actual_points(p)
+    if scored is not None:
+        return scored
     pp = p_play(p)
     return pp * if_plays(p) + (1.0 - pp) * (mean(backup) if backup else 0.0)

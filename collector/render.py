@@ -354,8 +354,9 @@ def _slot_rank(p: dict) -> int:
 
 
 def _lineup_num(p: dict, c: dict, chip: str) -> str:
-    """Big number on a lineup row: live/final actual when the game has started, else projection.
-    Uncertain players also show expected points (proj x P(play) x LIMITED) so the row matches the meter."""
+    """Big number on a lineup row: live/final actual when the game has started, else our blend.
+    ESPN's own projection is shown underneath when it differs, so the row is easy to check
+    against the fantasy app. Uncertain players also show expected points for the meter."""
     outlook = f'<small class="ol ol-{_OL.get(c["label"], "o")}">{c["outlook"]} outlook</small>' if c else ""
     actual = p.get("actual")
     if (p.get("locked") or p.get("final")) and isinstance(actual, (int, float)):
@@ -363,9 +364,13 @@ def _lineup_num(p: dict, c: dict, chip: str) -> str:
         return (f'{chip}<span class="pts">{_pts(actual)}</span>'
                 f'<small class="f-dim">{tag}</small><small>{_pts(p.get("projected"))} proj</small>{outlook}')
     extras = ""
+    espn = p.get("projected_espn")
+    proj = p.get("projected")
+    if isinstance(espn, (int, float)) and isinstance(proj, (int, float)) and abs(espn - proj) >= 0.45:
+        extras += f'<small>ESPN {_pts(espn)}</small>'
     if c and 0 < c.get("p_play", 1) < 1:
-        extras = f'<small>exp {c["expected"]:.1f}</small>'
-    return f'{chip}<span class="pts">{_pts(p.get("projected"))}</span>{extras}{outlook}'
+        extras += f'<small>exp {c["expected"]:.1f}</small>'
+    return f'{chip}<span class="pts">{_pts(proj)}</span>{extras}{outlook}'
 
 
 def _lineup(roster: list[dict], opt: dict, cards: dict = None, open_all: bool = False, rw: list = None) -> str:
@@ -580,15 +585,21 @@ def _hero(a: dict, opp_name: str) -> str:
     sc = a["score"]
     cls = "g-hi" if sc >= 55 else "g-mid" if sc >= 45 else "g-lo"
     vs = f" to beat {_e(opp_name)}" if opp_name else ""
+    # After kickoff, totals mix ESPN actuals (done/live) with projections (still to play) —
+    # same idea as the ESPN app scoreboard, not a pure pre-game projection.
+    unit = "so far" if a.get("has_actuals") else "projected"
     head = (f'<div class="gauge {cls}"><div class="big">{sc}<small>%</small></div><div class="hero-t">'
             f'<div class="eb">Win chance</div><div class="gt">{_e(a["label"])}</div>'
-            f'<div class="gs">{a["mine"]:.1f} vs {a["opp"]:.1f} projected{vs}</div></div></div>'
+            f'<div class="gs">{a["mine"]:.1f} vs {a["opp"]:.1f} {unit}{vs}</div></div></div>'
             f'<div class="meter {cls}"><span style="width:{max(2, min(100, sc))}%"></span><i></i></div>')
     after = ""
     o = a.get("optimal") or {}
     if o.get("win") is not None and o["expected"] >= a["mine"] + 0.5:
         after = (f'<p class="after">With the lineup changes below: <b>{round(100 * o["win"])}%</b> '
-                 f'({o["expected"]:.1f} projected)</p>')
+                 f'({o["expected"]:.1f} {unit})</p>')
+    elif a.get("has_actuals"):
+        after = ('<p class="after">Finished and live games use ESPN\'s actual points; games still '
+                 'to play use the projection. 50% is a coin flip.</p>')
     else:
         after = '<p class="after">Chance your lineup outscores this week\'s opponent. 50% is a coin flip.</p>'
 
@@ -612,8 +623,13 @@ def _hero(a: dict, opp_name: str) -> str:
                      f'<div class="m">{_e(names)} {"has" if d["n"] == 1 else "have"} a bye</div></div>'
                      f'<div class="num f-out">0</div></div>')
             continue
-        k = "f-go" if d["score"] >= 55 else "f-quest" if d["score"] >= 40 else "f-out"
         s_ = "" if d["n"] == 1 else "s"
+        if d.get("final"):
+            days += (f'<div class="row"><div class="who"><div class="nm">{_DAYS.get(d["day"], d["day"])}</div>'
+                     f'<div class="m">{d["n"]} starter{s_} &middot; {d["expected"]:.1f} final &middot; {_e(names)}</div></div>'
+                     f'<div class="num f-dim">Final<small>{d["vs_typical"]:+.1f} vs avg team</small></div></div>')
+            continue
+        k = "f-go" if d["score"] >= 55 else "f-quest" if d["score"] >= 40 else "f-out"
         days += (f'<div class="row"><div class="who"><div class="nm">{_DAYS.get(d["day"], d["day"])}</div>'
                  f'<div class="m">{d["n"]} starter{s_} &middot; {d["expected"]:.1f} projected &middot; {_e(names)}</div></div>'
                  f'<div class="num {k}">{d["score"]}%<small>{d["vs_typical"]:+.1f} vs avg team</small></div></div>')

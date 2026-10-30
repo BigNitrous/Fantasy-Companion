@@ -55,10 +55,12 @@ def main() -> int:
         print(f"  week {week} is complete, assessing week {week + 1}")
         week += 1
 
+    generated, generated_at = render.stamp()
     data = {
         "week": week,
         "scoring": config.SCORING,
-        "generated": render.timestamp(),
+        "generated": generated,          # human Central label for brief.md / footers
+        "generated_at": generated_at,    # ISO-8601; drives the live "Xh ago" age on the page
         "roster": [],
         "team_name": "",
         "record": "",
@@ -111,7 +113,9 @@ def main() -> int:
                 # A player whose game has kicked off can't be moved, added or dropped for this week.
                 tm = pl.get("team", "")
                 pl["locked"] = tm in slate.get("started", ())
+                pl["final"] = tm in slate.get("final", ())
                 pl["kickoff_ts"] = slate.get("ts", {}).get(tm)
+                pl["kickoff"] = slate.get("kickoff", {}).get(tm, "")
                 if tm in slate.get("bye", ()):
                     pl["bye"] = True
 
@@ -141,13 +145,10 @@ def main() -> int:
 
         pool = data.get("league_pool", [])
         my_names = {p["name"] for p in data["roster"]}
-        rk = rankings.build(pool, hist, my_names, top_n=30)
-        data["rankings"] = rk
-        # Enrich the pool with scores so trades can use them.
-        scored = {}
-        for pos_list in rankings.build(pool, hist, my_names, top_n=10_000).values():
-            for r in pos_list:
-                scored[r["name"]] = r
+        # One full ranking pass: slice for the page, keep every scored player for trades.
+        rk_full = rankings.build(pool, hist, my_names, top_n=10_000)
+        data["rankings"] = {pos: rows[:30] for pos, rows in rk_full.items()}
+        scored = {r["name"]: r for rows in rk_full.values() for r in rows}
         pool_scored = [scored.get(p["name"], {**p, "score": 0.0, "proj": 0.0, "ppg_2025": 0.0}) for p in pool]
         data["trades"] = trades.build(pool_scored, data["team_name"], optimizer.slot_structure(data["roster"]))
         print(f"  rankings built, {len(data['trades']['targets'])} trade target(s)")

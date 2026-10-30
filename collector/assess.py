@@ -15,8 +15,8 @@ Player outlook is the chance that player outscores a typical starter at his
 position this week. A bye or an out player is 0.
 
 All of it is a projection, not a promise: one game of football is noisy and
-the projections come from ESPN. The score tells you how much to trust the
-lineup, not what will happen.
+the projections are an ESPN + Sleeper average (plus a small role boost). The
+score tells you how much to trust the lineup, not what will happen.
 """
 
 from __future__ import annotations
@@ -181,7 +181,10 @@ def _story(p: dict, pp: float, mom: float):
         sigs.append(("+", f"Role boost +{p['boost']} pts (about {g.get('carries', 0)} more carries, "
                           f"{g.get('targets', 0)} more targets): {p.get('boost_why', '')}"))
     if p.get("if_out"):
-        sigs.append(("i", f"If {p.get('if_out_why', '')} is ruled out: another +{p['if_out']} pts"))
+        why = p.get("if_out_why", "")
+        # roles may list several teammates ("A, B"); don't say "is" for a plural subject.
+        verb = "are" if "," in why else "is"
+        sigs.append(("i", f"If {why} {verb} ruled out: another +{p['if_out']} pts"))
     # health
     if pp == 0 and _num(p.get("projected_espn")) == 0:
         sigs.append(("-", "No game this week or not expected to play"))

@@ -52,6 +52,9 @@ header .grow{flex:1}
 header h1{font-size:1.75rem;font-weight:900;line-height:1.08;margin:4px 0 0;letter-spacing:-.025em;color:var(--ink);text-wrap:balance}
 header .sub{font-size:.8125rem;color:var(--muted);margin-top:5px;overflow-wrap:anywhere}
 header .sub b{color:var(--ink2);font-weight:700}
+.age{margin:8px 2px 4px;font-size:.8125rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.age[data-stale=stale]{color:var(--quest)} .age[data-stale=old]{color:var(--out)}
+.age b{font-weight:800;color:inherit}
 .gear{width:42px;height:42px;border-radius:15px;border:1px solid var(--fill2);background:var(--fill);color:var(--ink2);
       display:inline-grid;place-items:center;flex:none;transition:transform .12s,background .15s}
 .gear:active{transform:scale(.94)}
@@ -69,6 +72,7 @@ header .sub b{color:var(--ink2);font-weight:700}
 .hd{display:flex;align-items:baseline;gap:10px;padding:18px 20px 8px}
 .hd h2{font-size:1.1875rem;font-weight:900;margin:0;white-space:nowrap;letter-spacing:-.02em;color:var(--ink)}
 .hd .m{font-size:.6875rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+@media(max-width:400px){.hd h2{white-space:normal}}
 .row{display:flex;align-items:center;gap:12px;padding:13px 20px;border-top:1px solid var(--line)}
 .row.hi{background:var(--green-soft)}
 .row .who{min-width:0;flex:1}
@@ -124,12 +128,12 @@ header .sub b{color:var(--ink2);font-weight:700}
 .reason a,.row .m a{color:var(--accent-ink);text-decoration:none} .reason a:hover{text-decoration:underline}
 .num small.ol-s{color:var(--green)} .num small.ol-w{color:var(--quest)} .num small.ol-x{color:var(--out)}
 .act{padding:8px 20px;font-size:.8125rem;border-top:1px solid var(--line);color:var(--muted)} .act b{font-weight:700;color:var(--ink)}
-.f-out{color:var(--out)} .f-quest{color:var(--quest)} .f-go{color:var(--green)}
+.f-out{color:var(--out)} .f-quest{color:var(--quest)} .f-go{color:var(--green)} .f-live{color:var(--accent-ink);font-weight:800} .f-dim{color:var(--dim)}
 .grp{padding:14px 20px 6px;font-size:.6875rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);border-top:1px solid var(--line)}
 /* segmented pills for positions */
 .pos{display:flex;gap:6px;padding:10px 16px 8px}
 .pos button{flex:1;text-align:center;padding:8px 0;border-radius:999px;font-size:.75rem;font-weight:800;color:var(--muted);
-   background:var(--fill);border:1px solid var(--fill2);transition:background .15s,color .15s,transform .12s}
+   background:var(--fill);border:1px solid var(--fill2);cursor:pointer;transition:background .15s,color .15s,transform .12s}
 .pos button:active{transform:scale(.95)}
 .pos button[aria-selected=true]{background:var(--btn);color:#fff;border-color:var(--btn);box-shadow:var(--glow)}
 .panel{display:none} .panel[data-active]{display:block}
@@ -196,16 +200,22 @@ var s=localStorage.getItem('ff-size');if(s&&s!=='default')document.documentEleme
 JS = """
 (function(){
   var root=document.documentElement,panel=document.getElementById('settings');
-  function toggle(e){e.preventDefault();if(panel.hasAttribute('data-open'))panel.removeAttribute('data-open');else{panel.setAttribute('data-open','');panel.scrollIntoView({block:'start'});}}
-  document.querySelectorAll('[data-gear]').forEach(function(b){b.addEventListener('click',toggle)});
+  var themeMeta=document.querySelector('meta[name="theme-color"]');
+  function themeColor(){var t=root.getAttribute('data-theme');if(t==='light')return '#f2f2f7';if(t==='auto'&&window.matchMedia('(prefers-color-scheme:light)').matches)return '#f2f2f7';return '#020617';}
+  function paintTheme(){if(themeMeta)themeMeta.setAttribute('content',themeColor());}
+  function setGear(open){document.querySelectorAll('[data-gear]').forEach(function(b){b.setAttribute('aria-expanded',open?'true':'false')});}
+  function toggle(e){e.preventDefault();var open=!panel.hasAttribute('data-open');if(open){panel.setAttribute('data-open','');panel.scrollIntoView({block:'start'});}else panel.removeAttribute('data-open');setGear(open);}
+  document.querySelectorAll('[data-gear]').forEach(function(b){b.addEventListener('click',toggle)});setGear(false);
   function get(k,d){try{return localStorage.getItem(k)||d}catch(e){return d}}
   function set(k,v){try{localStorage.setItem(k,v)}catch(e){}}
   function wire(name,key,attr,def){
     var btns=panel.querySelectorAll('[data-set="'+name+'"] button');
-    function paint(v){btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.v===v?'true':'false')});if(v===def)root.removeAttribute(attr);else root.setAttribute(attr,v);}
+    function paint(v){btns.forEach(function(b){b.setAttribute('aria-pressed',b.dataset.v===v?'true':'false')});if(v===def)root.removeAttribute(attr);else root.setAttribute(attr,v);if(name==='theme')paintTheme();}
     paint(get(key,def));btns.forEach(function(b){b.addEventListener('click',function(){set(key,b.dataset.v);paint(b.dataset.v)})});
   }
   wire('theme','ff-theme2','data-theme','dark');wire('size','ff-size','data-size','default');
+  paintTheme();
+  try{window.matchMedia('(prefers-color-scheme:light)').addEventListener('change',paintTheme);}catch(e){}
   document.querySelectorAll('.pos').forEach(function(tabs){
     var btns=tabs.querySelectorAll('button');
     btns.forEach(function(b){b.addEventListener('click',function(){
@@ -217,6 +227,28 @@ JS = """
   links.forEach(function(a){var s=document.querySelector(a.getAttribute('href'));if(s)secs.push([s,a])});
   function mark(){var y=window.scrollY+120,cur=null,best=-1;secs.forEach(function(p){var t=p[0].getBoundingClientRect().top+window.scrollY;if(p[0].offsetParent!==null&&t<=y&&t>best){best=t;cur=p[0]}});if(!cur&&secs.length)cur=secs[0][0];links.forEach(function(a){a.classList.toggle('on',document.querySelector(a.getAttribute('href'))===cur)});}
   window.addEventListener('scroll',mark,{passive:true});mark();
+  /* Relative age from the build's ISO timestamp so a static Pages deploy still reads "2h ago". */
+  function ageLabel(ms){
+    if(ms<0)ms=0;
+    var m=Math.floor(ms/60000);
+    if(m<1)return 'just now';
+    if(m<60)return m+'m ago';
+    var h=Math.floor(m/60);
+    if(h<48)return h+'h ago';
+    return Math.floor(h/24)+'d ago';
+  }
+  function paintAge(){
+    document.querySelectorAll('[data-generated-at]').forEach(function(el){
+      var t=Date.parse(el.getAttribute('data-generated-at')||'');
+      if(!t)return;
+      var ms=Date.now()-t,label=ageLabel(ms);
+      el.querySelectorAll('[data-age]').forEach(function(s){s.textContent=label});
+      var stale=ms>=18*3600*1000?'old':(ms>=6*3600*1000?'stale':'');
+      if(stale)el.setAttribute('data-stale',stale);else el.removeAttribute('data-stale');
+    });
+  }
+  paintAge();setInterval(paintAge,60000);
+  document.addEventListener('visibilitychange',function(){if(!document.hidden)paintAge()});
 })();
 """
 
@@ -236,6 +268,11 @@ _MEH = {"QUESTIONABLE", "DAY_TO_DAY", "PROBABLE"}
 
 def _e(s) -> str:
     return html.escape(str(s if s is not None else ""))
+
+
+def _ext(href: str, text: str) -> str:
+    """Outbound link: new tab so Add-to-Home-Screen doesn't lose the dashboard."""
+    return f'<a href="{_e(href)}" target="_blank" rel="noopener noreferrer">{_e(text)}</a>'
 
 
 def _pts(v) -> str:
@@ -265,11 +302,21 @@ def _inj(p: dict) -> str:
     return ""
 
 
+def _kick(p: dict) -> str:
+    """Kickoff, Live, or Final — game-day cues the pipeline already knows but the page hid."""
+    if p.get("final"):
+        return ' &middot; <span class="f-dim">Final</span>'
+    if p.get("locked"):
+        return ' &middot; <span class="f-live">Live</span>'
+    ko = p.get("kickoff")
+    return f" &middot; {_e(ko)}" if ko else ""
+
+
 def _meta(p: dict, extra: str = "") -> str:
     bits = " ".join(b for b in [p.get("position"), p.get("team")] if b)
     if p.get("opponent"):
         bits += f" vs {p['opponent']}"
-    return f'<div class="m">{_e(bits)}{_inj(p)}{extra}</div>'
+    return f'<div class="m">{_e(bits)}{_inj(p)}{_kick(p)}{extra}</div>'
 
 
 def _verdicts(roster: list[dict], opt: dict) -> dict:
@@ -306,6 +353,21 @@ def _slot_rank(p: dict) -> int:
     return _SLOT_ORDER.index(s) if s in _SLOT_ORDER else len(_SLOT_ORDER)
 
 
+def _lineup_num(p: dict, c: dict, chip: str) -> str:
+    """Big number on a lineup row: live/final actual when the game has started, else projection.
+    Uncertain players also show expected points (proj x P(play) x LIMITED) so the row matches the meter."""
+    outlook = f'<small class="ol ol-{_OL.get(c["label"], "o")}">{c["outlook"]} outlook</small>' if c else ""
+    actual = p.get("actual")
+    if (p.get("locked") or p.get("final")) and isinstance(actual, (int, float)):
+        tag = "final" if p.get("final") else "live"
+        return (f'{chip}<span class="pts">{_pts(actual)}</span>'
+                f'<small class="f-dim">{tag}</small><small>{_pts(p.get("projected"))} proj</small>{outlook}')
+    extras = ""
+    if c and 0 < c.get("p_play", 1) < 1:
+        extras = f'<small>exp {c["expected"]:.1f}</small>'
+    return f'{chip}<span class="pts">{_pts(p.get("projected"))}</span>{extras}{outlook}'
+
+
 def _lineup(roster: list[dict], opt: dict, cards: dict = None, open_all: bool = False, rw: list = None) -> str:
     cards = cards or {}
     starters = sorted((p for p in roster if p.get("starting")), key=_slot_rank)  # ESPN order
@@ -324,9 +386,8 @@ def _lineup(roster: list[dict], opt: dict, cards: dict = None, open_all: bool = 
         slot_txt = {"RB/WR/TE": "FLEX", "BE": "BN"}.get(raw_slot, raw_slot)
         slot = f'<span class="chip slot{" bn" if raw_slot in ("BE", "IR") else ""}">{_e(slot_txt)}</span>'
         c = cards.get(p["name"])
-        small = f'<small class="ol ol-{_OL.get(c["label"], "o")}">{c["outlook"]} outlook</small>' if c else ""
         inner = (f'{slot}<div class="who"><div class="nm">{_e(p["name"])}</div>{_meta(p, extra)}{_use(p)}</div>'
-                 f'<div class="num">{chip}<span class="pts">{_pts(p.get("projected"))}</span>{small}</div>')
+                 f'<div class="num">{_lineup_num(p, c, chip)}</div>')
         if not c:
             return f'<div class="row{hi}">{inner}</div>'
         return (f'<details class="pl"{" open" if open_all else ""}><summary class="row{hi}">{inner}</summary>'
@@ -344,10 +405,12 @@ def _alerts(roster: list[dict]) -> str:
         if not p.get("starting"):
             continue
         s = (p.get("injury") or "").upper().replace(" ", "_")
+        label = s.replace("_", " ").title()
+        ko = f" {p['kickoff']}." if p.get("kickoff") and not p.get("locked") else ""
         if s in _BAD:
-            items.append(("alert", p["name"], f"Listed {s.replace('_', ' ').lower()} and in your starting lineup."))
+            items.append(("alert", p["name"], f"Listed {label.lower()} and in your starting lineup.{ko}"))
         elif s in _MEH:
-            items.append(("alert warn", p["name"], "Questionable. Check inactives before kickoff."))
+            items.append(("alert warn", p["name"], f"{label}. Check inactives before kickoff.{ko}"))
         elif not p.get("opponent") and p.get("position") != "D/ST":
             items.append(("alert warn", p["name"], "No game this week. Likely a bye."))
     return "".join(f'<div class="{c}"><div class="who">{_e(w)}</div><div class="why">{_e(y)}</div></div>' for c, w, y in items)
@@ -384,7 +447,7 @@ def _rankings(rk: dict) -> str:
         return '<p class="empty">Needs your roster. See the note at the top of the page.</p>'
     order = ["QB", "RB", "WR", "TE", "D/ST", "K"]
     tabs = '<div class="pos" role="tablist">' + "".join(
-        f'<button role="tab" data-pos="{_e(p)}" aria-selected="{"true" if i == 0 else "false"}">{_e(p)}</button>'
+        f'<button type="button" role="tab" data-pos="{_e(p)}" aria-selected="{"true" if i == 0 else "false"}">{_e(p)}</button>'
         for i, p in enumerate(order)) + "</div>"
     panels = ""
     for i, pos in enumerate(order):
@@ -483,7 +546,7 @@ def _deep(c: dict) -> str:
         parts.append(f'<ul class="sig">{sigs}</ul>')
     n = c.get("news")
     if n and n.get("link"):
-        parts.append(f'<div class="ln"><a href="{_e(n["link"])}">{_e(n["headline"])}</a></div>')
+        parts.append(f'<div class="ln">{_ext(n["link"], n["headline"])}</div>')
     return '<div class="deep">' + "".join(parts) + "</div>"
 
 
@@ -500,8 +563,10 @@ def _role_watch(rw: list) -> str:
         if e.get("qb_note"):
             lines.append(_e(e["qb_note"]))
         n = e.get("news")
-        if n:
-            lines.append(f'<a href="{_e(n.get("link", "#"))}">{_e(n.get("headline", ""))}</a>')
+        if n and n.get("link"):
+            lines.append(_ext(n.get("link", "#"), n.get("headline", "")))
+        elif n:
+            lines.append(_e(n.get("headline", "")))
         num = f'<div class="num f-go">+{e["boost"]:.1f}</div>' if e.get("boost") else ""
         rows += (f'<div class="row"><div class="who"><div class="nm">{_e(e["name"])}</div>'
                  f'<div class="m">{_e(e.get("position", ""))} {_e(e.get("team", ""))}{who}</div>'
@@ -634,7 +699,13 @@ def build(data: dict) -> str:
     team = data.get("team_name") or "Your team"
     roster = data.get("roster", [])
     opt = data.get("optimizer", {}) or {}
-    opp_total = sum(p["projected"] for p in data.get("opponent_roster", []) if p.get("starting") and isinstance(p.get("projected"), (int, float)))
+    assessment = data.get("assessment") or {}
+    # Prefer the meter's opponent expected points (P(play) + backups) over a raw projection sum.
+    if isinstance(assessment.get("opp"), (int, float)):
+        opp_total = float(assessment["opp"])
+    else:
+        opp_total = sum(p["projected"] for p in data.get("opponent_roster", [])
+                        if p.get("starting") and isinstance(p.get("projected"), (int, float)))
 
     lg = data.get("league") or {}
     wk_line = f"Week {week}" + (f" \u00b7 {data['record']}" if data.get("record") else "")
@@ -665,7 +736,7 @@ def build(data: dict) -> str:
         f'<div class="row"><div class="who"><div class="nm">{_e(a["name"])}</div>{_meta(a)}</div>'
         f'<div class="num">{a.get("count", 0):,}<small>adds</small></div></div>' for a in data.get("trending_adds", [])) or '<p class="empty">No trending data.</p>'
     news = "".join(
-        f'<div class="row"><a href="{_e(n.get("link", "#"))}">{_e(n.get("headline", ""))}</a>'
+        f'<div class="row">{_ext(n.get("link", "#"), n.get("headline", ""))}'
         f'<div class="m">{_e(_blurb(n.get("description")))}</div></div>' for n in data.get("news", [])[:15]) or '<p class="empty">No headlines.</p>'
 
     w = data.get("waivers")
@@ -678,33 +749,44 @@ def build(data: dict) -> str:
 
     opp = data.get("opponent_name")
     opp_html = f'<div class="sub">vs <b>{_e(opp)}</b></div>' if opp else ""
+    gen_iso, gen_human = data.get("generated_at", ""), data.get("generated", "")
+    age_html = _age_line(gen_iso, gen_human)
+    age_inner = _age_inner(gen_iso, gen_human) or f"Updated {_e(gen_human)}"
 
-    assessment = data.get("assessment") or {}
     cards = {c["name"]: c for c in assessment.get("cards", [])}
     hero_html = _hero(assessment, data.get("opponent_name", ""))
     navitems = ([("#checkup", "check", "Check-up")] if hero_html else []) + [
         ("#lineup", "lineup", "Lineup"), ("#waiver", "waiver", "Waivers"), ("#rank", "rank", "Rankings"),
         ("#trades", "trades", "Trades"), ("#news", "news", "News")]
-    bottom = "".join(f'<li><a href="{h}">{ICONS[i]}{l}</a></li>' for h, i, l in navitems if i != "news") + f'<li><a href="#settings" data-gear>{ICONS["gear"]}Settings</a></li>'
+    # Phone bar: News over Trades (trades stay in the top nav / page). Settings stays gear-reachable.
+    bottom_keys = {"check", "lineup", "waiver", "rank", "news"}
+    bottom = "".join(f'<li><a href="{h}">{ICONS[i]}{l}</a></li>' for h, i, l in navitems if i in bottom_keys) + (
+        f'<li><a href="#settings" data-gear>{ICONS["gear"]}Settings</a></li>')
     top = "".join(f'<li><a href="{h}">{l}</a></li>' for h, i, l in navitems) + '<li><a href="#settings" data-gear>Settings</a></li>'
 
+    desc = f"Week {week} start/sit, waivers, and win chance for {_e(team)}"
     return f"""<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#020617">
+<meta name="description" content="{desc}">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="{_e(team)[:12] or 'Fantasy'}">
 <title>Week {week} &mdash; {_e(team)}</title>
 <script>{HEAD_JS}</script>
 <style>{CSS}</style>
 </head><body><div class="wrap">
 
-<header><div class="grow"><div class="eb">{_e(wk_line)}</div><h1>{_e(team)}</h1>{opp_html}</div>
-<button class="gear" data-gear aria-label="Settings">{ICONS["gear"].replace('<svg', '<svg width="19" height="19" style="stroke:currentColor;fill:none;stroke-width:1.7"')}</button></header>
+<header><div class="grow"><div class="eb">{_e(wk_line)}</div><h1>{_e(team)}</h1>{opp_html}{age_html}</div>
+<button type="button" class="gear" data-gear aria-label="Settings" aria-controls="settings" aria-expanded="false">{ICONS["gear"].replace('<svg', '<svg width="19" height="19" aria-hidden="true" style="stroke:currentColor;fill:none;stroke-width:1.7"')}</button></header>
 
 <nav class="top" aria-label="Sections"><ul>{top}</ul></nav>
 
 <section class="sheet" id="settings"><div class="hd"><h2>Settings</h2><span class="m">saved on this device</span></div>
-<div class="setrow"><label>Theme</label><div class="seg" data-set="theme"><button data-v="auto">Auto</button><button data-v="light">Light</button><button data-v="dark">Dark</button></div></div>
-<div class="setrow" style="padding-bottom:14px"><label>Text size</label><div class="seg" data-set="size"><button data-v="small">Small</button><button data-v="default">Default</button><button data-v="large">Large</button><button data-v="xl">XL</button></div></div></section>
+<div class="setrow"><label>Theme</label><div class="seg" data-set="theme" role="group" aria-label="Theme"><button type="button" data-v="auto">Auto</button><button type="button" data-v="light">Light</button><button type="button" data-v="dark">Dark</button></div></div>
+<div class="setrow" style="padding-bottom:14px"><label>Text size</label><div class="seg" data-set="size" role="group" aria-label="Text size"><button type="button" data-v="small">Small</button><button type="button" data-v="default">Default</button><button type="button" data-v="large">Large</button><button type="button" data-v="xl">XL</button></div></div></section>
 
 {_status(data.get("espn"))}
 <div class="cols"><div class="col">
@@ -724,17 +806,68 @@ def build(data: dict) -> str:
 <section class="sheet news" id="news"><div class="hd"><h2>Headlines</h2></div>{news}</section>
 </div></div>
 
-<p class="foot">Updated {_e(data.get("generated", ""))}. Rankings blend this week's projection (65%) with 2025 points per game (35%). Tiers break on a 12% drop.</p>
+<p class="foot"{f' data-generated-at="{_e(gen_iso)}"' if gen_iso else ""}>{age_inner}. Projections average ESPN and Sleeper. Rankings blend that number (65%) with 2025 points per game (35%). Tiers break on a 12% drop. Matchup strength is only what those sources already bake in.</p>
 </div>
 <nav class="bottom" aria-label="Sections"><ul>{bottom}</ul></nav>
 <script>{JS}</script></body></html>"""
 
 
-def timestamp() -> str:
-    """Central time: the workflow schedule is written for it, and Actions runs in UTC."""
+def _now_ct() -> datetime:
     try:
         from zoneinfo import ZoneInfo
-        now = datetime.now(ZoneInfo("America/Chicago"))
+        return datetime.now(ZoneInfo("America/Chicago"))
     except Exception:  # no tz database on this machine
-        now = datetime.now()
-    return now.strftime("%a %b %d, %-I:%M %p %Z").strip()
+        return datetime.now()
+
+
+def stamp() -> tuple:
+    """(human Central label, ISO-8601 with offset) for the build time. The ISO value drives
+    the live 'Xh ago' age on the static Pages deploy."""
+    now = _now_ct()
+    human = now.strftime("%a %b %d, %-I:%M %p %Z").strip()
+    return human, now.isoformat(timespec="seconds")
+
+
+def timestamp() -> str:
+    """Central time label only. Prefer stamp() when the page also needs a machine time."""
+    return stamp()[0]
+
+
+def _age_seed(iso: str) -> str:
+    """Server-side relative age so the first paint isn't blank before JS runs."""
+    try:
+        built = datetime.fromisoformat(iso)
+        if built.tzinfo is None:
+            built = built.replace(tzinfo=_now_ct().tzinfo)
+        mins = max(0, int((_now_ct() - built).total_seconds() // 60))
+    except Exception:
+        return "just now"
+    if mins < 1:
+        return "just now"
+    if mins < 60:
+        return f"{mins}m ago"
+    hours = mins // 60
+    if hours < 48:
+        return f"{hours}h ago"
+    return f"{hours // 24}d ago"
+
+
+def _age_inner(iso: str, human: str) -> str:
+    """'Updated Xm ago · Fri Oct 30, 1:00 PM CDT' — relative span is refreshed by JS."""
+    when = _e(human) or _e(iso)
+    if not when:
+        return ""
+    if not iso:
+        return f"Updated {when}"
+    return (f'<time datetime="{_e(iso)}">Updated <b data-age>{_e(_age_seed(iso))}</b>'
+            f" &middot; {when}</time>")
+
+
+def _age_line(iso: str, human: str) -> str:
+    """Header line with data-generated-at so JS can keep the relative age current."""
+    inner = _age_inner(iso, human)
+    if not inner:
+        return ""
+    if not iso:
+        return f'<p class="age">{inner}</p>'
+    return f'<p class="age" data-generated-at="{_e(iso)}">{inner}</p>'

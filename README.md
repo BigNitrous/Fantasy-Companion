@@ -14,76 +14,64 @@ targets, and headlines.
 
 ## How the analysis works
 
-**Lineup optimizer** reads your league's slot structure off your current
-roster, fills every slot with the highest-projected healthy player, and
-lists the swaps between that and what you have set.
+**Projections** average ESPN's number with Sleeper's (RotoWire) projection
+scored under your league's rules. A source split of 3+ points is flagged on
+the card but does not widen the confidence spread. Matchup strength is only
+what those two sources already bake in — the dashboard adds none of its own.
 
-**Waiver wire** looks only at players unclaimed in your league. Each free
-agent is scored the same way as the rankings and compared with your roster:
-START if he'd beat one of your starters this week, STREAM for a kicker or
-defense with the better matchup, BENCH if he's better than someone on your
-bench right now, STASH if his rest-of-season projection is well ahead of
-your most droppable player. Every pickup names the drop that makes room.
-Below that: Sleeper's most-added players that are still unclaimed here,
-players rivals just dropped (often a panic move), your most droppable
-bench players, and the league's recent transactions. The header shows your
-waiver priority or FAAB left, standing, and ESPN's playoff odds.
+**Lineup optimizer** uses your league's real starting slots from ESPN
+settings, fills every slot with the highest-expected healthy player, and
+lists the swaps between that and what you have set. Expected points fold in
+chance to play (Questionable skill players ~74%, QBs ~40%, Doubtful ~2%,
+Out/bye 0) and credit a bench backup only when his game kicks off at or
+after the questionable starter's. Once a game has kicked off, those players
+are locked for the week.
 
-**Usage and role changes.** Projections alone miss who is actually getting
-the ball. For every skill player the collector pulls nflverse data (no extra
-packages) and works out snap share, target share, carry share, and targets
-and carries per game over his last four games, plus last week's line, and
-which quarterback is throwing to him and how often his team passes. When a
-teammate is out or on IR, his carries and targets are redistributed to the
-healthy players at his position (the next man up gets a guaranteed floor)
-and converted to projected points. That gain is added to ESPN's projection
-at half strength, capped at 6 points, and always shown next to ESPN's
-number ("ESPN 13.6 -> 16.1 with the role change"), so you can overrule it.
-The optimizer, rankings and waiver wire all use the adjusted number. ESPN
-headlines are matched to players by name and attached as evidence.
+**Waiver wire** looks only at players unclaimed in your league. Each add/drop
+pair is judged by re-running the optimizer with the swap made (this week)
+plus the rest-of-season change — not by the blended rankings score. Verdicts
+are antisymmetric so following the advice can't make the next build reverse
+it. Below that: Sleeper's most-added players still unclaimed here, rivals'
+recent drops, your most droppable bench, and league activity. The header
+shows waiver priority or FAAB, standing, and ESPN playoff odds.
+
+**Usage and role changes.** For every skill player the collector pulls
+nflverse snap/target/carry share and QB volume. When a teammate is out or on
+IR, inherited carries and targets are converted to points; 15% of that gain
+(capped at 6) is added on top of the ESPN+Sleeper blend and shown on the
+card. Role watch and the waiver "bigger role" note use inherited work of
+2+/game instead. ESPN headlines are matched to players by name.
 
 **Weekly assessment** is the routine check on the whole week:
 
-- *Confidence score* is the chance your lineup outscores this week's
-  opponent. Each player is a distribution: mean = projection x chance to play
-  (Questionable 70%, Doubtful 15%, Out or bye 0), spread = the measured
-  week-to-week variation of his position this season. Add up your team and
-  theirs and the gap over the combined spread is a win probability. 50 is a
-  coin flip. It also shows what the score becomes if you make the
-  recommended changes, and a score for each day (Thursday, Sunday, Monday)
-  against an average team's starters.
-- *Do this* lists lineup fixes (a starter on a bye or out), swaps, and the
-  best pickups. Each pickup is scored by what it actually does to your
-  optimal lineup, and names the drop that makes room.
-- *Player cards* open under every player on your roster: outlook (chance he
-  outscores the average starter at his position), last week's targets,
-  catches, carries and snaps against his recent baseline, signed reasons
-  (target share up or down, snaps rising, role boost, injury, quarterback
-  change) and the news that matters.
+- *Win chance* is the chance your lineup outscores this week's opponent,
+  using the same expected-points model as the optimizer. Spread comes from
+  this season's measured position variance. 50% is a coin flip. It also
+  shows the score after recommended changes, injury-risk lines for
+  questionable starters, and a by-day score against a typical team.
+- *Do this* lists lineup fixes, swaps, and the best pickups (each scored by
+  what it does to your optimal lineup, with the drop named).
+- *Player cards* open under every roster player: outlook vs the average
+  starter at his position, source split, typical middle-80% range, last
+  week's usage vs baseline, signed reasons, and relevant news.
 
 It leads with the **Tuesday check-up** on Tuesdays (before waivers), the
 **Game-day report** on Sundays (cards open for every player), and a general
-outlook otherwise. The workflow runs Tuesday 1pm CT, Wednesday 8am CT, and
-Sunday 7am, 10am and 11am CT; use Run workflow and pick a mode to force one.
-The same content is written to `site/assessment.md` for Claude to read.
+outlook otherwise. The workflow runs Tuesday 1pm CT, Wednesday 8am CT,
+Thursday ~4pm CT, and Sunday 7am / 10am / 11am CT; use Run workflow and pick
+a mode to force one. The same content is written to `site/assessment.md`.
 
-Matchup strength (how good the defense is against a position) is not
-modeled; the score is arithmetic on ESPN's projections, not a prediction.
-
-**Position rankings** score everyone in your league (all rosters plus free
-agents) as 65% this week's ESPN projection + 35% last season's PPR points
-per game. Last-season data comes from nflverse; kicker and D/ST points are
-computed with ESPN's default scoring since nflverse doesn't score those.
-Your players are highlighted.
+**Position rankings** score everyone in your league as 65% this week's
+blended projection + 35% last season's PPR points per game. Last-season data
+comes from nflverse; your players are highlighted.
 
 **Trade targets** compares your best starter at each position against the
-league median starter to find where you're thin, flags bench players of
-yours who'd start on other teams, lists players at your need positions on
-teams that have more above-median options than starting slots, and marks
-buy-low candidates whose projection is well under their 2025 pace.
+league median, flags bench players who'd start elsewhere, lists surplus
+targets at your need positions, and marks buy-low candidates whose
+projection is well under their 2025 pace.
 
-All of this is heuristic. It's meant to surface candidates for you and
-Claude to argue about, not to make the decision for you.
+All of this is heuristic. It's meant to surface candidates for you (and a
+Claude brief) to argue about, not to make the decision for you.
 
 No server. It runs on GitHub Actions and costs nothing.
 

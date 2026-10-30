@@ -181,7 +181,10 @@ def _story(p: dict, pp: float, mom: float):
         sigs.append(("+", f"Role boost +{p['boost']} pts (about {g.get('carries', 0)} more carries, "
                           f"{g.get('targets', 0)} more targets): {p.get('boost_why', '')}"))
     if p.get("if_out"):
-        sigs.append(("i", f"If {p.get('if_out_why', '')} is ruled out: another +{p['if_out']} pts"))
+        why = p.get("if_out_why", "")
+        # roles may list several teammates ("A, B"); don't say "is" for a plural subject.
+        verb = "are" if "," in why else "is"
+        sigs.append(("i", f"If {why} {verb} ruled out: another +{p['if_out']} pts"))
     # health
     if pp == 0 and _num(p.get("projected_espn")) == 0:
         sigs.append(("-", "No game this week or not expected to play"))

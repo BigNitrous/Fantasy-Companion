@@ -69,6 +69,7 @@ header .sub b{color:var(--ink2);font-weight:700}
 .hd{display:flex;align-items:baseline;gap:10px;padding:18px 20px 8px}
 .hd h2{font-size:1.1875rem;font-weight:900;margin:0;white-space:nowrap;letter-spacing:-.02em;color:var(--ink)}
 .hd .m{font-size:.6875rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+@media(max-width:400px){.hd h2{white-space:normal}}
 .row{display:flex;align-items:center;gap:12px;padding:13px 20px;border-top:1px solid var(--line)}
 .row.hi{background:var(--green-soft)}
 .row .who{min-width:0;flex:1}
@@ -244,6 +245,11 @@ def _e(s) -> str:
     return html.escape(str(s if s is not None else ""))
 
 
+def _ext(href: str, text: str) -> str:
+    """Outbound link: new tab so Add-to-Home-Screen doesn't lose the dashboard."""
+    return f'<a href="{_e(href)}" target="_blank" rel="noopener noreferrer">{_e(text)}</a>'
+
+
 def _pts(v) -> str:
     return f"{v:.1f}" if isinstance(v, (int, float)) else "&mdash;"
 
@@ -322,6 +328,21 @@ def _slot_rank(p: dict) -> int:
     return _SLOT_ORDER.index(s) if s in _SLOT_ORDER else len(_SLOT_ORDER)
 
 
+def _lineup_num(p: dict, c: dict, chip: str) -> str:
+    """Big number on a lineup row: live/final actual when the game has started, else projection.
+    Uncertain players also show expected points (proj x P(play) x LIMITED) so the row matches the meter."""
+    outlook = f'<small class="ol ol-{_OL.get(c["label"], "o")}">{c["outlook"]} outlook</small>' if c else ""
+    actual = p.get("actual")
+    if (p.get("locked") or p.get("final")) and isinstance(actual, (int, float)):
+        tag = "final" if p.get("final") else "live"
+        return (f'{chip}<span class="pts">{_pts(actual)}</span>'
+                f'<small class="f-dim">{tag}</small><small>{_pts(p.get("projected"))} proj</small>{outlook}')
+    extras = ""
+    if c and 0 < c.get("p_play", 1) < 1:
+        extras = f'<small>exp {c["expected"]:.1f}</small>'
+    return f'{chip}<span class="pts">{_pts(p.get("projected"))}</span>{extras}{outlook}'
+
+
 def _lineup(roster: list[dict], opt: dict, cards: dict = None, open_all: bool = False, rw: list = None) -> str:
     cards = cards or {}
     starters = sorted((p for p in roster if p.get("starting")), key=_slot_rank)  # ESPN order
@@ -340,9 +361,8 @@ def _lineup(roster: list[dict], opt: dict, cards: dict = None, open_all: bool = 
         slot_txt = {"RB/WR/TE": "FLEX", "BE": "BN"}.get(raw_slot, raw_slot)
         slot = f'<span class="chip slot{" bn" if raw_slot in ("BE", "IR") else ""}">{_e(slot_txt)}</span>'
         c = cards.get(p["name"])
-        small = f'<small class="ol ol-{_OL.get(c["label"], "o")}">{c["outlook"]} outlook</small>' if c else ""
         inner = (f'{slot}<div class="who"><div class="nm">{_e(p["name"])}</div>{_meta(p, extra)}{_use(p)}</div>'
-                 f'<div class="num">{chip}<span class="pts">{_pts(p.get("projected"))}</span>{small}</div>')
+                 f'<div class="num">{_lineup_num(p, c, chip)}</div>')
         if not c:
             return f'<div class="row{hi}">{inner}</div>'
         return (f'<details class="pl"{" open" if open_all else ""}><summary class="row{hi}">{inner}</summary>'
@@ -360,10 +380,12 @@ def _alerts(roster: list[dict]) -> str:
         if not p.get("starting"):
             continue
         s = (p.get("injury") or "").upper().replace(" ", "_")
+        label = s.replace("_", " ").title()
+        ko = f" {p['kickoff']}." if p.get("kickoff") and not p.get("locked") else ""
         if s in _BAD:
-            items.append(("alert", p["name"], f"Listed {s.replace('_', ' ').lower()} and in your starting lineup."))
+            items.append(("alert", p["name"], f"Listed {label.lower()} and in your starting lineup.{ko}"))
         elif s in _MEH:
-            items.append(("alert warn", p["name"], "Questionable. Check inactives before kickoff."))
+            items.append(("alert warn", p["name"], f"{label}. Check inactives before kickoff.{ko}"))
         elif not p.get("opponent") and p.get("position") != "D/ST":
             items.append(("alert warn", p["name"], "No game this week. Likely a bye."))
     return "".join(f'<div class="{c}"><div class="who">{_e(w)}</div><div class="why">{_e(y)}</div></div>' for c, w, y in items)
@@ -499,7 +521,7 @@ def _deep(c: dict) -> str:
         parts.append(f'<ul class="sig">{sigs}</ul>')
     n = c.get("news")
     if n and n.get("link"):
-        parts.append(f'<div class="ln"><a href="{_e(n["link"])}">{_e(n["headline"])}</a></div>')
+        parts.append(f'<div class="ln">{_ext(n["link"], n["headline"])}</div>')
     return '<div class="deep">' + "".join(parts) + "</div>"
 
 
@@ -516,8 +538,10 @@ def _role_watch(rw: list) -> str:
         if e.get("qb_note"):
             lines.append(_e(e["qb_note"]))
         n = e.get("news")
-        if n:
-            lines.append(f'<a href="{_e(n.get("link", "#"))}">{_e(n.get("headline", ""))}</a>')
+        if n and n.get("link"):
+            lines.append(_ext(n.get("link", "#"), n.get("headline", "")))
+        elif n:
+            lines.append(_e(n.get("headline", "")))
         num = f'<div class="num f-go">+{e["boost"]:.1f}</div>' if e.get("boost") else ""
         rows += (f'<div class="row"><div class="who"><div class="nm">{_e(e["name"])}</div>'
                  f'<div class="m">{_e(e.get("position", ""))} {_e(e.get("team", ""))}{who}</div>'
@@ -650,7 +674,13 @@ def build(data: dict) -> str:
     team = data.get("team_name") or "Your team"
     roster = data.get("roster", [])
     opt = data.get("optimizer", {}) or {}
-    opp_total = sum(p["projected"] for p in data.get("opponent_roster", []) if p.get("starting") and isinstance(p.get("projected"), (int, float)))
+    assessment = data.get("assessment") or {}
+    # Prefer the meter's opponent expected points (P(play) + backups) over a raw projection sum.
+    if isinstance(assessment.get("opp"), (int, float)):
+        opp_total = float(assessment["opp"])
+    else:
+        opp_total = sum(p["projected"] for p in data.get("opponent_roster", [])
+                        if p.get("starting") and isinstance(p.get("projected"), (int, float)))
 
     lg = data.get("league") or {}
     wk_line = f"Week {week}" + (f" \u00b7 {data['record']}" if data.get("record") else "")
@@ -681,7 +711,7 @@ def build(data: dict) -> str:
         f'<div class="row"><div class="who"><div class="nm">{_e(a["name"])}</div>{_meta(a)}</div>'
         f'<div class="num">{a.get("count", 0):,}<small>adds</small></div></div>' for a in data.get("trending_adds", [])) or '<p class="empty">No trending data.</p>'
     news = "".join(
-        f'<div class="row"><a href="{_e(n.get("link", "#"))}">{_e(n.get("headline", ""))}</a>'
+        f'<div class="row">{_ext(n.get("link", "#"), n.get("headline", ""))}'
         f'<div class="m">{_e(_blurb(n.get("description")))}</div></div>' for n in data.get("news", [])[:15]) or '<p class="empty">No headlines.</p>'
 
     w = data.get("waivers")
@@ -695,13 +725,15 @@ def build(data: dict) -> str:
     opp = data.get("opponent_name")
     opp_html = f'<div class="sub">vs <b>{_e(opp)}</b></div>' if opp else ""
 
-    assessment = data.get("assessment") or {}
     cards = {c["name"]: c for c in assessment.get("cards", [])}
     hero_html = _hero(assessment, data.get("opponent_name", ""))
     navitems = ([("#checkup", "check", "Check-up")] if hero_html else []) + [
         ("#lineup", "lineup", "Lineup"), ("#waiver", "waiver", "Waivers"), ("#rank", "rank", "Rankings"),
         ("#trades", "trades", "Trades"), ("#news", "news", "News")]
-    bottom = "".join(f'<li><a href="{h}">{ICONS[i]}{l}</a></li>' for h, i, l in navitems if i != "news") + f'<li><a href="#settings" data-gear>{ICONS["gear"]}Settings</a></li>'
+    # Phone bar: News over Trades (trades stay in the top nav / page). Settings stays gear-reachable.
+    bottom_keys = {"check", "lineup", "waiver", "rank", "news"}
+    bottom = "".join(f'<li><a href="{h}">{ICONS[i]}{l}</a></li>' for h, i, l in navitems if i in bottom_keys) + (
+        f'<li><a href="#settings" data-gear>{ICONS["gear"]}Settings</a></li>')
     top = "".join(f'<li><a href="{h}">{l}</a></li>' for h, i, l in navitems) + '<li><a href="#settings" data-gear>Settings</a></li>'
 
     desc = f"Week {week} start/sit, waivers, and win chance for {_e(team)}"

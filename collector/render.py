@@ -108,6 +108,14 @@ header .sub b{color:var(--ink2);font-weight:700}
 .hero-t{min-width:0}
 .hero-t .gt{font-size:1.375rem;font-weight:900;line-height:1.1;letter-spacing:-.02em}
 .hero-t .gs{font-size:.8125rem;color:var(--muted);margin-top:5px;overflow-wrap:anywhere}
+/* ESPN matchup board: live score + ESPN projected total (same numbers as the fantasy app) */
+.board{display:grid;grid-template-columns:1fr auto 1fr;gap:8px;align-items:end;padding:4px 20px 10px}
+.board .side{min-width:0}
+.board .side.opp{text-align:right}
+.board .live{font-size:2.25rem;font-weight:900;line-height:1;letter-spacing:-.03em;color:var(--ink);font-variant-numeric:tabular-nums}
+.board .proj{font-size:.8125rem;color:var(--muted);margin-top:4px;font-variant-numeric:tabular-nums}
+.board .proj b{color:var(--ink2);font-weight:800}
+.board .mid{font-size:.6875rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);padding-bottom:10px}
 .after{margin:12px 20px 0;padding:11px 14px;border-radius:18px;background:var(--well);border:1px solid var(--line);font-size:.8125rem;color:var(--muted)} .after b{color:var(--green);font-weight:800}
 .qrisk{margin:8px 20px 14px;font-size:.8125rem;color:var(--muted)} .qrisk p{margin:5px 0} .qrisk b{color:var(--quest);font-weight:800}
 .hero .after:last-of-type{margin-bottom:14px}
@@ -354,8 +362,9 @@ def _slot_rank(p: dict) -> int:
 
 
 def _lineup_num(p: dict, c: dict, chip: str) -> str:
-    """Big number on a lineup row: live/final actual when the game has started, else projection.
-    Uncertain players also show expected points (proj x P(play) x LIMITED) so the row matches the meter."""
+    """Big number on a lineup row: live/final actual when the game has started, else our blend.
+    ESPN's own projection is shown underneath when it differs, so the row is easy to check
+    against the fantasy app. Uncertain players also show expected points for the meter."""
     outlook = f'<small class="ol ol-{_OL.get(c["label"], "o")}">{c["outlook"]} outlook</small>' if c else ""
     actual = p.get("actual")
     if (p.get("locked") or p.get("final")) and isinstance(actual, (int, float)):
@@ -363,9 +372,13 @@ def _lineup_num(p: dict, c: dict, chip: str) -> str:
         return (f'{chip}<span class="pts">{_pts(actual)}</span>'
                 f'<small class="f-dim">{tag}</small><small>{_pts(p.get("projected"))} proj</small>{outlook}')
     extras = ""
+    espn = p.get("projected_espn")
+    proj = p.get("projected")
+    if isinstance(espn, (int, float)) and isinstance(proj, (int, float)) and abs(espn - proj) >= 0.45:
+        extras += f'<small>ESPN {_pts(espn)}</small>'
     if c and 0 < c.get("p_play", 1) < 1:
-        extras = f'<small>exp {c["expected"]:.1f}</small>'
-    return f'{chip}<span class="pts">{_pts(p.get("projected"))}</span>{extras}{outlook}'
+        extras += f'<small>exp {c["expected"]:.1f}</small>'
+    return f'{chip}<span class="pts">{_pts(proj)}</span>{extras}{outlook}'
 
 
 def _lineup(roster: list[dict], opt: dict, cards: dict = None, open_all: bool = False, rw: list = None) -> str:
@@ -580,15 +593,32 @@ def _hero(a: dict, opp_name: str) -> str:
     sc = a["score"]
     cls = "g-hi" if sc >= 55 else "g-mid" if sc >= 45 else "g-lo"
     vs = f" to beat {_e(opp_name)}" if opp_name else ""
-    head = (f'<div class="gauge {cls}"><div class="big">{sc}<small>%</small></div><div class="hero-t">'
+    # Blend-based expected total (advice). Separate from the ESPN scoreboard row below.
+    unit = "model" if a.get("has_actuals") else "projected"
+    board = ""
+    if a.get("espn_proj") is not None:
+        live_m = a.get("espn_live", 0.0)
+        live_o = a.get("espn_live_opp")
+        proj_o = a.get("espn_proj_opp")
+        left = (f'<div class="side"><div class="live">{live_m:.1f}</div>'
+                f'<div class="proj">ESPN proj <b>{a["espn_proj"]:.1f}</b></div></div>')
+        right = (f'<div class="side opp"><div class="live">{live_o:.1f}</div>'
+                 f'<div class="proj">ESPN proj <b>{proj_o:.1f}</b></div></div>') if (
+            isinstance(live_o, (int, float)) and isinstance(proj_o, (int, float))) else (
+            '<div class="side opp"><div class="live">&mdash;</div><div class="proj">&nbsp;</div></div>')
+        board = f'<div class="board">{left}<div class="mid">vs</div>{right}</div>'
+    head = (f'{board}<div class="gauge {cls}"><div class="big">{sc}<small>%</small></div><div class="hero-t">'
             f'<div class="eb">Win chance</div><div class="gt">{_e(a["label"])}</div>'
-            f'<div class="gs">{a["mine"]:.1f} vs {a["opp"]:.1f} projected{vs}</div></div></div>'
+            f'<div class="gs">Our model {a["mine"]:.1f} vs {a["opp"]:.1f} {unit}{vs}</div></div></div>'
             f'<div class="meter {cls}"><span style="width:{max(2, min(100, sc))}%"></span><i></i></div>')
     after = ""
     o = a.get("optimal") or {}
     if o.get("win") is not None and o["expected"] >= a["mine"] + 0.5:
         after = (f'<p class="after">With the lineup changes below: <b>{round(100 * o["win"])}%</b> '
-                 f'({o["expected"]:.1f} projected)</p>')
+                 f'({o["expected"]:.1f} {unit})</p>')
+    elif a.get("has_actuals"):
+        after = ('<p class="after">Scoreboard above matches ESPN (actuals + ESPN projections). '
+                 'Win chance uses our model on the same actuals. 50% is a coin flip.</p>')
     else:
         after = '<p class="after">Chance your lineup outscores this week\'s opponent. 50% is a coin flip.</p>'
 
@@ -612,8 +642,13 @@ def _hero(a: dict, opp_name: str) -> str:
                      f'<div class="m">{_e(names)} {"has" if d["n"] == 1 else "have"} a bye</div></div>'
                      f'<div class="num f-out">0</div></div>')
             continue
-        k = "f-go" if d["score"] >= 55 else "f-quest" if d["score"] >= 40 else "f-out"
         s_ = "" if d["n"] == 1 else "s"
+        if d.get("final"):
+            days += (f'<div class="row"><div class="who"><div class="nm">{_DAYS.get(d["day"], d["day"])}</div>'
+                     f'<div class="m">{d["n"]} starter{s_} &middot; {d["expected"]:.1f} final &middot; {_e(names)}</div></div>'
+                     f'<div class="num f-dim">Final<small>{d["vs_typical"]:+.1f} vs avg team</small></div></div>')
+            continue
+        k = "f-go" if d["score"] >= 55 else "f-quest" if d["score"] >= 40 else "f-out"
         days += (f'<div class="row"><div class="who"><div class="nm">{_DAYS.get(d["day"], d["day"])}</div>'
                  f'<div class="m">{d["n"]} starter{s_} &middot; {d["expected"]:.1f} projected &middot; {_e(names)}</div></div>'
                  f'<div class="num {k}">{d["score"]}%<small>{d["vs_typical"]:+.1f} vs avg team</small></div></div>')

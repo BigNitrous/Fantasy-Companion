@@ -168,8 +168,8 @@ nav.bottom{position:fixed;left:0;right:0;bottom:0;z-index:20;padding:0 14px max(
 nav.bottom ul{pointer-events:auto;list-style:none;margin:0 auto;padding:6px;display:flex;gap:2px;max-width:492px;background:var(--glass);
   -webkit-backdrop-filter:saturate(180%) blur(22px);backdrop-filter:saturate(180%) blur(22px);border:1px solid var(--line);border-radius:30px;box-shadow:var(--shadow)}
 nav.bottom li{flex:1;min-width:0}
-nav.bottom a{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 2px 7px;border-radius:24px;text-decoration:none;color:var(--muted);
-  font-size:.625rem;font-weight:700;transition:background .15s,color .15s,transform .12s}
+nav.bottom a{display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 1px 7px;border-radius:24px;text-decoration:none;color:var(--muted);
+  font-size:.6rem;font-weight:700;white-space:nowrap;line-height:1.1;transition:background .15s,color .15s,transform .12s}
 nav.bottom a svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 nav.bottom a.on{background:var(--accent-soft);color:var(--accent-ink)}
 nav.bottom a:active{transform:scale(.94)}
@@ -193,7 +193,7 @@ nav.bottom a:active{transform:scale(.94)}
   header{padding:8px 4px 18px} header h1{font-size:2.125rem}
   nav.bottom{display:none}
   nav.top{display:block;position:sticky;top:12px;z-index:20;margin:0 0 20px}
-  nav.top ul{list-style:none;margin:0;padding:6px;display:flex;gap:4px;background:var(--glass);border:1px solid var(--line);border-radius:22px;
+  nav.top ul{list-style:none;margin:0;padding:6px;display:flex;flex-wrap:wrap;gap:4px;background:var(--glass);border:1px solid var(--line);border-radius:22px;
     -webkit-backdrop-filter:saturate(180%) blur(22px);backdrop-filter:saturate(180%) blur(22px);box-shadow:var(--shadow)}
   nav.top a{display:block;padding:9px 16px;border-radius:16px;text-decoration:none;color:var(--muted);font-size:.875rem;font-weight:700;transition:background .15s,color .15s}
   nav.top a:hover{color:var(--ink);background:var(--fill)}
@@ -233,7 +233,7 @@ JS = """
   });
   var links=document.querySelectorAll('nav a[href^="#"]'),secs=[];
   links.forEach(function(a){var s=document.querySelector(a.getAttribute('href'));if(s)secs.push([s,a])});
-  function mark(){var y=window.scrollY+120,cur=null,best=-1;secs.forEach(function(p){var t=p[0].getBoundingClientRect().top+window.scrollY;if(p[0].offsetParent!==null&&t<=y&&t>best){best=t;cur=p[0]}});if(!cur&&secs.length)cur=secs[0][0];links.forEach(function(a){a.classList.toggle('on',document.querySelector(a.getAttribute('href'))===cur)});}
+  function mark(){var y=window.scrollY+120,cur=null,best=-1;secs.forEach(function(p){var t=p[0].getBoundingClientRect().top+window.scrollY;if(p[0].offsetParent!==null&&t<=y&&t>best){best=t;cur=p[0]}});if(!cur){for(var i=0;i<secs.length;i++){if(secs[i][0].offsetParent!==null){cur=secs[i][0];break;}}}links.forEach(function(a){a.classList.toggle('on',document.querySelector(a.getAttribute('href'))===cur)});}
   window.addEventListener('scroll',mark,{passive:true});mark();
   /* Relative age from the build's ISO timestamp so a static Pages deploy still reads "2h ago". */
   function ageLabel(ms){
@@ -267,6 +267,7 @@ ICONS = {
     "rank": '<svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
     "trades": '<svg viewBox="0 0 24 24"><path d="M7 10h10l-3-3M17 14H7l3 3"/></svg>',
     "news": '<svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM8 9h8M8 13h8M8 17h5"/></svg>',
+    "plan": '<svg viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H5a2 2 0 0 0 0 4h2M17 6h2a2 2 0 0 1 0 4h-2"/></svg>',
     "gear": '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>',
 }
 
@@ -729,6 +730,69 @@ def _status(espn: dict) -> str:
             f'<p class="why">{_e(espn.get("reason") or "No reason recorded.")}</p></div>')
 
 
+def settings_button() -> str:
+    """Header gear. Shared with the Championship Plan page."""
+    icon = ICONS["gear"].replace(
+        "<svg",
+        '<svg width="19" height="19" aria-hidden="true" style="stroke:currentColor;fill:none;stroke-width:1.7"',
+        1,
+    )
+    return ('<button type="button" class="gear" data-gear aria-label="Settings" '
+            f'aria-controls="settings" aria-expanded="false">{icon}</button>')
+
+
+def section_nav(active: str = "", checkup: bool = True, root: str = ""):
+    """Section pills. `root` is empty on the dashboard and `index.html` on the
+    Championship Plan page, so those pills leave the plan and come back.
+    The dashboard highlights the section in view; the plan page marks itself.
+    Phone labels stay short. Desktop uses the full 'Championship Plan' name.
+    """
+    items = []
+    if checkup:
+        items.append(("#checkup", "check", "Check-up", "Check-up"))
+    items.extend([
+        ("#lineup", "lineup", "Lineup", "Lineup"),
+        ("#waiver", "waiver", "Waivers", "Waivers"),
+        ("#rank", "rank", "Rankings", "Rankings"),
+        ("#trades", "trades", "Trades", "Trades"),
+        ("#news", "news", "News", "News"),
+        ("plan.html", "plan", "Plan", "Championship Plan"),
+    ])
+    # Phone bar keeps Trades off (it stays in the top nav and on the page) and
+    # adds the plan, which has no in-page section to scroll to.
+    bottom_keys = {"check", "lineup", "waiver", "rank", "news", "plan"}
+
+    def href(frag: str, key: str) -> str:
+        if key == "plan":
+            return "plan.html"
+        if key == "gear":
+            return "#settings"
+        if root:
+            return root + frag
+        return frag
+
+    def attrs(key: str, short: str, long: str) -> str:
+        bits = []
+        if active and key == active:
+            bits.append('class="on"')
+            bits.append('aria-current="page"')
+        if short != long:
+            bits.append('aria-label="' + _e(long) + '"')
+        if not bits:
+            return ""
+        return " " + " ".join(bits)
+
+    bottom = "".join(
+        "<li><a href=\"" + href(h, i) + "\"" + attrs(i, short, long) + ">" + ICONS[i] + short + "</a></li>"
+        for h, i, short, long in items if i in bottom_keys
+    ) + "<li><a href=\"" + href("#settings", "gear") + "\" data-gear>" + ICONS["gear"] + "Settings</a></li>"
+    top = "".join(
+        "<li><a href=\"" + href(h, i) + "\"" + attrs(i, long, long) + ">" + long + "</a></li>"
+        for h, i, short, long in items
+    ) + "<li><a href=\"" + href("#settings", "gear") + "\" data-gear>Settings</a></li>"
+    return top, bottom
+
+
 def build(data: dict) -> str:
     week = data.get("week", "?")
     team = data.get("team_name") or "Your team"
@@ -790,14 +854,7 @@ def build(data: dict) -> str:
 
     cards = {c["name"]: c for c in assessment.get("cards", [])}
     hero_html = _hero(assessment, data.get("opponent_name", ""))
-    navitems = ([("#checkup", "check", "Check-up")] if hero_html else []) + [
-        ("#lineup", "lineup", "Lineup"), ("#waiver", "waiver", "Waivers"), ("#rank", "rank", "Rankings"),
-        ("#trades", "trades", "Trades"), ("#news", "news", "News")]
-    # Phone bar: News over Trades (trades stay in the top nav / page). Settings stays gear-reachable.
-    bottom_keys = {"check", "lineup", "waiver", "rank", "news"}
-    bottom = "".join(f'<li><a href="{h}">{ICONS[i]}{l}</a></li>' for h, i, l in navitems if i in bottom_keys) + (
-        f'<li><a href="#settings" data-gear>{ICONS["gear"]}Settings</a></li>')
-    top = "".join(f'<li><a href="{h}">{l}</a></li>' for h, i, l in navitems) + '<li><a href="#settings" data-gear>Settings</a></li>'
+    top, bottom = section_nav(checkup=bool(hero_html))
 
     desc = f"Week {week} start/sit, waivers, and win chance for {_e(team)}"
     return f"""<!doctype html>
@@ -815,7 +872,7 @@ def build(data: dict) -> str:
 </head><body><div class="wrap">
 
 <header><div class="grow"><div class="eb">{_e(wk_line)}</div><h1>{_e(team)}</h1>{opp_html}{age_html}</div>
-<button type="button" class="gear" data-gear aria-label="Settings" aria-controls="settings" aria-expanded="false">{ICONS["gear"].replace('<svg', '<svg width="19" height="19" aria-hidden="true" style="stroke:currentColor;fill:none;stroke-width:1.7"')}</button></header>
+{settings_button()}</header>
 
 <nav class="top" aria-label="Sections"><ul>{top}</ul></nav>
 

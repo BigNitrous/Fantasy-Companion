@@ -4,13 +4,18 @@ A scheduled collector that pulls your ESPN roster, league-wide injury and
 add/drop signal, and NFL headlines, then publishes two things:
 
 - `site/index.html` — a dashboard you open on your phone or PC
+- `site/plan.html` — the Championship Plan, on its own page. The dashboard
+  nav links to it. Source is `content/championship-plan.md` and
+  `content/championship_schedule.json`, so a rebuild keeps the page.
 - `site/brief.md` — a dense text summary you paste into Claude to ask
   start/sit, waiver, and trade questions
 
 The dashboard has six sections: alerts and your lineup, a lineup optimizer,
 a waiver wire built from who's actually unclaimed in your league, position
 rankings across your league's player pool (QB, RB, WR, TE, D/ST, K), trade
-targets, and headlines.
+targets, and headlines. Championship Plan is a separate page in the same
+nav (phone label Plan, desktop label Championship Plan). It advises; the
+weekly page still makes the lineup case.
 
 ## How the analysis works
 

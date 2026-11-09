@@ -32,7 +32,7 @@ jobs:
         run: python main.py | tee build.log
       - name: Save the preview to this branch
         run: |
-          mkdir -p preview-site && cp site/brief.md site/assessment.md site/index.html preview-site/
+          mkdir -p preview-site && cp site/brief.md site/assessment.md site/index.html site/plan.html preview-site/
           grep -E "NFL week|sources:|roles:|optimizer:|assessment|waivers:|OK:|NOT CONNECTED|NOTE" build.log > preview-site/build-summary.txt || true
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"

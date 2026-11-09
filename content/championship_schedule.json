@@ -1,0 +1,1407 @@
+{
+  "source": "Opponent, rank, points allowed per game, and site come from the Nov 3, 2026 working file (nflverse Weeks 1-8 for the ranks). They were not rebuilt on Nov 8. Likely's three playoff opponents are that file's trade-table line; home, away, and points allowed were not on the line.",
+  "groups": [
+    "Advisory core",
+    "Rest of roster",
+    "Trade target",
+    "Not rostered"
+  ],
+  "players": [
+    {
+      "name": "C.J. Stroud",
+      "pos": "QB",
+      "team": "HOU",
+      "group": "Advisory core",
+      "note": "Starting QB going forward. Not a trade chip.",
+      "weeks": [
+        {
+          "w": 10,
+          "opp": "@ CLE",
+          "rank": 7,
+          "pts": 13.4,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 11,
+          "opp": "vs IND",
+          "rank": 19,
+          "pts": 18.0,
+          "site": "Dome"
+        },
+        {
+          "w": 12,
+          "opp": "vs BAL",
+          "rank": 20,
+          "pts": 18.0,
+          "site": "Dome"
+        },
+        {
+          "w": 13,
+          "opp": "@ PIT",
+          "rank": 4,
+          "pts": 12.1,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 14,
+          "opp": "@ WSH",
+          "rank": 29,
+          "pts": 20.0,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 15,
+          "opp": "vs JAX",
+          "rank": 9,
+          "pts": 14.3,
+          "site": "Dome"
+        },
+        {
+          "w": 16,
+          "opp": "@ PHI",
+          "rank": 24,
+          "pts": 19.0,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 17,
+          "opp": "@ GB",
+          "rank": 5,
+          "pts": 12.6,
+          "site": "Cold outdoor"
+        }
+      ]
+    },
+    {
+      "name": "Jonathan Taylor",
+      "pos": "RB",
+      "team": "IND",
+      "group": "Advisory core",
+      "note": "Core. The plan advises keeping him. Watch NFL trade news through Nov 10.",
+      "weeks": [
+        {
+          "w": 10,
+          "opp": "vs MIA",
+          "rank": 25,
+          "pts": 25.0,
+          "site": "Dome"
+        },
+        {
+          "w": 11,
+          "opp": "@ HOU",
+          "rank": 20,
+          "pts": 22.4,
+          "site": "Dome"
+        },
+        {
+          "w": 12,
+          "opp": "vs NYG",
+          "rank": 12,
+          "pts": 19.9,
+          "site": "Dome"
+        },
+        {
+          "w": 13,
+          "opp": "BYE",
+          "rank": 0,
+          "pts": null,
+          "site": ""
+        },
+        {
+          "w": 14,
+          "opp": "@ PHI",
+          "rank": 16,
+          "pts": 21.5,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 15,
+          "opp": "@ TEN",
+          "rank": 17,
+          "pts": 21.6,
+          "site": "Outdoor"
+        },
+        {
+          "w": 16,
+          "opp": "vs CIN",
+          "rank": 7,
+          "pts": 19.4,
+          "site": "Dome"
+        },
+        {
+          "w": 17,
+          "opp": "@ CLE",
+          "rank": 15,
+          "pts": 21.1,
+          "site": "Cold outdoor"
+        }
+      ]
+    },
+    {
+      "name": "Chuba Hubbard",
+      "pos": "RB",
+      "team": "CAR",
+      "group": "Advisory core",
+      "note": "Core. The plan advises keeping him. A Panthers wide-receiver fade does not apply to him.",
+      "weeks": [
+        {
+          "w": 10,
+          "opp": "@ NO",
+          "rank": 32,
+          "pts": 30.2,
+          "site": "Dome"
+        },
+        {
+          "w": 11,
+          "opp": "vs BAL",
+          "rank": 8,
+          "pts": 19.4,
+          "site": "Outdoor"
+        },
+        {
+          "w": 12,
+          "opp": "@ TB",
+          "rank": 2,
+          "pts": 16.9,
+          "site": "Outdoor"
+        },
+        {
+          "w": 13,
+          "opp": "@ MIN",
+          "rank": 5,
+          "pts": 18.4,
+          "site": "Dome"
+        },
+        {
+          "w": 14,
+          "opp": "vs NO",
+          "rank": 32,
+          "pts": 30.2,
+          "site": "Outdoor"
+        },
+        {
+          "w": 15,
+          "opp": "vs CIN",
+          "rank": 7,
+          "pts": 19.4,
+          "site": "Outdoor"
+        },
+        {
+          "w": 16,
+          "opp": "@ PIT",
+          "rank": 13,
+          "pts": 20.2,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 17,
+          "opp": "vs SEA",
+          "rank": 19,
+          "pts": 22.2,
+          "site": "Outdoor"
+        }
+      ]
+    },
+    {
+      "name": "Josh Jacobs",
+      "pos": "RB",
+      "team": "GB",
+      "group": "Advisory core",
+      "note": "Core. The plan advises keeping him. His legal situation was unresolved on Nov 3.",
+      "weeks": [
+        {
+          "w": 10,
+          "opp": "vs MIN",
+          "rank": 5,
+          "pts": 18.4,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 11,
+          "opp": "BYE",
+          "rank": 0,
+          "pts": null,
+          "site": ""
+        },
+        {
+          "w": 12,
+          "opp": "@ LAR",
+          "rank": 10,
+          "pts": 19.6,
+          "site": "Outdoor"
+        },
+        {
+          "w": 13,
+          "opp": "@ NO",
+          "rank": 32,
+          "pts": 30.2,
+          "site": "Dome"
+        },
+        {
+          "w": 14,
+          "opp": "vs BUF",
+          "rank": 30,
+          "pts": 26.5,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 15,
+          "opp": "vs MIA",
+          "rank": 25,
+          "pts": 25.0,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 16,
+          "opp": "@ CHI",
+          "rank": 3,
+          "pts": 17.8,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 17,
+          "opp": "vs HOU",
+          "rank": 20,
+          "pts": 22.4,
+          "site": "Cold outdoor"
+        }
+      ]
+    },
+    {
+      "name": "Matthew Golden",
+      "pos": "WR",
+      "team": "GB",
+      "group": "Advisory core",
+      "note": "Core. The plan advises keeping him.",
+      "weeks": [
+        {
+          "w": 10,
+          "opp": "vs MIN",
+          "rank": 4,
+          "pts": 25.9,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 11,
+          "opp": "BYE",
+          "rank": 0,
+          "pts": null,
+          "site": ""
+        },
+        {
+          "w": 12,
+          "opp": "@ LAR",
+          "rank": 5,
+          "pts": 26.8,
+          "site": "Outdoor"
+        },
+        {
+          "w": 13,
+          "opp": "@ NO",
+          "rank": 13,
+          "pts": 29.9,
+          "site": "Dome"
+        },
+        {
+          "w": 14,
+          "opp": "vs BUF",
+          "rank": 28,
+          "pts": 37.1,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 15,
+          "opp": "vs MIA",
+          "rank": 3,
+          "pts": 25.4,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 16,
+          "opp": "@ CHI",
+          "rank": 17,
+          "pts": 31.2,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 17,
+          "opp": "vs HOU",
+          "rank": 29,
+          "pts": 37.3,
+          "site": "Cold outdoor"
+        }
+      ]
+    },
+    {
+      "name": "Carnell Tate",
+      "pos": "WR",
+      "team": "TEN",
+      "group": "Advisory core",
+      "note": "Keep. The Nov 3 note targeted a return around Nov 15. His playoff slate in this file is tougher than Weeks 10\u201314.",
+      "weeks": [
+        {
+          "w": 10,
+          "opp": "vs JAX",
+          "rank": 27,
+          "pts": 36.9,
+          "site": "Outdoor"
+        },
+        {
+          "w": 11,
+          "opp": "@ DAL",
+          "rank": 26,
+          "pts": 35.6,
+          "site": "Dome"
+        },
+        {
+          "w": 12,
+          "opp": "@ JAX",
+          "rank": 27,
+          "pts": 36.9,
+          "site": "Outdoor"
+        },
+        {
+          "w": 13,
+          "opp": "vs WSH",
+          "rank": 21,
+          "pts": 33.6,
+          "site": "Outdoor"
+        },
+        {
+          "w": 14,
+          "opp": "@ DET",
+          "rank": 30,
+          "pts": 37.6,
+          "site": "Dome"
+        },
+        {
+          "w": 15,
+          "opp": "vs IND",
+          "rank": 6,
+          "pts": 27.4,
+          "site": "Outdoor"
+        },
+        {
+          "w": 16,
+          "opp": "@ LV",
+          "rank": 22,
+          "pts": 33.8,
+          "site": "Dome"
+        },
+        {
+          "w": 17,
+          "opp": "vs PIT",
+          "rank": 10,
+          "pts": 28.9,
+          "site": "Outdoor"
+        }
+      ]
+    },
+    {
+      "name": "Tre Tucker",
+      "pos": "WR",
+      "team": "LV",
+      "group": "Advisory core",
+      "note": "On the roster. Chart value 16.7 sits above Likely, so he is not in the Likely offers.",
+      "weeks": [
+        {
+          "w": 10,
+          "opp": "vs SEA",
+          "rank": 1,
+          "pts": 23.8,
+          "site": "Dome"
+        },
+        {
+          "w": 11,
+          "opp": "@ DEN",
+          "rank": 7,
+          "pts": 27.5,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 12,
+          "opp": "@ CLE",
+          "rank": 12,
+          "pts": 29.2,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 13,
+          "opp": "BYE",
+          "rank": 0,
+          "pts": null,
+          "site": ""
+        },
+        {
+          "w": 14,
+          "opp": "vs LAC",
+          "rank": 16,
+          "pts": 30.6,
+          "site": "Dome"
+        },
+        {
+          "w": 15,
+          "opp": "vs DEN",
+          "rank": 7,
+          "pts": 27.5,
+          "site": "Dome"
+        },
+        {
+          "w": 16,
+          "opp": "vs TEN",
+          "rank": 32,
+          "pts": 40.7,
+          "site": "Dome"
+        },
+        {
+          "w": 17,
+          "opp": "@ ARI",
+          "rank": 20,
+          "pts": 33.4,
+          "site": "Dome"
+        }
+      ]
+    },
+    {
+      "name": "Travis Kelce",
+      "pos": "TE",
+      "team": "KC",
+      "group": "Advisory core",
+      "note": "In the ceiling Likely offer only, packaged with Mahomes. The cheaper offer leaves him here.",
+      "weeks": [
+        {
+          "w": 10,
+          "opp": "@ ATL",
+          "rank": 17,
+          "pts": 13.9,
+          "site": "Dome"
+        },
+        {
+          "w": 11,
+          "opp": "vs ARI",
+          "rank": 24,
+          "pts": 15.4,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 12,
+          "opp": "@ BUF",
+          "rank": 20,
+          "pts": 14.1,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 13,
+          "opp": "@ LAR",
+          "rank": 7,
+          "pts": 10.6,
+          "site": "Outdoor"
+        },
+        {
+          "w": 14,
+          "opp": "@ CIN",
+          "rank": 25,
+          "pts": 16.5,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 15,
+          "opp": "vs NE",
+          "rank": 10,
+          "pts": 11.9,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 16,
+          "opp": "vs SF",
+          "rank": 9,
+          "pts": 11.8,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 17,
+          "opp": "@ LAC",
+          "rank": 6,
+          "pts": 10.2,
+          "site": "Outdoor"
+        }
+      ]
+    },
+    {
+      "name": "Patrick Mahomes",
+      "pos": "QB",
+      "team": "KC",
+      "group": "Rest of roster",
+      "note": "The quarterback to move. One live offer at a time, with Likely first.",
+      "weeks": [
+        {
+          "w": 10,
+          "opp": "@ ATL",
+          "rank": 12,
+          "pts": 15.6,
+          "site": "Dome"
+        },
+        {
+          "w": 11,
+          "opp": "vs ARI",
+          "rank": 31,
+          "pts": 22.0,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 12,
+          "opp": "@ BUF",
+          "rank": 23,
+          "pts": 18.4,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 13,
+          "opp": "@ LAR",
+          "rank": 13,
+          "pts": 16.0,
+          "site": "Outdoor"
+        },
+        {
+          "w": 14,
+          "opp": "@ CIN",
+          "rank": 17,
+          "pts": 17.8,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 15,
+          "opp": "vs NE",
+          "rank": 10,
+          "pts": 15.1,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 16,
+          "opp": "vs SF",
+          "rank": 11,
+          "pts": 15.3,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 17,
+          "opp": "@ LAC",
+          "rank": 8,
+          "pts": 13.5,
+          "site": "Outdoor"
+        }
+      ]
+    },
+    {
+      "name": "Mike Washington Jr.",
+      "pos": "RB",
+      "team": "LV",
+      "group": "Rest of roster",
+      "note": "Rostered after the Nov 4 waivers. Role was not settled in the Nov 3 notes.",
+      "weeks": [
+        {
+          "w": 10,
+          "opp": "vs SEA",
+          "rank": 19,
+          "pts": 22.2,
+          "site": "Dome"
+        },
+        {
+          "w": 11,
+          "opp": "@ DEN",
+          "rank": 23,
+          "pts": 24.7,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 12,
+          "opp": "@ CLE",
+          "rank": 15,
+          "pts": 21.1,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 13,
+          "opp": "BYE",
+          "rank": 0,
+          "pts": null,
+          "site": ""
+        },
+        {
+          "w": 14,
+          "opp": "vs LAC",
+          "rank": 22,
+          "pts": 23.9,
+          "site": "Dome"
+        },
+        {
+          "w": 15,
+          "opp": "vs DEN",
+          "rank": 23,
+          "pts": 24.7,
+          "site": "Dome"
+        },
+        {
+          "w": 16,
+          "opp": "vs TEN",
+          "rank": 17,
+          "pts": 21.6,
+          "site": "Dome"
+        },
+        {
+          "w": 17,
+          "opp": "@ ARI",
+          "rank": 14,
+          "pts": 20.8,
+          "site": "Dome"
+        }
+      ]
+    },
+    {
+      "name": "Jakobi Meyers",
+      "pos": "WR",
+      "team": "JAX",
+      "group": "Rest of roster",
+      "note": "Do not package him with Mahomes for Likely. Meyers alone is 16.4 on the chart, above Likely's 13.0.",
+      "weeks": [
+        {
+          "w": 10,
+          "opp": "@ TEN",
+          "rank": 32,
+          "pts": 40.7,
+          "site": "Outdoor"
+        },
+        {
+          "w": 11,
+          "opp": "@ NYG",
+          "rank": 18,
+          "pts": 31.6,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 12,
+          "opp": "vs TEN",
+          "rank": 32,
+          "pts": 40.7,
+          "site": "Outdoor"
+        },
+        {
+          "w": 13,
+          "opp": "@ CHI",
+          "rank": 17,
+          "pts": 31.2,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 14,
+          "opp": "vs PIT",
+          "rank": 10,
+          "pts": 28.9,
+          "site": "Outdoor"
+        },
+        {
+          "w": 15,
+          "opp": "@ HOU",
+          "rank": 29,
+          "pts": 37.3,
+          "site": "Dome"
+        },
+        {
+          "w": 16,
+          "opp": "@ DAL",
+          "rank": 26,
+          "pts": 35.6,
+          "site": "Dome"
+        },
+        {
+          "w": 17,
+          "opp": "vs WSH",
+          "rank": 21,
+          "pts": 33.6,
+          "site": "Outdoor"
+        }
+      ]
+    },
+    {
+      "name": "A.J. Brown",
+      "pos": "WR",
+      "team": "NE",
+      "group": "Rest of roster",
+      "note": "Do not offer him straight up for Likely. Chart value 22.8 against Likely 13.0.",
+      "weeks": [
+        {
+          "w": 10,
+          "opp": "@ DET",
+          "rank": 30,
+          "pts": 37.6,
+          "site": "Outdoor"
+        },
+        {
+          "w": 11,
+          "opp": "BYE",
+          "rank": 0,
+          "pts": null,
+          "site": ""
+        },
+        {
+          "w": 12,
+          "opp": "@ LAC",
+          "rank": 16,
+          "pts": 30.6,
+          "site": "Outdoor"
+        },
+        {
+          "w": 13,
+          "opp": "vs BUF",
+          "rank": 28,
+          "pts": 37.1,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 14,
+          "opp": "vs MIN",
+          "rank": 4,
+          "pts": 25.9,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 15,
+          "opp": "@ KC",
+          "rank": 2,
+          "pts": 25.1,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 16,
+          "opp": "@ NYJ",
+          "rank": 9,
+          "pts": 28.8,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 17,
+          "opp": "vs DEN",
+          "rank": 7,
+          "pts": 27.5,
+          "site": "Cold outdoor"
+        }
+      ]
+    },
+    {
+      "name": "Germie Bernard",
+      "pos": "WR",
+      "team": "PIT",
+      "group": "Rest of roster",
+      "note": "Best WR playoff slate in this file. An optional Hockenson piece only, and not the lead idea.",
+      "weeks": [
+        {
+          "w": 10,
+          "opp": "@ CIN",
+          "rank": 19,
+          "pts": 32.8,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 11,
+          "opp": "@ PHI",
+          "rank": 31,
+          "pts": 39.4,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 12,
+          "opp": "vs DEN",
+          "rank": 7,
+          "pts": 27.5,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 13,
+          "opp": "vs HOU",
+          "rank": 29,
+          "pts": 37.3,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 14,
+          "opp": "@ JAX",
+          "rank": 27,
+          "pts": 36.9,
+          "site": "Outdoor"
+        },
+        {
+          "w": 15,
+          "opp": "vs BAL",
+          "rank": 24,
+          "pts": 35.0,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 16,
+          "opp": "vs CAR",
+          "rank": 15,
+          "pts": 30.2,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 17,
+          "opp": "@ TEN",
+          "rank": 32,
+          "pts": 40.7,
+          "site": "Outdoor"
+        }
+      ]
+    },
+    {
+      "name": "Jordyn Tyson",
+      "pos": "WR",
+      "team": "NO",
+      "group": "Rest of roster",
+      "note": "On IR. A stash you already have.",
+      "weeks": [
+        {
+          "w": 10,
+          "opp": "vs CAR",
+          "rank": 15,
+          "pts": 30.2,
+          "site": "Dome"
+        },
+        {
+          "w": 11,
+          "opp": "@ CHI",
+          "rank": 17,
+          "pts": 31.2,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 12,
+          "opp": "@ CIN",
+          "rank": 19,
+          "pts": 32.8,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 13,
+          "opp": "vs GB",
+          "rank": 25,
+          "pts": 35.0,
+          "site": "Dome"
+        },
+        {
+          "w": 14,
+          "opp": "@ CAR",
+          "rank": 15,
+          "pts": 30.2,
+          "site": "Outdoor"
+        },
+        {
+          "w": 15,
+          "opp": "@ TB",
+          "rank": 8,
+          "pts": 28.5,
+          "site": "Outdoor"
+        },
+        {
+          "w": 16,
+          "opp": "vs ARI",
+          "rank": 20,
+          "pts": 33.4,
+          "site": "Dome"
+        },
+        {
+          "w": 17,
+          "opp": "@ ATL",
+          "rank": 14,
+          "pts": 30.1,
+          "site": "Dome"
+        }
+      ]
+    },
+    {
+      "name": "Mike Gesicki",
+      "pos": "TE",
+      "team": "CIN",
+      "group": "Rest of roster",
+      "note": "Rostered TE. The cheaper Likely add-on. Unlisted on the FantasyPros chart.",
+      "weeks": [
+        {
+          "w": 10,
+          "opp": "vs PIT",
+          "rank": 14,
+          "pts": 12.7,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 11,
+          "opp": "@ WSH",
+          "rank": 31,
+          "pts": 20.7,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 12,
+          "opp": "vs NO",
+          "rank": 27,
+          "pts": 17.0,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 13,
+          "opp": "@ CLE",
+          "rank": 23,
+          "pts": 14.9,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 14,
+          "opp": "vs KC",
+          "rank": 28,
+          "pts": 17.8,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 15,
+          "opp": "@ CAR",
+          "rank": 18,
+          "pts": 13.9,
+          "site": "Outdoor"
+        },
+        {
+          "w": 16,
+          "opp": "@ IND",
+          "rank": 21,
+          "pts": 14.4,
+          "site": "Dome"
+        },
+        {
+          "w": 17,
+          "opp": "vs BAL",
+          "rank": 15,
+          "pts": 13.5,
+          "site": "Cold outdoor"
+        }
+      ]
+    },
+    {
+      "name": "Isaiah Likely",
+      "pos": "TE",
+      "team": "NYG",
+      "group": "Trade target",
+      "note": "BTAstfu, open to a medium-to-high deal. Team from current sources: NYG. Playoff opponents only, from the Nov 3 trade-table line. Home, away, and points allowed were not on that line.",
+      "weeks": [
+        {
+          "w": 15,
+          "opp": "CLE",
+          "rank": 23,
+          "pts": null,
+          "site": ""
+        },
+        {
+          "w": 16,
+          "opp": "DET",
+          "rank": 32,
+          "pts": null,
+          "site": ""
+        },
+        {
+          "w": 17,
+          "opp": "DAL",
+          "rank": 16,
+          "pts": null,
+          "site": ""
+        }
+      ],
+      "playoff_card_only": true
+    },
+    {
+      "name": "Xavier Worthy",
+      "pos": "WR",
+      "team": "KC",
+      "group": "Not rostered",
+      "note": "Not on the roster after Nov 4. Shown so older notes stay readable.",
+      "weeks": [
+        {
+          "w": 10,
+          "opp": "@ ATL",
+          "rank": 14,
+          "pts": 30.1,
+          "site": "Dome"
+        },
+        {
+          "w": 11,
+          "opp": "vs ARI",
+          "rank": 20,
+          "pts": 33.4,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 12,
+          "opp": "@ BUF",
+          "rank": 28,
+          "pts": 37.1,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 13,
+          "opp": "@ LAR",
+          "rank": 5,
+          "pts": 26.8,
+          "site": "Outdoor"
+        },
+        {
+          "w": 14,
+          "opp": "@ CIN",
+          "rank": 19,
+          "pts": 32.8,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 15,
+          "opp": "vs NE",
+          "rank": 23,
+          "pts": 33.8,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 16,
+          "opp": "vs SF",
+          "rank": 11,
+          "pts": 29.2,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 17,
+          "opp": "@ LAC",
+          "rank": 16,
+          "pts": 30.6,
+          "site": "Outdoor"
+        }
+      ]
+    },
+    {
+      "name": "AJ Barner",
+      "pos": "TE",
+      "team": "SEA",
+      "group": "Not rostered",
+      "note": "Not on the roster after Nov 4.",
+      "weeks": [
+        {
+          "w": 10,
+          "opp": "@ LV",
+          "rank": 29,
+          "pts": 18.2,
+          "site": "Dome"
+        },
+        {
+          "w": 11,
+          "opp": "BYE",
+          "rank": 0,
+          "pts": null,
+          "site": ""
+        },
+        {
+          "w": 12,
+          "opp": "@ SF",
+          "rank": 9,
+          "pts": 11.8,
+          "site": "Outdoor"
+        },
+        {
+          "w": 13,
+          "opp": "vs DAL",
+          "rank": 16,
+          "pts": 13.7,
+          "site": "Outdoor"
+        },
+        {
+          "w": 14,
+          "opp": "vs NYG",
+          "rank": 12,
+          "pts": 12.3,
+          "site": "Outdoor"
+        },
+        {
+          "w": 15,
+          "opp": "@ PHI",
+          "rank": 3,
+          "pts": 9.6,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 16,
+          "opp": "vs LAR",
+          "rank": 7,
+          "pts": 10.6,
+          "site": "Outdoor"
+        },
+        {
+          "w": 17,
+          "opp": "@ CAR",
+          "rank": 18,
+          "pts": 13.9,
+          "site": "Outdoor"
+        }
+      ]
+    },
+    {
+      "name": "Adonai Mitchell",
+      "pos": "WR",
+      "team": "NYJ",
+      "group": "Not rostered",
+      "note": "Not added. His Week 13 bye would stack with Taylor, Tucker, and Washington.",
+      "weeks": [
+        {
+          "w": 10,
+          "opp": "vs BUF",
+          "rank": 28,
+          "pts": 37.1,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 11,
+          "opp": "@ LAC",
+          "rank": 16,
+          "pts": 30.6,
+          "site": "Outdoor"
+        },
+        {
+          "w": 12,
+          "opp": "@ MIA",
+          "rank": 3,
+          "pts": 25.4,
+          "site": "Outdoor"
+        },
+        {
+          "w": 13,
+          "opp": "BYE",
+          "rank": 0,
+          "pts": null,
+          "site": ""
+        },
+        {
+          "w": 14,
+          "opp": "vs DEN",
+          "rank": 7,
+          "pts": 27.5,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 15,
+          "opp": "@ ARI",
+          "rank": 20,
+          "pts": 33.4,
+          "site": "Dome"
+        },
+        {
+          "w": 16,
+          "opp": "vs NE",
+          "rank": 23,
+          "pts": 33.8,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 17,
+          "opp": "vs MIN",
+          "rank": 4,
+          "pts": 25.9,
+          "site": "Cold outdoor"
+        }
+      ]
+    },
+    {
+      "name": "Terrance Ferguson",
+      "pos": "TE",
+      "team": "LAR",
+      "group": "Not rostered",
+      "note": "Availability was unconfirmed on Nov 3.",
+      "weeks": [
+        {
+          "w": 10,
+          "opp": "@ ARI",
+          "rank": 24,
+          "pts": 15.4,
+          "site": "Dome"
+        },
+        {
+          "w": 11,
+          "opp": "BYE",
+          "rank": 0,
+          "pts": null,
+          "site": ""
+        },
+        {
+          "w": 12,
+          "opp": "vs GB",
+          "rank": 2,
+          "pts": 9.0,
+          "site": "Outdoor"
+        },
+        {
+          "w": 13,
+          "opp": "vs KC",
+          "rank": 28,
+          "pts": 17.8,
+          "site": "Outdoor"
+        },
+        {
+          "w": 14,
+          "opp": "@ SF",
+          "rank": 9,
+          "pts": 11.8,
+          "site": "Outdoor"
+        },
+        {
+          "w": 15,
+          "opp": "vs DAL",
+          "rank": 16,
+          "pts": 13.7,
+          "site": "Outdoor"
+        },
+        {
+          "w": 16,
+          "opp": "@ SEA",
+          "rank": 5,
+          "pts": 10.1,
+          "site": "Outdoor"
+        },
+        {
+          "w": 17,
+          "opp": "@ TB",
+          "rank": 22,
+          "pts": 14.8,
+          "site": "Outdoor"
+        }
+      ]
+    },
+    {
+      "name": "Seth McGowan",
+      "pos": "RB",
+      "team": "IND",
+      "group": "Not rostered",
+      "note": "Jonathan Taylor handcuff in the Nov 3 notes. Availability unconfirmed.",
+      "weeks": [
+        {
+          "w": 10,
+          "opp": "vs MIA",
+          "rank": 25,
+          "pts": 25.0,
+          "site": "Dome"
+        },
+        {
+          "w": 11,
+          "opp": "@ HOU",
+          "rank": 20,
+          "pts": 22.4,
+          "site": "Dome"
+        },
+        {
+          "w": 12,
+          "opp": "vs NYG",
+          "rank": 12,
+          "pts": 19.9,
+          "site": "Dome"
+        },
+        {
+          "w": 13,
+          "opp": "BYE",
+          "rank": 0,
+          "pts": null,
+          "site": ""
+        },
+        {
+          "w": 14,
+          "opp": "@ PHI",
+          "rank": 16,
+          "pts": 21.5,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 15,
+          "opp": "@ TEN",
+          "rank": 17,
+          "pts": 21.6,
+          "site": "Outdoor"
+        },
+        {
+          "w": 16,
+          "opp": "vs CIN",
+          "rank": 7,
+          "pts": 19.4,
+          "site": "Dome"
+        },
+        {
+          "w": 17,
+          "opp": "@ CLE",
+          "rank": 15,
+          "pts": 21.1,
+          "site": "Cold outdoor"
+        }
+      ]
+    },
+    {
+      "name": "Emmett Johnson",
+      "pos": "RB",
+      "team": "KC",
+      "group": "Not rostered",
+      "note": "Availability was unconfirmed on Nov 3.",
+      "weeks": [
+        {
+          "w": 10,
+          "opp": "@ ATL",
+          "rank": 28,
+          "pts": 25.8,
+          "site": "Dome"
+        },
+        {
+          "w": 11,
+          "opp": "vs ARI",
+          "rank": 14,
+          "pts": 20.8,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 12,
+          "opp": "@ BUF",
+          "rank": 30,
+          "pts": 26.5,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 13,
+          "opp": "@ LAR",
+          "rank": 10,
+          "pts": 19.6,
+          "site": "Outdoor"
+        },
+        {
+          "w": 14,
+          "opp": "@ CIN",
+          "rank": 7,
+          "pts": 19.4,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 15,
+          "opp": "vs NE",
+          "rank": 6,
+          "pts": 19.0,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 16,
+          "opp": "vs SF",
+          "rank": 21,
+          "pts": 23.1,
+          "site": "Cold outdoor"
+        },
+        {
+          "w": 17,
+          "opp": "@ LAC",
+          "rank": 22,
+          "pts": 23.9,
+          "site": "Outdoor"
+        }
+      ]
+    }
+  ]
+}

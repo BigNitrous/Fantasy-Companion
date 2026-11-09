@@ -1,8 +1,8 @@
 # Fantasy Companion
 
 Static dashboard for one ESPN fantasy football league. GitHub Actions runs
-`python main.py`, which writes `site/index.html`, `site/brief.md` and
-`site/assessment.md`; Pages publishes them at
+`python main.py`, which writes `site/index.html`, `site/plan.html`,
+`site/brief.md` and `site/assessment.md`; Pages publishes them at
 https://bignitrous.github.io/Fantasy-Companion/.
 
 ## Commands
@@ -35,7 +35,10 @@ opponents, byes, game days) -> news -> sources (Sleeper projection scored with
 the league's rules, averaged with ESPN's into `projected`; ESPN's own number in
 `projected_espn`, each source in `sources`) -> roles (vacated opportunity, small
 boost added to `projected`) -> optimizer -> rankings -> trades -> waivers ->
-assessment -> render / brief / assessment.md.
+assessment -> render / brief / assessment.md. The Championship Plan is
+separate: `content/championship-plan.md` and `content/championship_schedule.json`
+render to `site/plan.html` (linked from the nav). It is not part of the
+weekly lineup page. Edit those content files; the next build republishes them.
 
 ## Modules (collector/)
 config, espn_source, sleeper_source, news_source, schedule_source, sources

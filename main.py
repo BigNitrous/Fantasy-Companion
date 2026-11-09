@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Collects everything and writes site/index.html plus site/brief.md.
+"""Collects everything and writes site/index.html, site/plan.html, and site/brief.md.
 
 Runs with no arguments. If ESPN isn't configured yet it still produces a
 useful page from the free public sources, so you can deploy before you've
@@ -12,7 +12,7 @@ import traceback
 from datetime import datetime
 
 from collector import (config, sleeper_source, news_source, render, brief, history, optimizer, rankings, trades,
-                       waivers, usage, roles, schedule_source, assess, sources)
+                       waivers, usage, roles, schedule_source, assess, sources, plan_page)
 
 
 def _now_ct() -> datetime:
@@ -170,17 +170,20 @@ def main() -> int:
 
     os.makedirs(config.OUTPUT_DIR, exist_ok=True)
     html_path = os.path.join(config.OUTPUT_DIR, "index.html")
+    plan_path = os.path.join(config.OUTPUT_DIR, "plan.html")
     brief_path = os.path.join(config.OUTPUT_DIR, "brief.md")
 
     with open(html_path, "w", encoding="utf-8") as f:
         f.write(render.build(data))
+    with open(plan_path, "w", encoding="utf-8") as f:
+        f.write(plan_page.build(generated, generated_at))
     with open(brief_path, "w", encoding="utf-8") as f:
         f.write(brief.build(data))
     if data.get("assessment"):
         with open(os.path.join(config.OUTPUT_DIR, "assessment.md"), "w", encoding="utf-8") as f:
             f.write(assess.markdown(data["assessment"], data))
 
-    print(f"Wrote {html_path} and {brief_path}")
+    print(f"Wrote {html_path}, {plan_path}, and {brief_path}")
     return 0
 
 

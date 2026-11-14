@@ -63,8 +63,8 @@ PLAN_CSS = """
 .cp-table th:first-child,.cp-table td:first-child{padding-left:var(--pad)}
 .cp-table th{font-size:.625rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);background:var(--well)}
 .cp-kv td:first-child{width:8.75rem;font-weight:700;color:var(--ink)}
-.cp-matrix{min-width:680px}
-.cp-matrix td:first-child,.cp-matrix th:first-child{position:sticky;left:0;background:var(--sheet);z-index:1;min-width:9.5rem}
+.cp-matrix{min-width:540px}
+.cp-matrix td:first-child,.cp-matrix th:first-child{position:sticky;left:0;background:var(--sheet);z-index:1;min-width:8.5rem}
 .cp-matrix th:first-child{background:var(--well)}
 .cp-fit td,.cp-fit th{white-space:nowrap}
 .cp-fit td:nth-child(5),.cp-fit th:nth-child(5){white-space:normal}

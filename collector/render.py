@@ -21,7 +21,7 @@ from datetime import datetime
 from . import assess, sources
 
 DARK = ("--paper:#090d13;--shell:#111720;--sheet:#111720;--well:#0c1118;--fill:#1a222e;--fill2:#2a3545;--line:#1f2835;"
-        "--ink:#f4f7fb;--ink2:#cdd5e1;--muted:#93a0b5;--dim:#6f7c92;"
+        "--ink:#f4f7fb;--ink2:#cdd5e1;--muted:#93a0b5;--dim:#8090a6;"
         "--accent:#5b9bff;--btn:#2f6fed;--accent-ink:#7db1ff;--accent-soft:rgba(91,155,255,.13);--accent-line:rgba(91,155,255,.34);"
         "--green:#3ddc97;--green-soft:rgba(61,220,151,.11);--green-line:rgba(61,220,151,.32);--green-ink:#3ddc97;--on-green:#03210f;"
         "--out:#ff7b88;--out-soft:rgba(255,123,136,.12);--out-line:rgba(255,123,136,.34);"
@@ -29,7 +29,7 @@ DARK = ("--paper:#090d13;--shell:#111720;--sheet:#111720;--well:#0c1118;--fill:#
         "--blue:#7db1ff;--on-blue:#061a33;--amber:#f6bd4a;--on-amber:#2e2000;"
         "--glass:rgba(13,18,26,.86);--ring-track:#1f2835;--shadow:0 12px 28px -12px rgba(0,0,0,.6);--card-shadow:none")
 LIGHT = ("--paper:#f3f5f8;--shell:#ffffff;--sheet:#ffffff;--well:#f5f7fa;--fill:#edf0f5;--fill2:#d5dbe5;--line:#e3e7ee;"
-         "--ink:#0c1420;--ink2:#2c3a4d;--muted:#5b6880;--dim:#8291a8;"
+         "--ink:#0c1420;--ink2:#2c3a4d;--muted:#5b6880;--dim:#66738b;"
          "--accent:#2563eb;--btn:#2563eb;--accent-ink:#1d55d0;--accent-soft:rgba(37,99,235,.09);--accent-line:rgba(37,99,235,.28);"
          "--green:#12864a;--green-soft:#e6f6ed;--green-line:#a4dcbc;--green-ink:#0d7040;--on-green:#ffffff;"
          "--out:#c81e3f;--out-soft:#fdeaee;--out-line:#f3b3bf;"

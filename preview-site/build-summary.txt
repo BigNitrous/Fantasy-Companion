@@ -1,0 +1,7 @@
+NFL week 10
+  OK: 16 players on Deshaun, Don't Touchdown there
+  sources: Sleeper projections for 307 player(s), usage numbers for 445
+  roles: 21 projection(s) adjusted for vacated opportunity, 3 on the watch list
+  optimizer: 2 swap(s), +1.5
+  waivers: 12 add candidate(s), 5 hot & unclaimed, 8 recently dropped
+  assessment (Weekly outlook): 60 confidence (Favored), 118.4 vs 111.1, 2 action(s)

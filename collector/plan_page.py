@@ -26,56 +26,66 @@ _OL = re.compile(r"^(\d+)\.\s+")
 _HEAD = re.compile(r"^(#{2,3})\s+(.*)$")
 
 PLAN_CSS = """
-.cp-toc{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px}
-.cp-toc a{display:inline-block;padding:6px 10px;border-radius:999px;background:var(--fill);color:var(--ink2);text-decoration:none;font-size:.75rem;font-weight:800}
-.cp-toc a:hover{color:var(--ink)}
-.cp-sec{scroll-margin-top:96px}
-.cp-sec .hd h2{white-space:normal}
-.cp-prose{padding:0 20px 4px;color:var(--ink2)}
+/* Championship Plan: long-form reading on the dashboard's tokens */
+.cp-toc{display:flex;gap:6px;margin:0 -12px 12px;padding:8px 12px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;
+  position:sticky;top:0;z-index:15;background:var(--paper);border-bottom:1px solid var(--line)}
+.cp-toc::-webkit-scrollbar{display:none}
+.cp-toc a{flex:none;display:inline-block;padding:7px 12px;border-radius:999px;background:var(--sheet);border:1px solid var(--line);color:var(--ink2);text-decoration:none;font-size:.75rem;font-weight:700;white-space:nowrap}
+.cp-toc a:hover{color:var(--ink);background:var(--fill)}
+.cp-sec{scroll-margin-top:60px}
+.cp-prose{padding:0 var(--pad) 4px;color:var(--ink2)}
 .cp-prose p{margin:0 0 10px}
 .cp-prose ul,.cp-prose ol{margin:0 0 12px;padding-left:1.15rem}
 .cp-prose li{margin:6px 0}
+.cp-prose b{color:var(--ink)}
 .cp-prose code{font-size:.85em}
-.cp-h3{margin:0;padding:16px 20px 0;font-size:1.02rem;font-weight:900;letter-spacing:-.02em;color:var(--ink)}
-.cp-call{margin:4px 14px 14px;padding:12px 14px;border-radius:18px;border:1px solid var(--line);background:var(--well);color:var(--ink2);font-size:.875rem}
+.cp-h3{margin:0;padding:14px var(--pad) 6px;font-size:var(--t-md);font-weight:800;letter-spacing:-.01em;color:var(--ink)}
+.cp-call{margin:2px 12px 14px;padding:11px 13px;border-radius:var(--r-md);border:1px solid var(--line);background:var(--well);color:var(--ink2);font-size:var(--t-sm)}
 .cp-call .cp-prose{padding:0}
 .cp-call p:last-child,.cp-call ul:last-child,.cp-call ol:last-child{margin-bottom:0}
 .cp-call.info{background:var(--accent-soft);border-color:var(--accent-line)}
 .cp-call.warning{background:var(--quest-soft);border-color:var(--quest-line)}
 .cp-call.ok{background:var(--green-soft);border-color:var(--green-line)}
 .cp-call.superseded{background:var(--out-soft);border-color:var(--out-line)}
-.cp-kicker{display:block;font-size:.6875rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;color:var(--ink)}
+.cp-kicker{display:block;font-size:var(--t-xs);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px;color:var(--ink)}
 .cp-call.info .cp-kicker{color:var(--accent-ink)}
 .cp-call.warning .cp-kicker{color:var(--quest)}
 .cp-call.ok .cp-kicker{color:var(--green-ink)}
 .cp-call.superseded .cp-kicker{color:var(--out)}
-.cp-check{list-style:none;margin:0 14px 14px;padding:0}
-.cp-check li{display:flex;gap:10px;align-items:flex-start;padding:8px 4px;border-top:1px solid var(--line);color:var(--ink2);font-size:.875rem}
+.cp-check{list-style:none;margin:0 0 6px;padding:0}
+.cp-check li{display:flex;gap:10px;align-items:flex-start;padding:10px var(--pad);border-top:1px solid var(--line);color:var(--ink2);font-size:var(--t-sm)}
 .cp-box{width:16px;height:16px;margin-top:2px;border-radius:5px;border:1.5px solid var(--fill2);flex:none}
 .cp-check li[data-done="yes"] .cp-box{position:relative;background:var(--green);border-color:var(--green)}
 .cp-check li[data-done="yes"] .cp-box::after{content:"✓";position:absolute;inset:0;display:grid;place-items:center;color:var(--on-green);font-size:.7rem;font-weight:900}
-.cp-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.cp-table{width:100%;border-collapse:collapse;font-size:.8125rem}
+.cp-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:10px}
+.cp-table{width:100%;border-collapse:collapse;font-size:var(--t-sm);font-variant-numeric:tabular-nums}
 .cp-table th,.cp-table td{padding:8px 10px;border-top:1px solid var(--line);text-align:left;vertical-align:top}
-.cp-table th{font-size:.6875rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-.cp-kv td:first-child{width:8.75rem;font-weight:800;color:var(--ink)}
+.cp-table th:first-child,.cp-table td:first-child{padding-left:var(--pad)}
+.cp-table th{font-size:.625rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);background:var(--well)}
+.cp-kv td:first-child{width:8.75rem;font-weight:700;color:var(--ink)}
 .cp-matrix{min-width:680px}
 .cp-matrix td:first-child,.cp-matrix th:first-child{position:sticky;left:0;background:var(--sheet);z-index:1;min-width:9.5rem}
+.cp-matrix th:first-child{background:var(--well)}
 .cp-fit td,.cp-fit th{white-space:nowrap}
 .cp-fit td:nth-child(5),.cp-fit th:nth-child(5){white-space:normal}
-.cp-good{color:var(--green-ink);font-weight:800}
-.cp-tough,.cp-warn{color:var(--quest);font-weight:800}
-.cp-bad{color:var(--out);font-weight:800}
-.cp-muted{color:var(--muted);font-weight:650}
-.cp-grid{display:grid;grid-template-columns:1fr;gap:12px;padding:0 12px 14px}
-.cp-card{margin:0}
-.cp-card .hd{padding:14px 16px 4px}
-.cp-card .hd h3{font-size:1.02rem;font-weight:900;margin:0;letter-spacing:-.02em;color:var(--ink)}
-.cp-tag{margin:0;padding:0 16px 8px;font-size:.75rem;color:var(--muted)}
-.cp-group{margin:0;padding:12px 16px 0;font-size:.6875rem;font-weight:800;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
-.cp-hint{padding:0 20px 12px}
+.cp-good{color:var(--green-ink);font-weight:700}
+.cp-tough,.cp-warn{color:var(--quest);font-weight:700}
+.cp-bad{color:var(--out);font-weight:700}
+.cp-muted{color:var(--muted);font-weight:600}
+.cp-grid{display:grid;grid-template-columns:1fr;gap:10px;padding:0 12px 14px}
+.cp-card{margin:0;background:var(--well)}
+.cp-card .cp-scroll{margin-bottom:0}
+.cp-card .hd{padding:12px var(--pad) 4px}
+.cp-card .hd h3{font-size:var(--t-md)}
+.cp-tag{margin:0;padding:0 var(--pad) 8px;font-size:.75rem;color:var(--muted)}
+.cp-group{margin:0;padding:12px var(--pad) 8px;font-size:var(--t-xs);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.cp-hint{padding:0 var(--pad) 12px;color:var(--muted);font-size:var(--t-sm)}
 @media(min-width:800px){.cp-grid{grid-template-columns:1fr 1fr}}
-@media(min-width:1100px){.cp-grid{grid-template-columns:1fr 1fr 1fr}}
+@media(min-width:1024px){
+  .cp-toc{position:static;flex-wrap:wrap;overflow:visible;margin:0 0 16px;padding:0;border-bottom:0;background:transparent}
+  .cp-sec{scroll-margin-top:76px}
+  .wrap.cp-wrap{max-width:980px}
+}
 """
 
 
@@ -411,7 +421,7 @@ def _schedules_html(schedules: dict) -> str:
         '<button type="button" role="tab" data-pos="po" aria-selected="true">Playoffs W15–17</button>'
         '<button type="button" role="tab" data-pos="full" aria-selected="false">Rest of season W10–17</button>'
         "</div>"
-        '<p class="cp-prose cp-hint">Playoffs is the default. Rest of season adds Weeks 10–14 from the same file.</p>'
+        '<p class="cp-hint">Playoffs is the default. Rest of season adds Weeks 10–14 from the same file.</p>'
         '<div class="panel" data-pos="po" data-active>' + playoffs + "</div>"
         '<div class="panel" data-pos="full">' + full + "</div>"
     )
@@ -483,7 +493,7 @@ def build(generated: str = "", generated_at: str = "") -> str:
     page = """<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#020617">
+<meta name="theme-color" content="#090d13">
 <meta name="description" content="Advisory championship plan for The Big Leagues. You decide.">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -492,15 +502,13 @@ def build(generated: str = "", generated_at: str = "") -> str:
 <title>Championship Plan — Deshaun, Don't Touchdown there</title>
 <script>__HEADJS__</script>
 <style>__CSS____PLANCSS__</style>
-</head><body><div class="wrap">
+</head><body><div class="wrap cp-wrap">
 <header><div class="grow"><div class="eb">The Big Leagues · advisory</div><h1>Championship Plan</h1>
 <div class="sub">Deshaun, Don't Touchdown there · <a href="index.html">Weekly dashboard</a> · advice dated Nov 8, 2026</div>
 __AGE__</div>
 __GEAR__</header>
 <nav class="top" aria-label="Sections"><ul>__TOP__</ul></nav>
-<section class="sheet" id="settings"><div class="hd"><h2>Settings</h2><span class="m">saved on this device</span></div>
-<div class="setrow"><label>Theme</label><div class="seg" data-set="theme" role="group" aria-label="Theme"><button type="button" data-v="auto">Auto</button><button type="button" data-v="light">Light</button><button type="button" data-v="dark">Dark</button></div></div>
-<div class="setrow" style="padding-bottom:14px"><label>Text size</label><div class="seg" data-set="size" role="group" aria-label="Text size"><button type="button" data-v="small">Small</button><button type="button" data-v="default">Default</button><button type="button" data-v="large">Large</button><button type="button" data-v="xl">XL</button></div></div></section>
+__SETTINGS__
 __BODY__
 <p class="foot">This page advises. You set the lineup, the offers, and the claims. Defense ranks are the Nov 3 working file (nflverse Weeks 1–8) and were not rebuilt on Nov 8. The live record and this week's optimizer stay on the weekly dashboard.__PUBLISHED__</p>
 </div>
@@ -512,6 +520,7 @@ __BODY__
     page = page.replace("__AGE__", age)
     page = page.replace("__GEAR__", render.settings_button())
     page = page.replace("__TOP__", top)
+    page = page.replace("__SETTINGS__", render.settings_panel())
     page = page.replace("__BODY__", body)
     page = page.replace("__PUBLISHED__", published)
     page = page.replace("__BOTTOM__", bottom)

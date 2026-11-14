@@ -25,7 +25,12 @@ python3 -m py_compile collector/*.py main.py    # fast syntax check
 - GitHub *scheduled* runs for this repo start 4-6 hours late. Runs from a push
   or Run workflow (workflow_dispatch) start immediately.
 - CSS class names collide easily (`.wrap`, `.swap`, `.m`, `.nm`): check the
-  existing stylesheet in collector/render.py before adding one.
+  existing stylesheet in collector/render.py before adding one. Use the tokens
+  there (colour, `--r-*` radius, `--t-*` type) instead of new literal values.
+  The plan page reuses that stylesheet; its own classes are prefixed `cp-`.
+- Page layout rule (render.py docstring): a collapsed row carries one number
+  and one verdict; detail goes in the expandable card, secondary lists in
+  `_fold` / `_capped` blocks. Don't put source or usage lines back on the row.
 
 ## Pipeline (main.py order)
 usage (nflverse) -> choose the upcoming week (if every game of Sleeper's week

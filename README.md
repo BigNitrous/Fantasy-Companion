@@ -58,10 +58,13 @@ card. Role watch and the waiver "bigger role" note use inherited work of
   what it does to your optimal lineup, with the drop named).
 - *Player cards* open under every roster player: outlook vs the average
   starter at his position, source split, typical middle-80% range, last
-  week's usage vs baseline, signed reasons, and relevant news.
+  week's usage vs baseline, signed reasons, and relevant news. The
+  collapsed row shows only slot, name, injury tag, verdict and one number;
+  tap a row (or Expand all) for the rest.
 
 It leads with the **Tuesday check-up** on Tuesdays (before waivers), the
-**Game-day report** on Sundays (cards open for every player), and a general
+**Game-day report** on Sundays (cards start open for the players who need a
+decision: a recommended move or a questionable tag), and a general
 outlook otherwise. The workflow runs Tuesday 1pm CT, Wednesday 8am CT,
 Thursday ~4pm CT, and Sunday 7am / 10am / 11am CT; use Run workflow and pick
 a mode to force one. The same content is written to `site/assessment.md`.
@@ -175,7 +178,7 @@ or cookies from a different ESPN account than the one in the league.
 
 ## Settings
 
-The gear at the end of the section nav opens a Settings panel with a
+The gear in the header (also the last tab on desktop) opens a Settings panel with a
 theme switch (auto/light/dark) and text size (small to XL). Choices are
 saved in the browser on that device only.
 

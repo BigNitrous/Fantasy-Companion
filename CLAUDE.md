@@ -90,10 +90,15 @@ brief, render.
   questionable player would do to the win chance (`assess.risk_lines`).
   Outlook = chance a player beats the average starter at his position (no
   backup credit).
-- Week choice (`main._week_finished`): advance past Sleeper's week only when
-  ESPN's scoreboard shows every game final. The old test (latest week in the
-  nflverse stats) fired after Thursday night's game, so Fri-Sun builds,
-  including the Sunday game-day runs, assessed next week. Fixed 2026-10-16.
+- Week choice (`main.choose_week`): the week ESPN Fantasy is scoring
+  (`currentScoringPeriod` on the public game-state view), which is the week
+  the app shows, including after the last game is final and before ESPN opens
+  the next period. Sleeper's `week` moves first (Nov 17 2026: Sleeper 11,
+  ESPN still 10, every Week 10 game final); building that week skipped the
+  matchup and finals the app was showing. Don't go back to advancing off
+  Sleeper's `week`. The nflverse "latest week" test is still wrong: Thursday
+  night put the week in the stats after one game and Fri-Sun builds assessed
+  next week. Fixed 2026-10-16, scoring-period anchor 2026-11-17.
 - Waivers (`waivers._judge`): each add/drop pair is judged by re-running the
   optimizer with the swap made (week_gain) plus the rest-of-season change
   (ros_gain). The verdict rules are antisymmetric, so following the advice
@@ -117,7 +122,8 @@ brief, render.
 
 ## Schedule
 Actions cron (UTC): Tue 18:00 (waiver check-up), Wed 13:00, Thu 21:07, Sun
-12:00 / 15:00 / 16:00. `ASSESS_MODE` (auto, checkup, gameday, midweek) picks
+12:00 / 15:00 / 16:00, Mon 06:30 and Tue 06:30 (after SNF and MNF, so a
+Sunday-afternoon partial score is not what stays published). `ASSESS_MODE` (auto, checkup, gameday, midweek) picks
 the lead report; auto = Tuesday check-up, Sunday game day.
 Three read-only Claude cloud routines (claude.ai/code/routines, environment
 "Test", model claude-sonnet-5-5, no connectors) read the published

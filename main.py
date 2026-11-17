@@ -37,10 +37,43 @@ def _week_finished(week: int, us: dict) -> bool:
     return False
 
 
-def main() -> int:
-    week = sleeper_source.current_week()
-    print(f"NFL week {week}")
+def choose_week(us: dict) -> int:
+    """The week ESPN Fantasy is scoring, which is the week the app shows.
 
+    Sleeper's `week` steps to the next NFL week while ESPN's current scoring
+    period (and Sleeper's `display_week`) are still the slate that just
+    finished. On Nov 17 2026 Sleeper's week was 11 and ESPN's period was 10,
+    with every Week 10 game already final. Building Sleeper's week then skips
+    the matchup, record and finals the app is still showing.
+
+    If ESPN's game state can't be read, stay on Sleeper's `display_week` when
+    `week` has already moved past it. Only when that fallback is still sitting
+    on one week, and every game of it is final, step forward. Don't use the
+    latest nflverse week for this; Thursday night used to flip the build to
+    next week for the whole weekend.
+    """
+    from collector import espn_source
+    period = espn_source.scoring_period(config.SEASON)
+    if period:
+        return period
+    state = sleeper_source.nfl_state()
+    try:
+        week = int(state.get("week") or 0)
+    except (TypeError, ValueError):
+        week = 0
+    try:
+        display = int(state.get("display_week") or 0)
+    except (TypeError, ValueError):
+        display = 0
+    if display and week > display:
+        return display
+    base = week or display or 1
+    if base < 18 and _week_finished(base, us):
+        return base + 1
+    return base
+
+
+def main() -> int:
     print("Loading usage (nflverse)...")
     us = usage.load(config.SEASON)
     if us:
@@ -49,11 +82,8 @@ def main() -> int:
     else:
         print("  usage data unavailable; role and usage analysis skipped")
 
-    # Sleeper keeps reporting the week that just ended until Tuesday. Once every game of
-    # `week` is final, the week you're deciding for is the next one.
-    if week < 18 and _week_finished(week, us):
-        print(f"  week {week} is complete, assessing week {week + 1}")
-        week += 1
+    week = choose_week(us)
+    print(f"NFL week {week}")
 
     generated, generated_at = render.stamp()
     data = {
@@ -77,6 +107,15 @@ def main() -> int:
                                  "The ESPN_S2 secret is pasted twice back to back; the first copy was used. Update the secret in GitHub so this keeps working." if config.ESPN_S2_DOUBLED else "") if n]
             data["espn"] = {"ok": True, "reason": " ".join(notes)}
             print(f"  OK: {len(data['roster'])} players on {data['team_name']}")
+            lg = data.get("league") or {}
+            print(f"  record {data.get('record')} standing {lg.get('standing')} "
+                  f"of {lg.get('team_count')} opp {data.get('opponent_name')}")
+            bits = []
+            for p in data["roster"]:
+                act = p.get("actual")
+                act_s = f"{act:.1f}" if isinstance(act, (int, float)) else "-"
+                bits.append(f"{p.get('slot')}:{p.get('name')}={act_s}")
+            print("  roster " + "; ".join(bits))
             for n in notes:
                 print(f"  NOTE: {n}")
         except espn_source.ESPNSetupError as e:

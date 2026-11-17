@@ -35,7 +35,7 @@ def main() -> int:
             print(f"  - {p}")
         return 1
 
-    week = sleeper_source.current_week()
+    week = espn_source.scoring_period(config.SEASON) or sleeper_source.current_week()
     print(f"Contacting ESPN for week {week}...")
     try:
         data = espn_source.fetch(week)

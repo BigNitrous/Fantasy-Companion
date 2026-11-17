@@ -10,6 +10,29 @@ from . import config
 
 STARTER_SLOTS = {"QB", "RB", "WR", "TE", "FLEX", "RB/WR/TE", "D/ST", "K", "OP"}
 
+# Public game-state view. No league id and no cookies: this is the week the
+# fantasy app is scoring, which stays on the slate that just finished until
+# ESPN opens the next period (usually Tuesday).
+_GAME_STATE = "https://lm-api-reads.fantasy.espn.com/apis/v3/games/ffl/seasons/{season}"
+
+
+def scoring_period(season: int):
+    """ESPN Fantasy's current scoring period, or None if it can't be read."""
+    import requests
+    try:
+        r = requests.get(
+            _GAME_STATE.format(season=int(season)),
+            params={"view": "kona_game_state"},
+            timeout=30,
+            headers={"User-Agent": "Mozilla/5.0"},
+        )
+        r.raise_for_status()
+        pid = (r.json().get("currentScoringPeriod") or {}).get("id")
+        pid = int(pid)
+        return pid if 1 <= pid <= 18 else None
+    except Exception:
+        return None
+
 
 def _player_dict(p, week):
     stats = getattr(p, "stats", {}) or {}

@@ -4,12 +4,19 @@ on:
   schedule:
     # Times are UTC. San Antonio is UTC-5 during the season, UTC-6 after
     # early November, so these drift an hour when the clocks change.
+    # GitHub has been starting this repo's scheduled runs 4-6 hours late, so
+    # the last Sunday cron was landing during the early window and that
+    # partial score was what stayed published until Tuesday. The 12:30am CT
+    # crons are after SNF and MNF even with no delay, and still land that
+    # morning if GitHub is late.
     - cron: "0 18 * * 2"   # Tuesday 1pm CT - waiver check-up: pickups and lineup changes before claims lock
     - cron: "7 21 * * 4"   # Thursday 4pm CT (CDT) - before Thursday night kickoff; 3pm once clocks fall back
     - cron: "0 13 * * 3"   # Wednesday 8am CT - waivers cleared
     - cron: "0 12 * * 0"   # Sunday 7am CT - game-day report, every player weighed
     - cron: "0 15 * * 0"   # Sunday 10am CT - early news
     - cron: "0 16 * * 0"   # Sunday 11am CT - after the 10:30am CT inactives, before the 12pm CT kickoffs
+    - cron: "30 6 * * 1"   # Monday 12:30am CT - after Sunday night, replace the partial Sunday score
+    - cron: "30 6 * * 2"   # Tuesday 12:30am CT - after Monday night, before the waiver check-up
   workflow_dispatch:        # run it manually any time from the Actions tab
     inputs:
       mode:
@@ -17,6 +24,8 @@ on:
         type: choice
         default: auto
         options: [auto, checkup, gameday, midweek]
+  pull_request:
+    branches: [main]        # build with the league secrets so the diff can be checked; deploy stays on main
   push:
     branches: [main]        # every push redeploys, so Claude Code edits go live on push
 
@@ -26,7 +35,8 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  # Main deploys stay in one queue. A pull request build must not cancel one.
+  group: ${{ github.event_name == 'pull_request' && format('pages-pr-{0}', github.ref) || 'pages' }}
   cancel-in-progress: true
 
 jobs:
@@ -54,10 +64,12 @@ jobs:
         run: python main.py
 
       - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request'
         with:
           path: site
 
   deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     environment:

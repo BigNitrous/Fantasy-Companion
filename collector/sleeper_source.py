@@ -10,11 +10,23 @@ TIMEOUT = 30
 _players_cache = None
 
 
-def current_week() -> int:
+def nfl_state() -> dict:
+    """Sleeper's NFL state. `week` is the stat week and moves on before ESPN
+    Fantasy does; `display_week` is the slate Sleeper is still showing."""
     try:
         r = requests.get(f"{BASE}/state/nfl", timeout=TIMEOUT)
         r.raise_for_status()
         state = r.json()
+        return state if isinstance(state, dict) else {}
+    except Exception:
+        return {}
+
+
+def current_week() -> int:
+    """Sleeper's stat week (`week`), not the week ESPN Fantasy is scoring.
+    The dashboard uses main.choose_week, which prefers ESPN's scoring period."""
+    state = nfl_state()
+    try:
         return int(state.get("week") or state.get("display_week") or 1)
     except Exception:
         return 1
